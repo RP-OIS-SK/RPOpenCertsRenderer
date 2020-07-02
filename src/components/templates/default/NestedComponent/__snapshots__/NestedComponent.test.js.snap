@@ -1,0 +1,238 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NestedComponent renders a nested object with KeyValueComponent 1`] = `
+<div
+  className="borders"
+>
+  <div
+    className="borders"
+  >
+    <div
+      className="p-4 background"
+      data-component-id="toggle-display"
+      onClick={[Function]}
+    >
+      foo
+    </div>
+    <div
+      className="p-4 text-truncate "
+      data-component-id="displayed-value"
+    >
+      bar
+    </div>
+  </div>
+  <div
+    className="borders"
+  >
+    <div
+      className="p-4 background"
+      data-component-id="toggle-display"
+      onClick={[Function]}
+    >
+      cow
+    </div>
+    <div
+      className="p-4 text-truncate "
+      data-component-id="displayed-value"
+    >
+      <div
+        className="borders"
+      >
+        <div
+          className="borders"
+        >
+          <div
+            className="p-4 background"
+            data-component-id="toggle-display"
+            onClick={[Function]}
+          >
+            nested
+          </div>
+          <div
+            className="p-4 text-truncate "
+            data-component-id="displayed-value"
+          >
+            moo
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="borders"
+  >
+    <div
+      className="p-4 background"
+      data-component-id="toggle-display"
+      onClick={[Function]}
+    >
+      array
+    </div>
+    <div
+      className="p-4 text-truncate "
+      data-component-id="displayed-value"
+    >
+      <div
+        className="borders"
+      >
+        <div
+          className="borders"
+        >
+          <div
+            className="p-4 background"
+            data-component-id="toggle-display"
+            onClick={[Function]}
+          >
+            0
+          </div>
+          <div
+            className="p-4 text-truncate "
+            data-component-id="displayed-value"
+          >
+            TEXT_1
+          </div>
+        </div>
+        <div
+          className="borders"
+        >
+          <div
+            className="p-4 background"
+            data-component-id="toggle-display"
+            onClick={[Function]}
+          >
+            1
+          </div>
+          <div
+            className="p-4 text-truncate "
+            data-component-id="displayed-value"
+          >
+            2
+          </div>
+        </div>
+        <div
+          className="borders"
+        >
+          <div
+            className="p-4 background"
+            data-component-id="toggle-display"
+            onClick={[Function]}
+          >
+            2
+          </div>
+          <div
+            className="p-4 text-truncate "
+            data-component-id="displayed-value"
+          >
+            false
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`NestedComponent renders an array with KeyValueComponent 1`] = `
+<div
+  className="borders"
+>
+  <div
+    className="borders"
+  >
+    <div
+      className="p-4 background"
+      data-component-id="toggle-display"
+      onClick={[Function]}
+    >
+      0
+    </div>
+    <div
+      className="p-4 text-truncate "
+      data-component-id="displayed-value"
+    >
+      ITEM_1
+    </div>
+  </div>
+  <div
+    className="borders"
+  >
+    <div
+      className="p-4 background"
+      data-component-id="toggle-display"
+      onClick={[Function]}
+    >
+      1
+    </div>
+    <div
+      className="p-4 text-truncate "
+      data-component-id="displayed-value"
+    >
+      ITEM_2
+    </div>
+  </div>
+  <div
+    className="borders"
+  >
+    <div
+      className="p-4 background"
+      data-component-id="toggle-display"
+      onClick={[Function]}
+    >
+      2
+    </div>
+    <div
+      className="p-4 text-truncate "
+      data-component-id="displayed-value"
+    >
+      ITEM_3
+    </div>
+  </div>
+</div>
+`;
+
+exports[`NestedComponent renders an object with KeyValueComponent 1`] = `
+<div
+  className="borders"
+>
+  <div
+    className="borders"
+  >
+    <div
+      className="p-4 background"
+      data-component-id="toggle-display"
+      onClick={[Function]}
+    >
+      foo
+    </div>
+    <div
+      className="p-4 text-truncate "
+      data-component-id="displayed-value"
+    >
+      bar
+    </div>
+  </div>
+  <div
+    className="borders"
+  >
+    <div
+      className="p-4 background"
+      data-component-id="toggle-display"
+      onClick={[Function]}
+    >
+      cow
+    </div>
+    <div
+      className="p-4 text-truncate "
+      data-component-id="displayed-value"
+    >
+      moo
+    </div>
+  </div>
+</div>
+`;
+
+exports[`NestedComponent renders primitives 1`] = `"Hello"`;
+
+exports[`NestedComponent renders primitives 2`] = `"1337"`;
+
+exports[`NestedComponent renders primitives 3`] = `"false"`;

@@ -1,0 +1,7 @@
+# Files and folders
+node_modules/
+build/
+coverage/
+
+# Rubbish
+.DS_Store

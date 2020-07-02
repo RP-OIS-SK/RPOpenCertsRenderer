@@ -1,0 +1,67 @@
+{
+  "name": "oa-doc",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.22",
+    "@fortawesome/free-solid-svg-icons": "^5.9.0",
+    "@fortawesome/react-fontawesome": "^0.1.4",
+    "@govtechsg/open-attestation": "^1.1.39",
+    "bootstrap": "^4.3.1",
+    "date-fns": "^1.30.1",
+    "lodash": "^4.17.15",
+    "moment-timezone": "^0.5.26",
+    "node-sass": "^4.14.1",
+    "number-to-words": "^1.2.4",
+    "penpal": "4.1.1",
+    "prop-types": "^15.7.2",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-pdf": "^4.1.0",
+    "react-scripts": "^3.4.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --testPathPattern=\\.test.js$",
+    "serve-static": "http-server build -s -p 3000",
+    "test-coverage": "npm run test -- --coverage --watchAll=false",
+    "integration": "testcafe chrome src/**/*.spec.js",
+    "integration:headless": "testcafe chrome:headless src/**/*.spec.js",
+    "eject": "react-scripts eject",
+    "lint": "eslint . --ext .js --max-warnings 0",
+    "lint:fix": "eslint . --ext .js --fix"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "babel-plugin-dynamic-import-webpack": "^1.1.0",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "eslint-config-prettier": "^6.1.0",
+    "eslint-plugin-jest": "^22.15.2",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react": "^7.14.3",
+    "http-server": "^0.12.3",
+    "prettier": "^1.18.2",
+    "react-test-renderer": "^16.9.0",
+    "sinon": "^7.4.1",
+    "testcafe": "^1.4.1"
+  }
+}
