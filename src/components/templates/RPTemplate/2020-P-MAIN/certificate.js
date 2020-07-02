@@ -1,6 +1,4 @@
 import PropTypes from "prop-types";
-import { format } from "date-fns";
-import { get } from "lodash";
 import React from "react";
 import {
   renderLogoRP,

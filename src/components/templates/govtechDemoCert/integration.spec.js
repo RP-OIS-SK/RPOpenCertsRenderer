@@ -30,13 +30,11 @@ test("Govtech Demo certificate is rendered correctly", async t => {
   // Check content of window.openAttestation.templates
   await t.wait(500);
   const templates = await t.eval(() => window.openAttestation.getTemplates());
-  await t
-    .expect(templates)
-    .eql([
-      { id: "certificate", label: "Certificate" },
-      { id: "transcript", label: "Transcript" },
-      { id: "media", label: "Media" }
-    ]);
+  await t.expect(templates).eql([
+    { id: "certificate", label: "Certificate" },
+    { id: "transcript", label: "Transcript" },
+    { id: "media", label: "Media" }
+  ]);
 
   // Validate content of first tab
   await validateTextContent(t, RenderedCertificate, [
