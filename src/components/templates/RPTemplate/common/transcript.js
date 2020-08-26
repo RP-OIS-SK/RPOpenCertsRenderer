@@ -95,10 +95,10 @@ export const renderGradeList = listGrade => {
 export const renderGradingSystem = document => {
   // get the template name
   const strTemplate = get(document, "$template.name");
-  // check it is PET template
-  const isCET = strTemplate.substr(15, 6) === "P-MAIN" ? 0 : 1;
+  // check it is PET template  - position 16 for scheme 1.4, position 9 for scheme 2.0
+  const isCET = strTemplate.substr(8, 6) === "P_MAIN" ? 0 : 1;
   // check whether it is DPLUS template
-  const isNOTDPLUS = strTemplate.substr(15, 4) === "C-DP" ? 0 : 1;
+  const isNOTDPLUS = strTemplate.substr(8, 4) === "C_DP" ? 0 : 1;
 
   const listGradeText1L = [
     { grade: "A", score: "4.0", desc: "Excellent" },
@@ -235,7 +235,7 @@ export const renderCourse = (document, course) => {
   const admissionDate = get(document, "admissionDate");
   const graduationDate = get(document, "graduationDate");
   const strTemplate = get(document, "$template.name");
-  const isCET = strTemplate.substr(15, 6) === "P-MAIN" ? 0 : 1;
+  const isCET = strTemplate.substr(8, 6) === "P_MAIN" ? 0 : 1;
 
   // Group all modules by semesters
   const groupedSubjects = groupBy(course, "semester");
@@ -376,9 +376,9 @@ export const renderGPA = document => {
   const WithMerit = get(document, "additionalData.merit");
   const WithMeritTag = WithMerit === "Y" ? "with Merit" : "";
   const strTemplate = get(document, "$template.name");
-  const isCET = strTemplate.substr(15, 6) === "P-MAIN" ? 0 : 1;
-  const isNOTDPLUS = strTemplate.substr(15, 4) === "C-DP" ? 0 : 1;
-  const isNOTDCN = strTemplate.substr(15, 5) === "C-DCN" ? 0 : 1;
+  const isCET = strTemplate.substr(8, 6) === "P_MAIN" ? 0 : 1;
+  const isNOTDPLUS = strTemplate.substr(8, 4) === "C_DP" ? 0 : 1;
+  const isNOTDCN = strTemplate.substr(8, 5) === "C_DCN" ? 0 : 1;
 
   return GPA ? (
     <div className="row">
