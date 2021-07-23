@@ -59,7 +59,7 @@ export const renderRemarksGradingSystem = isNOTDPLUS => (
   <span>
     <br />
     Incomplete Grade is implemented from Academic Year 2012 Semester 2 onwards
-    {isNOTDPLUS ? " for G901 Character and Citizenship Education module" : null}
+    {isNOTDPLUS ? null : null}
     . <br />A module for which grade point or modular credit is not accorded
     will not be considered in the computation of the cGPA.
   </span>
@@ -127,11 +127,11 @@ export const renderGradingSystem = document => {
     { grade: "B", score: "3.0", desc: "Very Good" },
     { grade: "C+", score: "2.5", desc: "Good" },
     { grade: "C", score: "2.0", desc: "Good" },
-    { grade: "D+", score: "1.5", desc: "Pass" }
+    { grade: "D+", score: "1.5", desc: "Pass" },
+    { grade: "D", score: "1.0", desc: "Pass" }
   ];
 
   const listGradeText2R = [
-    { grade: "D", score: "1.0", desc: "Pass" },
     { grade: "F", score: "0.0", desc: "Fail" },
     { grade: "Pass*", score: "-", desc: "Pass with Commendation" },
     { grade: "Pass", score: "-", desc: "Pass" },
@@ -190,6 +190,20 @@ export const renderGradingSystem = document => {
                   </td>
                   <td>{isCET ? null : "-"}</td>
                   <td>{isCET ? null : "Incomplete"}</td>
+                </tr>
+                 <tr>
+                  <td style={{ paddingLeft: "10px" }}>
+                    {isCET ? " " : "NGP"}&nbsp;
+                  </td>
+                  <td>{isCET ? null : "1.0"}</td>
+                  <td>{isCET ? null : "Non-Graded Pass"}</td>
+                </tr>
+                <tr>
+                  <td style={{ paddingLeft: "10px" }}>
+                    &nbsp;
+                  </td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
                 </tr>
               </tbody>
             </table>
