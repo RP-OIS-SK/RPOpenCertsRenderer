@@ -378,7 +378,7 @@ export const renderGPA = document => {
   const strTemplate = get(document, "$template.name");
   const isCET = strTemplate.substr(8, 6) === "P_MAIN" ? 0 : 1;
   const isNOTDPLUS = strTemplate.substr(8, 4) === "C_DP" ? 0 : 1;
-  const isNOTDCN = strTemplate.substr(8, 5) === "C_DCN" ? 0 : 1;
+  const isNOTDCN = strTemplate.substr(8, 4) === "C_DC" ? 0 : 1;
 
   return GPA ? (
     <div className="row">

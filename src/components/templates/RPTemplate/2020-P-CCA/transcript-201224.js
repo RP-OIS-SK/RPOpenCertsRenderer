@@ -55,42 +55,30 @@ export const renderHeader = () => (
   </div>
 );
 
-export const renderSemester = (semester, semesterId, varDType) => {
-  const subjectRows = semester.map((s, i) => { 
-  const gradeDetails = s.name.split("|");
-   return ( 
+export const renderSemester = (semester, semesterId) => {
+  const subjectRows = semester.map((s, i) => (
     <tr key={i}>
-      <td style={{ textAlign: "left" }}>{gradeDetails[0]}</td>
-      <td style={{ textAlign: "left" }}>{gradeDetails[1]}</td>
-      <td style={{ textAlign: "left" }}>{gradeDetails[2]}&nbsp;</td>
+      <td style={{ textAlign: "left" }}>{s.name}</td>
+      <td style={{ textAlign: "left" }}>{s.courseCredit}</td>
+      <td style={{ textAlign: "left" }}>{s.grade}&nbsp;</td>
     </tr>
-  );}
-  );
+  ));
   const sem = get(semester, "[0].semester");
-  const sType = sem.substring(0,1); 
-  let sSubTitle = "";  
-  const sem1 = sem.substring(1); 
-  if (sType != varDType.t)
-  { 
-      varDType.t = sType; 
-      sSubTitle = sType < 2 ? "MEMBERSHIP":"EVENTS"; 
-  };  
   return (
     <div className="col-12" key={semesterId}>
       <div className="text-center">
-      <p style={{ textAlign: "left", fontSize: "1.2rem",fontWeight: "bold",textDecoration: "underline"}}>{sSubTitle} </p>
-        <p style={{ textAlign: "left", fontWeight: "bold" }}>{sem1} </p>
+        <p style={{ textAlign: "left", fontWeight: "bold" }}>{sem} </p>
         <table style={fullWidthStyle}>
           <tbody>
             <tr>
               <th style={{ width: "40%", textAlign: "left" }}>
-                <u>{sType < 2 ? "CLUB":"TITLE OF ACTIVITY"}</u>
+                <u>TITLE OF ACTIVITY</u>
               </th>
               <th style={{ width: "30%", textAlign: "left" }}>
-                <u>{sType < 2 ? "INTEREST GROUP":"ROLE"}</u>
+                <u>ROLE</u>
               </th>
               <th style={{ width: "30%", textAlign: "left" }}>
-                <u>{sType < 2 ? "APPOINTMENT":"ACHIEVEMENT"}</u>
+                <u>ACHIEVEMENT</u>
               </th>
             </tr>
             {subjectRows}
@@ -114,10 +102,9 @@ export const renderCourse = (document, course) => {
 
   // Group all modules by semesters
   const groupedSubjects = groupBy(course, "semester");
-  let varDType = {t:0}; 
 
   const renderedSemesters = Object.keys(groupedSubjects).map(semester =>
-    renderSemester(groupedSubjects[semester], semester, varDType)
+    renderSemester(groupedSubjects[semester], semester)
   );
 
   return (
@@ -194,13 +181,22 @@ export const renderCourse = (document, course) => {
       <hr style={{ borderWidths: "2rem", border: "1px solid black" }} />
       <div className="row">
         <div className="col">
+          <p
+            style={{
+              fontSize: "1.2rem",
+              fontWeight: "bold",
+              textDecoration: "underline"
+            }}
+          >
+            EVENTS
+          </p>
         </div>
       </div>
       <div className="row">{renderedSemesters}</div>
       <div className="row justify-content-center">
         <p style={{ fontSize: "1.2rem", fontWeight: "bold" }}>
-          ___________________________________________END OF
-          TRANSCRIPT___________________________________________
+          _________________________________________________END OF
+          TRANSCRIPT_________________________________________________
         </p>
       </div>
     </div>

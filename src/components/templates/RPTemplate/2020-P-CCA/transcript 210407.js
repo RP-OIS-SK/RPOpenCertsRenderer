@@ -67,30 +67,22 @@ export const renderSemester = (semester, semesterId, varDType) => {
   );}
   );
   const sem = get(semester, "[0].semester");
-  const sType = sem.substring(0,1); 
-  let sSubTitle = "";  
-  const sem1 = sem.substring(1); 
-  if (sType != varDType.t)
-  { 
-      varDType.t = sType; 
-      sSubTitle = sType < 2 ? "MEMBERSHIP":"EVENTS"; 
-  };  
+  varDType.t = "0"; 
   return (
     <div className="col-12" key={semesterId}>
       <div className="text-center">
-      <p style={{ textAlign: "left", fontSize: "1.2rem",fontWeight: "bold",textDecoration: "underline"}}>{sSubTitle} </p>
-        <p style={{ textAlign: "left", fontWeight: "bold" }}>{sem1} </p>
+        <p style={{ textAlign: "left", fontWeight: "bold" }}>{sem} </p>
         <table style={fullWidthStyle}>
           <tbody>
             <tr>
               <th style={{ width: "40%", textAlign: "left" }}>
-                <u>{sType < 2 ? "CLUB":"TITLE OF ACTIVITY"}</u>
+                <u>TITLE OF ACTIVITY</u>
               </th>
               <th style={{ width: "30%", textAlign: "left" }}>
-                <u>{sType < 2 ? "INTEREST GROUP":"ROLE"}</u>
+                <u>ROLE</u>
               </th>
               <th style={{ width: "30%", textAlign: "left" }}>
-                <u>{sType < 2 ? "APPOINTMENT":"ACHIEVEMENT"}</u>
+                <u>ACHIEVEMENT</u>
               </th>
             </tr>
             {subjectRows}
@@ -194,6 +186,15 @@ export const renderCourse = (document, course) => {
       <hr style={{ borderWidths: "2rem", border: "1px solid black" }} />
       <div className="row">
         <div className="col">
+          <p
+            style={{
+              fontSize: "1.2rem",
+              fontWeight: "bold",
+              textDecoration: "underline"
+            }}
+          >
+            EVENTS
+          </p>
         </div>
       </div>
       <div className="row">{renderedSemesters}</div>
