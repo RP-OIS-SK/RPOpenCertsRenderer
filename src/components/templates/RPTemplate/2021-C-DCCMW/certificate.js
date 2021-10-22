@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import React from "react";
 import {
-  renderLogoRP,
-  renderAwardTextCET,
+  renderLogoRPNYP,
+  renderAwardText,
   renderTwoSignatures,
   renderFooter
 } from "../common/certificate";
@@ -13,9 +13,9 @@ const Template = ({ document }) => (
       className="container"
       style={{ border: 0, borderColor: "#AAA", borderStyle: "solid" }}
     >
-      {renderLogoRP()}
-      {renderAwardTextCET(document, 1)}
-      {renderTwoSignatures(document, 0)}
+      {renderLogoRPNYP()}
+      {renderAwardText(document)}
+      {renderTwoSignatures(document, 2)}
     </div>
     {renderFooter(document)}
   </div>

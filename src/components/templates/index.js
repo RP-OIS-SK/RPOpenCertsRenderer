@@ -13,11 +13,13 @@ import RP_2020_C_DCBIA from "./RPTemplate/2020-C-DCBIA";
 import RP_2020_C_DCJP from "./RPTemplate/2020-C-DCJP";
 import RP_2020_C_DCN from "./RPTemplate/2020-C-DCN";
 import RP_2020_C_DCSU from "./RPTemplate/2020-C-DCSU";
+import RP_2020_C_DCCMW from "./RPTemplate/2021-C-DCCMW";
 import RP_2020_C_DPLUS from "./RPTemplate/2020-C-DPLUS";
 import RP_2020_C_MC from "./RPTemplate/2020-C-MC";
 import RP_2020_C_MCBIA from "./RPTemplate/2020-C-MCBIA";
 import RP_2020_C_MCJP from "./RPTemplate/2020-C-MCJP";
 import RP_2020_C_MCSU from "./RPTemplate/2020-C-MCSU";
+import RP_2021_P_AWARD from "./RPTemplate/2021-P-AWARD";
 
 export default {
   default: DefaultTemplate,
@@ -30,9 +32,11 @@ export default {
   RP_2020_C_DCN: RP_2020_C_DCN,
   RP_2020_C_DCSU: RP_2020_C_DCSU,
   RP_2020_C_DPLUS: RP_2020_C_DPLUS,
+  RP_2020_C_DCCMW: RP_2020_C_DCCMW,
   RP_2020_C_MC: RP_2020_C_MC,
   RP_2020_C_MCBIA: RP_2020_C_MCBIA,
   RP_2020_C_MCJP: RP_2020_C_MCJP,
   RP_2020_C_MCSU: RP_2020_C_MCSU,
+  RP_2021_P_AWARD: RP_2021_P_AWARD,
   NULL: []
 };

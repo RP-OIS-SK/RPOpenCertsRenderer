@@ -191,7 +191,7 @@ export const renderGradingSystem = document => {
                   <td>{isCET ? null : "-"}</td>
                   <td>{isCET ? null : "Incomplete"}</td>
                 </tr>
-                 <tr>
+                <tr>
                   <td style={{ paddingLeft: "10px" }}>
                     {isCET ? " " : "NGP"}&nbsp;
                   </td>
@@ -199,9 +199,7 @@ export const renderGradingSystem = document => {
                   <td>{isCET ? null : "Non-Graded Pass"}</td>
                 </tr>
                 <tr>
-                  <td style={{ paddingLeft: "10px" }}>
-                    &nbsp;
-                  </td>
+                  <td style={{ paddingLeft: "10px" }}>&nbsp;</td>
                   <td>&nbsp;</td>
                   <td>&nbsp;</td>
                 </tr>

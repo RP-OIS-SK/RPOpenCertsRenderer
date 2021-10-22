@@ -55,19 +55,19 @@ export const renderHeader = () => (
   </div>
 );
 
-export const renderSemester = (semester, semesterId, varDType) => {
-  const subjectRows = semester.map((s, i) => { 
-  const gradeDetails = s.name.split("|");
-   return ( 
-    <tr key={i}>
-      <td style={{ textAlign: "left" }}>{gradeDetails[0]}</td>
-      <td style={{ textAlign: "left" }}>{gradeDetails[1]}</td>
-      <td style={{ textAlign: "left" }}>{gradeDetails[2]}&nbsp;</td>
-    </tr>
-  );}
-  );
+export const renderGrade = (gradeRecord, i) => {
+  const gradeDetails = gradeRecord.name.split("|");
+  return;
+  <tr key={i}>
+    <td style={{ textAlign: "left" }}>{gradeDetails[0]}</td>
+    <td style={{ textAlign: "left" }}>{greadeDetails[1]}</td>
+    <td style={{ textAlign: "left" }}>{gradeDetails[2]}&nbsp;</td>
+  </tr>;
+};
+
+export const renderSemester = (semester, semesterId) => {
+  const subjectRows = semester.map((s, i) => renderGrade(s, i));
   const sem = get(semester, "[0].semester");
-  varDType.t = "0"; 
   return (
     <div className="col-12" key={semesterId}>
       <div className="text-center">
@@ -106,10 +106,9 @@ export const renderCourse = (document, course) => {
 
   // Group all modules by semesters
   const groupedSubjects = groupBy(course, "semester");
-  let varDType = {t:0}; 
 
   const renderedSemesters = Object.keys(groupedSubjects).map(semester =>
-    renderSemester(groupedSubjects[semester], semester, varDType)
+    renderSemester(groupedSubjects[semester], semester)
   );
 
   return (
@@ -200,8 +199,8 @@ export const renderCourse = (document, course) => {
       <div className="row">{renderedSemesters}</div>
       <div className="row justify-content-center">
         <p style={{ fontSize: "1.2rem", fontWeight: "bold" }}>
-          ___________________________________________END OF
-          TRANSCRIPT___________________________________________
+          _________________________________________________END OF
+          TRANSCRIPT_________________________________________________
         </p>
       </div>
     </div>

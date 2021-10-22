@@ -74,7 +74,6 @@ class DocumentViewerContainer extends Component {
   componentDidMount() {
     const renderDocument = this.handleDocumentChange;
     const selectTemplateTab = this.selectTemplateTab;
-    const print = () => window.print();
     const getTemplates = () => this.state.templates;
 
     window.openAttestation = {
@@ -87,7 +86,6 @@ class DocumentViewerContainer extends Component {
       const parentFrameConnection = connectToParent({
         methods: {
           renderDocument,
-          print,
           selectTemplateTab
         }
       }).promise;

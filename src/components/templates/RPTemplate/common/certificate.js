@@ -5,7 +5,8 @@ import {
   IMG_CERTIFICATE_SEAL,
   IMG_LOGO_ALLPOLY,
   IMG_LOGO_SUSS,
-  IMG_LOGO_NP
+  IMG_LOGO_NP,
+  IMG_LOGO_NYP
 } from "./images";
 import {
   formatDDMMMYYYY,
@@ -45,6 +46,20 @@ export const printCertStyle = {
   fontWeight: "bold",
   fontSize: "3rem",
   color: "#555",
+  textAlign: "center"
+};
+
+export const printAwardCertTitleStyle = {
+  fontFamily: "Times New Roman",
+  fontSize: "3.5rem",
+  color: "#6FB01E",
+  textAlign: "center"
+};
+
+export const printAwardDipTitleStyle = {
+  fontFamily: "Times New Roman",
+  fontSize: "2.5rem",
+  color: "#6FB01E",
   textAlign: "center"
 };
 
@@ -144,6 +159,15 @@ export const renderSingapore = () => (
     <p style={singaporeTextStyle} />
   </div>
 );
+export const renderLogoRPNYP = () => (
+  <div className="row d-flex justify-content-center">
+    <div className="col-2" />
+    <div className="row d-flex justify-content-center">
+      <img style={{ width: "1050px" }} src={IMG_LOGO_NYP} />
+    </div>
+    <div className="col-2" />
+  </div>
+);
 export const renderLogoRPNP = () => (
   <div className="row d-flex justify-content-center">
     <div className="col-2" />
@@ -162,7 +186,15 @@ export const renderLogoRP = () => (
     <div className="col-2" />
   </div>
 );
-
+export const renderLogoRPLeft = () => (
+  <div className="row d-flex justify-content-left">
+    <div className="row d-flex justify-content-left">
+      <img src={IMG_LOGO_RP} />
+    </div>
+    <div className="col-2" />
+    <div className="col-2" />
+  </div>
+);
 // type = 0 (SUSS), 1 (Joint Poly)
 export const renderLogoRPPartner = type => {
   let logo = IMG_LOGO_SUSS;
@@ -190,7 +222,7 @@ export const renderLogoRPPartner = type => {
   );
 };
 // signature for short courses
-export const renderACESignatures = certificate => {
+export const renderOneSignature = certificate => {
   const certSign = formatSignatoriesPosition(
     get(certificate, "additionalData.certSignatories[0].position")
   );
@@ -215,17 +247,19 @@ export const renderACESignatures = certificate => {
             <br />
             {certSign[0]}
             <br />
-            {certSign.length > 0 ? certSign[1] : null}
-            <br />
             {get(certificate, "additionalData.certSignatories[0].organisation")}
             <br />
           </span>
+
+          <br />
+          <br />
+          <p>{formatDDMMMYYYY(get(certificate, "issuedOn"))}</p>
         </div>
       </div>
     </div>
   );
 };
-// displayname  = 1 - SD for BIA
+// displayname  = 1 - SD for BIA, =2 - SD for CMW
 export const renderTwoSignatures = (certificate, displayName) => {
   const certSign = formatSignatoriesPosition(
     get(certificate, "additionalData.certSignatories[0].position")
@@ -247,17 +281,19 @@ export const renderTwoSignatures = (certificate, displayName) => {
         </div>
         <div className="text-center">
           <span style={signatureTextStyle}>
-            {displayName > 0
+            {displayName === 1
               ? get(certificate, "additionalData.certSignatories[0].name")
               : null}
           </span>
         </div>
         <div className="text-center">
-          <span style={signatureTextStyle}>{certSign[0]}</span>
+          <span style={signatureTextStyle}>
+            {displayName < 2 ? certSign[0] : null}
+          </span>
         </div>
         <div className="text-center">
           <span style={signatureTextStyle}>
-            {certSign.length > 0 ? certSign[1] : null}
+            {displayName == 2 ? null : certSign.length > 0 ? certSign[1] : null}
           </span>
         </div>
       </div>
@@ -278,14 +314,16 @@ export const renderTwoSignatures = (certificate, displayName) => {
         </div>
         <div className="text-center">
           <span style={signatureTextStyle}>
-            {displayName > 0
+            {displayName === 1
               ? get(certificate, "additionalData.certSignatories[1].name")
               : null}
           </span>
         </div>
         <div className="text-center">
           <span style={signatureTextStyle}>
-            {get(certificate, "additionalData.certSignatories[1].position")}
+            {displayName < 2
+              ? get(certificate, "additionalData.certSignatories[1].position")
+              : null}
           </span>
         </div>
       </div>
@@ -366,6 +404,31 @@ export const renderAwardTextSH = certificate => (
     <br />
     <br />
     <p style={printSCTextStyle}>Republic Polytechnic, Singapore</p>
+  </div>
+);
+// Render the main text for DROH
+export const renderAwardTextDROH = certificate => (
+  <div>
+    <div
+      className="row d-flex justify-content-center"
+      style={{ marginTop: "3rem" }}
+    />
+    <p style={printAwardCertTitleStyle}>Academic Awards</p>
+    <br />
+    <p style={printTextStyle}>This is to certify that</p>
+    <br />
+    <p style={printRecipientStyle}>{get(certificate, "recipient.name")}</p>
+    <p style={printTextStyle}>has been inducted into the</p>
+    <p style={printAwardCertTitleStyle}>Director&apos;s Roll of Honour</p>
+    <p style={printTextStyle}>for excellent academic performance in</p>
+    <p style={printTextStyle}>
+      Academic Year {get(certificate, "description").substr(0, 4)} Semester{" "}
+      {get(certificate, "description").substr(5, 1)} for the
+    </p>
+    <br />
+    <p style={printAwardDipTitleStyle}>{get(certificate, "name")}</p>
+    <br />
+    <br />
   </div>
 );
 
