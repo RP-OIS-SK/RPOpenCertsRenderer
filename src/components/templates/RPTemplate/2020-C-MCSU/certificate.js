@@ -16,7 +16,7 @@ const Template = ({ document }) => (
     >
       {renderLogoRP()}
       {renderAwardTextCET(document, 1)}
-      {renderTwoSignatures(document, 0)}
+      {renderTwoSignatures(document, 2)}
       {renderLogoRPPartner(0)}
     </div>
     {renderFooter(document)}
