@@ -15,7 +15,7 @@ const Template = ({ document }) => (
     >
       {renderLogoRPNYP()}
       {renderAwardText(document)}
-      {renderTwoSignatures(document, 2)}
+      {renderTwoSignatures(document, 3)}
     </div>
     {renderFooter(document)}
   </div>

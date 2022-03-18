@@ -7,7 +7,8 @@ import {
   IMG_LOGO_SUSS,
   IMG_LOGO_NP,
   IMG_LOGO_NPRP,
-  IMG_LOGO_NYP
+  IMG_LOGO_NYP,
+  IMG_LOGO_NYP_SEAL
 } from "./images";
 
 import {
@@ -34,6 +35,12 @@ export const fullWidthStyle = {
 };
 export const sealWidthStyle = {
   width: "95%",
+  height: "auto",
+  textAlign: "center"
+};
+
+export const sealWidthStyle2 = {
+  width: "80%",
   height: "auto",
   textAlign: "center"
 };
@@ -357,7 +364,17 @@ export const renderTwoSignatures = (certificate, displayName) => {
       </div>
       <div className="col-4">
         <div className="px-4">
-          <img style={sealWidthStyle} src={IMG_CERTIFICATE_SEAL} />
+          {displayName === 3 && (
+            <span>
+              <img style={sealWidthStyle2} src={IMG_LOGO_NYP_SEAL} />
+              <br /> <br />
+            </span>
+          )}
+          {displayName === 3 ? (
+            <img style={sealWidthStyle2} src={IMG_CERTIFICATE_SEAL} />
+          ) : (
+            <img style={sealWidthStyle} src={IMG_CERTIFICATE_SEAL} />
+          )}
         </div>
       </div>
       <div className="col-4">

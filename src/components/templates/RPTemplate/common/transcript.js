@@ -55,13 +55,21 @@ export const renderHeader = () => (
 );
 
 // additional remarks for PET only
-export const renderRemarksGradingSystem = isNOTDPLUS => (
+export const renderRemarksGradingSystem = (is2020, isCET) => (
   <span>
     <br />
-    Incomplete Grade is implemented from Academic Year 2012 Semester 2 onwards
-    {isNOTDPLUS ? null : null}
-    . <br />A module for which grade point or modular credit is not accorded
-    will not be considered in the computation of the cGPA.
+    {isCET
+      ? null
+      : "Incomplete Grade is implemented from Academic Year 2012 Semester 2 onwards\n"}
+    {is2020
+      ? null
+      : isCET
+      ? "Non-Graded Pass Grade is implemented from March 2022 onwards."
+      : "Non-Graded Pass Grade is implemented from Academic Year 2020 onwards."}
+    <br />
+    {isCET
+      ? null
+      : "A module for which grade point or modular credit is not accorded will not be considered in the computation of the cGPA.\n"}
   </span>
 );
 
@@ -78,6 +86,17 @@ export const renderTableHeader = () => (
     </th>
     <th style={{ width: "25%", textDecoration: "underline" }}>Point</th>
     <th style={{ width: "50%", textDecoration: "underline" }}>Description</th>
+  </tr>
+);
+
+export const renderBlankLine = () => (
+  <tr>
+    <td style={{ paddingLeft: "10px" }}>
+      &nbsp;
+      <br />
+    </td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
   </tr>
 );
 
@@ -98,7 +117,17 @@ export const renderGradingSystem = document => {
   // check it is PET template  - position 16 for scheme 1.4, position 9 for scheme 2.0
   const isCET = strTemplate.substr(8, 6) === "P_MAIN" ? 0 : 1;
   // check whether it is DPLUS template
-  const isNOTDPLUS = strTemplate.substr(8, 4) === "C_DP" ? 0 : 1;
+  // const isNOTDPLUS = strTemplate.substr(8, 4) === "C_DP" ? 0 : 1;
+  const is2020 = strTemplate.substr(3, 4) === "2020" ? 1 : 0;
+  const listGradeTextO1R = [
+    { grade: "E", score: "0.5", desc: "Fail" },
+    { grade: "F", score: "0.0", desc: "Fail" },
+    { grade: "P", score: "2.0", desc: "Pass" },
+    { grade: "N", score: "-", desc: "Null(Defaulted)" },
+    { grade: "Pass*", score: "-", desc: "Pass with Commendation" },
+    { grade: "Pass", score: "-", desc: "Pass" },
+    { grade: "Fail", score: "-", desc: "Fail" }
+  ];
 
   const listGradeText1L = [
     { grade: "A", score: "4.0", desc: "Excellent" },
@@ -111,16 +140,16 @@ export const renderGradingSystem = document => {
   ];
 
   const listGradeText1R = [
+    { grade: "P", score: "2.0", desc: "Pass" },
     { grade: "E", score: "0.5", desc: "Fail" },
     { grade: "F", score: "0.0", desc: "Fail" },
-    { grade: "P", score: "2.0", desc: "Pass" },
     { grade: "N", score: "-", desc: "Null(Defaulted)" },
     { grade: "Pass*", score: "-", desc: "Pass with Commendation" },
     { grade: "Pass", score: "-", desc: "Pass" },
     { grade: "Fail", score: "-", desc: "Fail" }
   ];
 
-  const listGradeText2L = [
+  const listGradeText2LP = [
     { grade: "DIST", score: "4.0", desc: "Distinction^" },
     { grade: "A", score: "4.0", desc: "Excellent" },
     { grade: "B+", score: "3.5", desc: "Very Good" },
@@ -131,7 +160,36 @@ export const renderGradingSystem = document => {
     { grade: "D", score: "1.0", desc: "Pass" }
   ];
 
+  const listGradeText2RP = [
+    { grade: "NGP", score: "1.0", desc: "Non-Graded Pass" },
+    { grade: "F", score: "0.0", desc: "Fail" },
+    { grade: "Pass*", score: "-", desc: "Pass with Commendation" },
+    { grade: "Pass", score: "-", desc: "Pass" },
+    { grade: "Fail", score: "-", desc: "Fail" },
+    { grade: "Exempted", score: "-", desc: "Exempted from taking the module" },
+    { grade: "Incomplete", score: "-", desc: "Incomplete" }
+  ];
+  const listGradeText2L = [
+    { grade: "DIST", score: "4.0", desc: "Distinction^" },
+    { grade: "A", score: "4.0", desc: "Excellent" },
+    { grade: "B+", score: "3.5", desc: "Very Good" },
+    { grade: "B", score: "3.0", desc: "Very Good" },
+    { grade: "C+", score: "2.5", desc: "Good" },
+    { grade: "C", score: "2.0", desc: "Good" },
+    { grade: "D+", score: "1.5", desc: "Pass" }
+  ];
+
   const listGradeText2R = [
+    { grade: "D", score: "1.0", desc: "Pass" },
+    { grade: "NGP", score: "1.0", desc: "Non-Graded Pass" },
+    { grade: "F", score: "0.0", desc: "Fail" },
+    { grade: "Pass*", score: "-", desc: "Pass with Commendation" },
+    { grade: "Pass", score: "-", desc: "Pass" },
+    { grade: "Fail", score: "-", desc: "Fail" },
+    { grade: "Exempted", score: "-", desc: "Exempted from taking the module" }
+  ];
+
+  const listGradeTextO2R = [
     { grade: "F", score: "0.0", desc: "Fail" },
     { grade: "Pass*", score: "-", desc: "Pass with Commendation" },
     { grade: "Pass", score: "-", desc: "Pass" },
@@ -161,7 +219,9 @@ export const renderGradingSystem = document => {
             <table style={fullTableWidthStyle}>
               <tbody>
                 {renderTableHeader()}
-                {renderGradeList(listGradeText1R)}
+                {is2020
+                  ? renderGradeList(listGradeTextO1R)
+                  : renderGradeList(listGradeText1R)}
               </tbody>
             </table>
           </div>
@@ -175,7 +235,11 @@ export const renderGradingSystem = document => {
             <table style={fullTableWidthStyle}>
               <tbody>
                 {renderTableHeader()}
-                {renderGradeList(listGradeText2L)}
+                {is2020
+                  ? renderGradeList(listGradeText2LP)
+                  : isCET
+                  ? renderGradeList(listGradeText2L)
+                  : renderGradeList(listGradeText2LP)}
               </tbody>
             </table>
           </div>
@@ -183,33 +247,37 @@ export const renderGradingSystem = document => {
             <table style={fullTableWidthStyle}>
               <tbody>
                 {renderTableHeader()}
-                {renderGradeList(listGradeText2R)}
-                <tr>
-                  <td style={{ paddingLeft: "10px" }}>
-                    {isCET ? " " : "Incomplete"}&nbsp;
-                  </td>
-                  <td>{isCET ? null : "-"}</td>
-                  <td>{isCET ? null : "Incomplete"}</td>
-                </tr>
-                <tr>
-                  <td style={{ paddingLeft: "10px" }}>
-                    {isCET ? " " : "NGP"}&nbsp;
-                  </td>
-                  <td>{isCET ? null : "1.0"}</td>
-                  <td>{isCET ? null : "Non-Graded Pass"}</td>
-                </tr>
-                <tr>
-                  <td style={{ paddingLeft: "10px" }}>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                </tr>
+                {is2020
+                  ? renderGradeList(listGradeTextO2R)
+                  : isCET
+                  ? renderGradeList(listGradeText2R)
+                  : renderGradeList(listGradeText2RP)}
+                {is2020 > 0 && (
+                  <tr>
+                    <td style={{ paddingLeft: "10px" }}>
+                      {isCET ? " " : "Incomplete"} &nbsp;
+                    </td>
+                    <td>{isCET ? null : "-"}</td>
+                    <td>{isCET ? null : "Incomplete"}</td>
+                  </tr>
+                )}
+                {is2020 > 0 && (
+                  <tr>
+                    <td style={{ paddingLeft: "10px" }}>
+                      {isCET ? " " : "NGP"} &nbsp;
+                    </td>
+                    <td>{isCET ? null : "1.0"}</td>
+                    <td>{isCET ? null : "Non-Graded Pass"}</td>
+                  </tr>
+                )}
+                {is2020 ? renderBlankLine() : isCET ? null : renderBlankLine()}
               </tbody>
             </table>
           </div>
         </div>
         <p>
           ^Distinction is awarded from Academic Year 2012 onwards.
-          {isCET ? null : renderRemarksGradingSystem(isNOTDPLUS)}
+          {renderRemarksGradingSystem(is2020, isCET)}
         </p>
         <div
           className="row"
