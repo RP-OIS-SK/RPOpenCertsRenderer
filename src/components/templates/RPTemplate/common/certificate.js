@@ -544,11 +544,24 @@ export const renderAwardText = certificate => (
       className="row d-flex justify-content-center"
       style={{ marginTop: "3rem" }}
     />
-    <div style={printTextStyle}>The Board of Governors of the</div>
+    <div style={printTextStyle}>
+      The Board of Governors of{" "}
+      {get(certificate, "$template.name").substr(8, 7) === "C_DCCMW"
+        ? null
+        : "the"}
+    </div>
 
-    <div style={printTextStyle}>Republic Polytechnic</div>
+    <div style={printTextStyle}>
+      {get(certificate, "$template.name").substr(8, 7) === "C_DCCMW"
+        ? "Nanyang Polytechnic and Republic Polytechnic on"
+        : "Republic Polytechnic"}
+    </div>
 
-    <div style={printTextStyle}>On the recommendation of the Senate has</div>
+    <div style={printTextStyle}>
+      {get(certificate, "$template.name").substr(8, 7) === "C_DCCMW"
+        ? "the recommendation of the respective Senates have"
+        : "On the recommendation of the Senate has"}
+    </div>
 
     <div style={printTextStyle}>conferred</div>
 
