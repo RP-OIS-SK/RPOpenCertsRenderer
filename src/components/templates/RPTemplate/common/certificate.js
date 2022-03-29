@@ -318,11 +318,24 @@ export const renderBlock = () => (
   </div>
 );
 
-// displayname  = 1 - SD for BIA, =3 - SD for CMW, = 2 - MC
+// displayname  = 0 - others, 1 - SD for BIA, 2 - MC, 3 - SD for CMW
+// for 0, 1&2 and isBIA22 = false -  display position only,
+// for 1&2 and isBIA22 = true, display position in 2 lines - "Principle & CEO" | "Republic poly"
 export const renderTwoSignatures = (certificate, displayName) => {
   const certSign = formatSignatoriesPosition(
     get(certificate, "additionalData.certSignatories[0].position")
   );
+  const certSign2 = formatSignatoriesPosition(
+    get(certificate, "additionalData.certSignatories[1].position")
+  );
+  // RP_2022_C_MCBIA
+  const tpName = get(certificate, "$template.name");
+  const isBIA22 =
+    tpName.substr(3, 4) === "2020"
+      ? false
+      : tpName.substr(12, 3) === "BIA"
+      ? true
+      : false;
   return (
     <div
       className="row d-flex justify-content-center align-items-end"
@@ -340,22 +353,26 @@ export const renderTwoSignatures = (certificate, displayName) => {
         </div>
         <div className="text-center">
           <span style={signatureTextStyle}>
-            {displayName === 1
-              ? get(certificate, "additionalData.certSignatories[0].name")
+            {displayName === 1 // SD for BIA, display P name for 2020, otherwise do not display
+              ? isBIA22
+                ? null
+                : get(certificate, "additionalData.certSignatories[0].name")
               : null}
           </span>
         </div>
         <div className="text-center">
           <span style={signatureTextStyle}>
-            {displayName < 3 ? certSign[0] : null}
+            {displayName < 3
+              ? certSign[0] // display Position
+              : null}
           </span>
         </div>
         <div className="text-center">
           <span style={signatureTextStyle}>
-            {displayName === 3
+            {displayName === 3 // CMW - do not display.  title in image
               ? null
-              : displayName === 2
-              ? certSign.length > 0
+              : displayName > 0 // MC/DTC  -display position
+              ? certSign.length > 1
                 ? certSign[1]
                 : null
               : null}
@@ -389,25 +406,38 @@ export const renderTwoSignatures = (certificate, displayName) => {
         </div>
         <div className="text-center">
           <span style={signatureTextStyle}>
-            {displayName === 1
-              ? get(certificate, "additionalData.certSignatories[1].name")
+            {displayName === 1 // SD for BIA, display P name for 2020, otherwise do not display
+              ? isBIA22
+                ? null
+                : get(certificate, "additionalData.certSignatories[1].name")
               : null}
           </span>
         </div>
         <div className="text-center">
           <span style={signatureTextStyle}>
             {displayName < 3
-              ? get(certificate, "additionalData.certSignatories[1].position")
+              ? certSign2[0] // display Position
               : null}
           </span>
         </div>
-        {displayName === 3
-          ? null
-          : displayName === 2
-          ? certSign.length > 0
-            ? renderBlock()
-            : null
-          : null}
+        <div className="text-center">
+          <span style={signatureTextStyle}>
+            {displayName === 3 // CMW - do not display.  title in image
+              ? null
+              : displayName > 0 // MC/DTC  -display position
+              ? isBIA22
+                ? certSign2.length > 1
+                  ? certSign2[1]
+                  : null
+                : certSign.length > 1 && (
+                    <span>
+                      <br />
+                      <br />
+                    </span>
+                  )
+              : null}
+          </span>
+        </div>
       </div>
     </div>
   );
