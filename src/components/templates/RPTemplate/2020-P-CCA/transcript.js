@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { get, groupBy } from "lodash";
+import { get, groupBy, orderBy } from "lodash";
 import React from "react";
 import { IMG_LOGO_RP_HORIZONTAL } from "../common/images";
 import { formatDDMMMYYYY } from "../common/functions";
@@ -60,7 +60,8 @@ export const renderHeader = () => (
 );
 
 export const renderSemester = (semester, semesterId, varDType) => {
-  const subjectRows = semester.map((s, i) => {
+  const sortSemester = orderBy(semester, ["name"]);
+  const subjectRows = sortSemester.map((s, i) => {
     const gradeDetails = s.name.split("|");
     return (
       <tr key={i}>
@@ -70,13 +71,13 @@ export const renderSemester = (semester, semesterId, varDType) => {
       </tr>
     );
   });
-  const sem = get(semester, "[0].semester");
+  const sem = get(sortSemester, "[0].semester");
   const sType = sem.substring(0, 1);
   let sSubTitle = "";
   const sem1 = sem.substring(1);
   if (sType !== varDType.t) {
     varDType.t = sType;
-    sSubTitle = sType < 2 ? "MEMBERSHIP" : "EVENTS";
+    sSubTitle = sType < 2 ? "EVENTS" : "MEMBERSHIP";
   }
   return (
     <div className="col-12" key={semesterId}>
@@ -96,13 +97,13 @@ export const renderSemester = (semester, semesterId, varDType) => {
           <tbody>
             <tr>
               <th style={{ width: "40%", textAlign: "left" }}>
-                <u>{sType < 2 ? "CLUB" : "TITLE OF ACTIVITY"}</u>
+                <u>{sType < 2 ? "TITLE OF ACTIVITY" : "CLUB"}</u>
               </th>
               <th style={{ width: "30%", textAlign: "left" }}>
-                <u>{sType < 2 ? "INTEREST GROUP" : "ROLE"}</u>
+                <u>{sType < 2 ? "ROLE" : "INTEREST GROUP"}</u>
               </th>
               <th style={{ width: "30%", textAlign: "left" }}>
-                <u>{sType < 2 ? "APPOINTMENT" : "ACHIEVEMENT"}</u>
+                <u>{sType < 2 ? "ACHIEVEMENT" : "APPOINTMENT"}</u>
               </th>
             </tr>
             {subjectRows}
@@ -125,7 +126,8 @@ export const renderCourse = (document, course) => {
   const graduationDate = get(document, "graduationDate");
 
   // Group all modules by semesters
-  const groupedSubjects = groupBy(course, "semester");
+  const sSemester = orderBy(course, ["semester"]).reverse();
+  const groupedSubjects = groupBy(sSemester, "semester");
   let varDType = { t: 0 };
 
   const renderedSemesters = Object.keys(groupedSubjects).map(semester =>
