@@ -552,6 +552,29 @@ export const renderAwardTextDROH = certificate => (
   </div>
 );
 
+export const renderCOAAwardTextEMP = certificate => (
+  <div>
+    <div
+      className="row d-flex justify-content-center"
+      style={{ marginTop: "3rem" }}
+    />
+    <p style={printAwardCertTitleStyle}>{get(certificate, "name")}</p>
+    <br />
+    <p style={printTextStyle}>This certificate is awarded to</p>
+    <br />
+    <p style={printRecipientStyle}>{get(certificate, "recipient.name")}</p>
+    <p style={printTextStyle}>
+      in recognition and appreciation of contribution made to
+    </p>
+    <p style={printAwardCertTitleStyle}></p>
+    <p style={printTextStyle}>{get(certificate, "award.achievementArea")}</p>
+    <p style={printTextStyle}>
+      Year {get(certificate, "award.achivementYear")}
+    </p>
+    <br />
+  </div>
+);
+
 export const renderCOAAwardTextDROH = certificate => (
   <div>
     <div

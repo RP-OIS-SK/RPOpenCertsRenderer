@@ -30,6 +30,7 @@ import RP_2020_C_MCSU from "./RPTemplate/2020-C-MCSU";
 import RP_2022_C_MCSU from "./RPTemplate/2022-C-MCSU";
 import RP_2021_P_AWARD from "./RPTemplate/2021-P-AWARD";
 import RP_2022_P_COA_DROH from "./RPTemplate/2022-P-COA-DROH";
+import RP_2022_D_COA_EMP from "./RPTemplate/2022-D-COA-EMP";
 
 export default {
   default: DefaultTemplate,
@@ -58,5 +59,6 @@ export default {
   RP_2022_C_MCSU: RP_2022_C_MCSU,
   RP_2021_P_AWARD: RP_2021_P_AWARD,
   RP_2022_P_COA_DROH: RP_2022_P_COA_DROH,
+  RP_2022_D_COA_EMP: RP_2022_D_COA_EMP,
   NULL: []
 };
