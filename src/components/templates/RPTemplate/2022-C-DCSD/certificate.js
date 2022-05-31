@@ -1,9 +1,10 @@
 import PropTypes from "prop-types";
 import React from "react";
 import {
-  renderLogoRPLeft,
-  renderPETAwardText,
-  renderOneSignature
+  renderLogoRPTP,
+  renderAwardText,
+  renderTwoSignatures,
+  renderFooter
 } from "../common/certificate";
 
 const Template = ({ document }) => (
@@ -12,10 +13,11 @@ const Template = ({ document }) => (
       className="container"
       style={{ border: 0, borderColor: "#AAA", borderStyle: "solid" }}
     >
-      {renderLogoRPLeft()}
-      {renderPETAwardText(document)}
-      {renderOneSignature(document)}
+      {renderLogoRPTP()}
+      {renderAwardText(document)}
+      {renderTwoSignatures(document, 1)}
     </div>
+    {renderFooter(document)}
   </div>
 );
 

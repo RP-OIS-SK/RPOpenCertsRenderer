@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import React from "react";
 import {
-  renderLogoRPLeft,
+  renderLogoRPLeftText,
   renderPETAwardText,
-  renderOneSignature
+  renderTwoSignaturesAwards
 } from "../common/certificate";
 
 const Template = ({ document }) => (
@@ -12,13 +12,12 @@ const Template = ({ document }) => (
       className="container"
       style={{ border: 0, borderColor: "#AAA", borderStyle: "solid" }}
     >
-      {renderLogoRPLeft()}
+      {renderLogoRPLeftText("Academic", "Awards")}
       {renderPETAwardText(document)}
-      {renderOneSignature(document)}
+      {renderTwoSignaturesAwards(document)}
     </div>
   </div>
 );
-
 Template.propTypes = {
   document: PropTypes.object.isRequired
 };

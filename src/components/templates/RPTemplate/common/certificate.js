@@ -8,7 +8,8 @@ import {
   IMG_LOGO_NP,
   IMG_LOGO_NPRP,
   IMG_LOGO_NYP,
-  IMG_LOGO_NYP_SEAL
+  IMG_LOGO_NYP_SEAL,
+  IMG_LOGO_RPTP
 } from "./images";
 
 import {
@@ -19,6 +20,11 @@ import {
   formatSignatoriesPosition
 } from "./functions";
 
+export const RPlogoAwardStyle = {
+  textAlign: "left",
+  width: "auto",
+  height: "auto"
+};
 export const logoLStyle = {
   textAlign: "left",
   width: "100%",
@@ -61,14 +67,14 @@ export const printCertStyle = {
 export const printAwardCertTitleStyle = {
   fontFamily: "Times New Roman",
   fontSize: "3.5rem",
-  color: "#6FB01E",
+  color: "#008000",
   textAlign: "center"
 };
 
 export const printAwardDipTitleStyle = {
   fontFamily: "Times New Roman",
   fontSize: "2.5rem",
-  color: "#6FB01E",
+  color: "#008000",
   textAlign: "center"
 };
 
@@ -113,7 +119,13 @@ export const printRecipientStyle = {
   color: "#555",
   textAlign: "center"
 };
-
+export const printAwardTitleStyle = {
+  fontFamily: "Lucida Calligraphy",
+  fontWeight: "500!important",
+  fontSize: "3.5rem",
+  color: "#008000",
+  textAlign: "right"
+};
 export const printTextStyle = {
   fontFamily: "Times New Roman",
   fontWeight: "500!important",
@@ -195,6 +207,15 @@ export const renderLogoNPRP = () => (
     <div className="col-2" />
   </div>
 );
+export const renderLogoRPTP = () => (
+  <div className="row d-flex justify-content-center">
+    <div className="col-2" />
+    <div className="row d-flex justify-content-center">
+      <img style={{ width: "1050px" }} src={IMG_LOGO_RPTP} />
+    </div>
+    <div className="col-2" />
+  </div>
+);
 export const renderLogoRP = () => (
   <div className="row d-flex justify-content-center">
     <div className="col-2" />
@@ -211,6 +232,21 @@ export const renderLogoRPLeft = () => (
     </div>
     <div className="col-2" />
     <div className="col-2" />
+  </div>
+);
+export const renderLogoRPLeftText = (title1, title2) => (
+  <div className="row d-flex justify-content-left">
+    <div className="col2">
+      <img style={RPlogoAwardStyle} src={IMG_LOGO_RP} />
+    </div>
+    <div className="col-2" />
+    <div className="col-6">
+      <div style={printAwardTitleStyle}>
+        {title1}
+        <br />
+        {title2}
+      </div>
+    </div>
   </div>
 );
 // type = 0 (SUSS), 1 (Joint Poly)
@@ -308,6 +344,60 @@ export const renderOneSignature = certificate => {
     </div>
   );
 };
+export const renderTwoSignaturesAwards = certificate => {
+  return (
+    <div
+      className="row d-flex justify-content-center align-items-end"
+      style={{ marginTop: "8rem", marginBottom: "1rem" }}
+    >
+      <div className="col-4">
+        <div className="px-4">
+          <img
+            style={{ width: "100%", borderBottom: "1px solid black" }}
+            src={get(
+              certificate,
+              "additionalData.certSignatories[0].signature"
+            )}
+          />
+        </div>
+        <div className="text-center">
+          <span style={signatureTextStyle}>
+            {get(certificate, "additionalData.certSignatories[0].name")}
+          </span>
+        </div>
+        <div className="text-center">
+          <span style={signatureTextStyle}>
+            {get(certificate, "additionalData.certSignatories[0].position")}
+          </span>
+        </div>
+      </div>
+      <div className="col-4">
+        <div className="px-4"></div>
+      </div>
+      <div className="col-4">
+        <div className="px-4">
+          <img
+            style={{ width: "100%", borderBottom: "1px solid black" }}
+            src={get(
+              certificate,
+              "additionalData.certSignatories[1].signature"
+            )}
+          />
+        </div>
+        <div className="text-center">
+          <span style={signatureTextStyle}>
+            {get(certificate, "additionalData.certSignatories[1].name")}
+          </span>
+        </div>
+        <div className="text-center">
+          <span style={signatureTextStyle}>
+            {get(certificate, "additionalData.certSignatories[1].position")}
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export const renderBlock = () => (
   <div className="text-center">
@@ -328,12 +418,14 @@ export const renderTwoSignatures = (certificate, displayName) => {
   const certSign2 = formatSignatoriesPosition(
     get(certificate, "additionalData.certSignatories[1].position")
   );
-  // RP_2022_C_MCBIA
+  // RP_2022_C_MCBIA    RP_2022_C_DCSD
   const tpName = get(certificate, "$template.name");
   const isBIA22 =
     tpName.substr(3, 4) === "2020"
       ? false
       : tpName.substr(12, 3) === "BIA"
+      ? true
+      : tpName.substr(12, 3) === "SD"
       ? true
       : false;
   return (
@@ -551,7 +643,112 @@ export const renderAwardTextDROH = certificate => (
     <br />
   </div>
 );
-
+// Render the main text for DROH
+//RP_2021_P_AWARD
+//RP_2022_P_BOG
+//RP_2022_P_BPRZ
+//RP_2022_P_EAE
+//RP_2022_P_SCHS
+//RP_2022_P_NAK
+//01234567890
+export const renderPETAwardText = certificate => {
+  const tpName = get(certificate, "$template.name");
+  const tpCode = tpName.substr(10, 3);
+  const isDROH = tpCode === "AWA" ? true : false;
+  const isBOG = tpCode === "BOG" ? true : false;
+  const isBPR = tpCode === "BPR" ? true : false;
+  const isEAE = tpCode === "EAE" ? true : false;
+  const isSCH = tpCode === "SCH" ? true : false;
+  const isNAK = tpCode === "NAK" ? true : false;
+  const sDesc = get(certificate, "description");
+  return (
+    <div>
+      <div
+        className="row d-flex justify-content-center"
+        style={{ marginTop: "3rem" }}
+      />
+      {isDROH ? <p style={printAwardCertTitleStyle}>Academic Awards</p> : null}
+      {isEAE ? (
+        <p style={printAwardCertTitleStyle}>Republic Polytechnic</p>
+      ) : null}
+      {isEAE ? <p style={printAwardCertTitleStyle}>EAE Award</p> : null}
+      <br />
+      {isEAE ? (
+        <p style={printTextStyle}>is presented to</p>
+      ) : (
+        <p style={printTextStyle}>This is to certify that</p>
+      )}
+      <br />
+      <br />
+      <p style={printRecipientStyle}>{get(certificate, "recipient.name")}</p>
+      <br />
+      {isDROH ? (
+        <div>
+          <p style={printTextStyle}>has been inducted into the</p>
+          <p style={printAwardCertTitleStyle}>Director&apos;s Roll of Honour</p>
+          <p style={printTextStyle}>for excellent academic performance in</p>
+          <p style={printTextStyle}>
+            Academic Year {get(certificate, "description").substr(0, 4)}{" "}
+            Semester {get(certificate, "description").substr(5, 1)} for the
+          </p>
+          <p style={printAwardDipTitleStyle}>{get(certificate, "name")}</p>
+          <br />
+          <br />
+        </div>
+      ) : null}
+      {isBOG ? (
+        <div>
+          <p style={printTextStyle}>is a recipient of the</p>
+          <p style={printAwardCertTitleStyle}>Board of Governors Award</p>
+          <p style={printAwardCertTitleStyle}>
+            Most Outstanding Graduate of the Year
+          </p>
+          <p style={printTextStyle}>for academic and all-round excellence</p>
+          <p style={printTextStyle}>throughout the course of study</p>
+        </div>
+      ) : null}
+      {isEAE ? (
+        <div>
+          <p style={printTextStyle}>for achieving outstanding</p>
+          <p style={printTextStyle}>EAE assessment performance</p>
+        </div>
+      ) : null}
+      {isNAK ? (
+        <div>
+          <p style={printTextStyle}>is a recipient of the</p>
+          <p style={printAwardCertTitleStyle}>Ngee Ann Kongsi Award</p>
+          <p style={printAwardCertTitleStyle}>
+            Most Distinguished Graduate of the Year
+          </p>
+          <p style={printAwardCertTitleStyle}>(Academic)</p>
+        </div>
+      ) : null}
+      {isBPR ? (
+        <div>
+          <p style={printTextStyle}>is a recipient of the</p>
+          <p style={printAwardCertTitleStyle}>
+            {sDesc.substr(0, sDesc.length - 4)}
+          </p>
+          <p style={printTextStyle}>for outstanding academic performance in</p>
+          <p style={printTextStyle}>
+            Academic Year {sDesc.substr(sDesc.length - 4, 4)} for
+          </p>
+          <p style={printAwardDipTitleStyle}>{get(certificate, "name")}</p>
+        </div>
+      ) : null}
+      {isSCH ? (
+        <div>
+          <p style={printTextStyle}>is a recipient of the</p>
+          <p style={printAwardCertTitleStyle}>{sDesc}</p>
+        </div>
+      ) : null}
+      <br />
+      <p style={printTextStyle}>
+        {formatDDMMMYYYY(get(certificate, "issuedOn"))}
+      </p>
+    </div>
+  );
+};
 export const renderCOAAwardTextEMP = certificate => (
   <div>
     <div

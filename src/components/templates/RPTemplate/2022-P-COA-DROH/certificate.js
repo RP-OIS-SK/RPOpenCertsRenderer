@@ -2,8 +2,8 @@ import PropTypes from "prop-types";
 import React from "react";
 import {
   renderLogoRPLeft,
-  renderCOAAwardTextDROH,
-  renderCOAOneSignature
+  renderAwardTextDROH,
+  renderOneSignature
 } from "../common/certificate";
 
 const Template = ({ document }) => (
@@ -13,8 +13,8 @@ const Template = ({ document }) => (
       style={{ border: 0, borderColor: "#AAA", borderStyle: "solid" }}
     >
       {renderLogoRPLeft()}
-      {renderCOAAwardTextDROH(document)}
-      {renderCOAOneSignature(document)}
+      {renderAwardTextDROH(document)}
+      {renderOneSignature(document)}
     </div>
   </div>
 );
