@@ -61,9 +61,8 @@ export const renderRemarksGradingSystem = (is2020, isCET) => (
     {isCET
       ? null
       : "Incomplete Grade is implemented from Academic Year 2012 Semester 2 onwards\n"}
-    {is2020
-      ? null
-      : isCET
+    {!isCET && <br />}
+    {isCET
       ? "Non-Graded Pass Grade is implemented from March 2022 onwards."
       : "Non-Graded Pass Grade is implemented from Academic Year 2020 onwards."}
     <br />
@@ -118,17 +117,8 @@ export const renderGradingSystem = document => {
   const isCET = strTemplate.substr(8, 6) === "P_MAIN" ? 0 : 1;
   // check whether it is DPLUS template
   // const isNOTDPLUS = strTemplate.substr(8, 4) === "C_DP" ? 0 : 1;
+  // RP_2020_P_MAIN
   const is2020 = strTemplate.substr(3, 4) === "2020" ? 1 : 0;
-  const listGradeTextO1R = [
-    { grade: "E", score: "0.5", desc: "Fail" },
-    { grade: "F", score: "0.0", desc: "Fail" },
-    { grade: "P", score: "2.0", desc: "Pass" },
-    { grade: "N", score: "-", desc: "Null(Defaulted)" },
-    { grade: "Pass*", score: "-", desc: "Pass with Commendation" },
-    { grade: "Pass", score: "-", desc: "Pass" },
-    { grade: "Fail", score: "-", desc: "Fail" }
-  ];
-
   const listGradeText1L = [
     { grade: "A", score: "4.0", desc: "Excellent" },
     { grade: "B+", score: "3.5", desc: "Very Good" },
@@ -138,7 +128,15 @@ export const renderGradingSystem = document => {
     { grade: "D+", score: "1.5", desc: "Conditional Pass" },
     { grade: "D", score: "1.0", desc: "Conditional Pass" }
   ];
-
+  const listGradeText1RP = [
+    { grade: "P", score: "2.0", desc: "Pass" },
+    { grade: "E", score: "0.5", desc: "Fail" },
+    { grade: "F", score: "0.0", desc: "Fail" },
+    { grade: "N", score: "-", desc: "Null(Defaulted)" },
+    { grade: "Pass*", score: "-", desc: "Pass with Commendation" },
+    { grade: "Pass", score: "-", desc: "Pass" },
+    { grade: "Fail", score: "-", desc: "Fail" }
+  ];
   const listGradeText1R = [
     { grade: "P", score: "2.0", desc: "Pass" },
     { grade: "E", score: "0.5", desc: "Fail" },
@@ -189,6 +187,7 @@ export const renderGradingSystem = document => {
     { grade: "Exempted", score: "-", desc: "Exempted from taking the module" }
   ];
 
+  /*
   const listGradeTextO2R = [
     { grade: "F", score: "0.0", desc: "Fail" },
     { grade: "Pass*", score: "-", desc: "Pass with Commendation" },
@@ -196,7 +195,7 @@ export const renderGradingSystem = document => {
     { grade: "Fail", score: "-", desc: "Fail" },
     { grade: "Exempted", score: "-", desc: "Exempted from taking the module" }
   ];
-
+*/
   // if PET or DPLUS, display grading system otherwise do not display
   return (
     <div className="row">
@@ -219,9 +218,9 @@ export const renderGradingSystem = document => {
             <table style={fullTableWidthStyle}>
               <tbody>
                 {renderTableHeader()}
-                {is2020
-                  ? renderGradeList(listGradeTextO1R)
-                  : renderGradeList(listGradeText1R)}
+                {isCET
+                  ? renderGradeList(listGradeText1R)
+                  : renderGradeList(listGradeText1RP)}
               </tbody>
             </table>
           </div>
@@ -235,9 +234,7 @@ export const renderGradingSystem = document => {
             <table style={fullTableWidthStyle}>
               <tbody>
                 {renderTableHeader()}
-                {is2020
-                  ? renderGradeList(listGradeText2LP)
-                  : isCET
+                {isCET
                   ? renderGradeList(listGradeText2L)
                   : renderGradeList(listGradeText2LP)}
               </tbody>
@@ -247,12 +244,10 @@ export const renderGradingSystem = document => {
             <table style={fullTableWidthStyle}>
               <tbody>
                 {renderTableHeader()}
-                {is2020
-                  ? renderGradeList(listGradeTextO2R)
-                  : isCET
+                {isCET
                   ? renderGradeList(listGradeText2R)
                   : renderGradeList(listGradeText2RP)}
-                {is2020 > 0 && (
+                {is2020 > 3 && (
                   <tr>
                     <td style={{ paddingLeft: "10px" }}>
                       {isCET ? " " : "Incomplete"} &nbsp;
@@ -261,7 +256,7 @@ export const renderGradingSystem = document => {
                     <td>{isCET ? null : "Incomplete"}</td>
                   </tr>
                 )}
-                {is2020 > 0 && (
+                {is2020 > 3 && (
                   <tr>
                     <td style={{ paddingLeft: "10px" }}>
                       {isCET ? " " : "NGP"} &nbsp;
@@ -270,7 +265,7 @@ export const renderGradingSystem = document => {
                     <td>{isCET ? null : "Non-Graded Pass"}</td>
                   </tr>
                 )}
-                {is2020 ? renderBlankLine() : isCET ? null : renderBlankLine()}
+                {isCET ? null : renderBlankLine()}
               </tbody>
             </table>
           </div>
