@@ -71,8 +71,22 @@ export const printAwardCertTitleStyle = {
   textAlign: "center"
 };
 
+export const printPAwardCertTitleStyle = {
+  fontFamily: "Californian FB",
+  fontSize: "3.5rem",
+  color: "#008000",
+  textAlign: "center"
+};
+
 export const printAwardDipTitleStyle = {
   fontFamily: "Times New Roman",
+  fontSize: "2.5rem",
+  color: "#008000",
+  textAlign: "center"
+};
+
+export const printPAAwardDipTitleStyle = {
+  fontFamily: "Californian FB",
   fontSize: "2.5rem",
   color: "#008000",
   textAlign: "center"
@@ -84,6 +98,14 @@ export const printSCCertStyle = {
   fontSize: "3.5rem",
   color: "#000",
   textAlign: "center"
+};
+export const PAsignatureTextStyle = {
+  fontFamily: "Arial",
+  fontSize: "1.4rem"
+};
+export const PAsignatureDateTextStyle = {
+  fontFamily: "Arial",
+  fontSize: "1.0rem"
 };
 export const SCsignatureTextStyle = {
   fontFamily: "High Tower Text",
@@ -128,6 +150,14 @@ export const printAwardTitleStyle = {
 };
 export const printTextStyle = {
   fontFamily: "Times New Roman",
+  fontWeight: "500!important",
+  fontSize: "2rem",
+  color: "#555",
+  textAlign: "center"
+};
+
+export const printPATextStyle = {
+  fontFamily: "Californian FB",
   fontWeight: "500!important",
   fontSize: "2rem",
   color: "#555",
@@ -327,7 +357,7 @@ export const renderOneSignature = certificate => {
           />
         </div>
         <div className="text-center">
-          <span style={SCsignatureTextStyle}>
+          <span style={PAsignatureTextStyle}>
             {get(certificate, "additionalData.certSignatories[0].name")}
             <br />
             {certSign[0]}
@@ -338,7 +368,9 @@ export const renderOneSignature = certificate => {
 
           <br />
           <br />
-          <p>{formatDDMMMYYYY(get(certificate, "issuedOn"))}</p>
+          <p style={PAsignatureDateTextStyle}>
+            {formatDDMMMYYYY(get(certificate, "issuedOn"))}
+          </p>
         </div>
       </div>
     </div>
@@ -625,13 +657,13 @@ export const renderAwardTextDROH = certificate => (
       className="row d-flex justify-content-center"
       style={{ marginTop: "3rem" }}
     />
-    <p style={printAwardCertTitleStyle}>Academic Awards</p>
+    <p style={printPAwardCertTitleStyle}>Academic Awards</p>
     <br />
-    <p style={printTextStyle}>This is to certify that</p>
+    <p style={printPATextStyle}>This is to certify that</p>
     <br />
     <p style={printRecipientStyle}>{get(certificate, "recipient.name")}</p>
     <p style={printTextStyle}>has been inducted into the</p>
-    <p style={printAwardCertTitleStyle}>Director&apos;s Roll of Honour</p>
+    <p style={printPAwardCertTitleStyle}>Director&apos;s Roll of Honour</p>
     <p style={printTextStyle}>for excellent academic performance in</p>
     <p style={printTextStyle}>
       Academic Year {get(certificate, "description").substr(0, 4)} Semester{" "}
@@ -667,7 +699,7 @@ export const renderPETAwardText = certificate => {
         className="row d-flex justify-content-center"
         style={{ marginTop: "3rem" }}
       />
-      {isDROH ? <p style={printAwardCertTitleStyle}>Academic Awards</p> : null}
+      {isDROH ? <p style={printPAwardCertTitleStyle}>Academic Awards</p> : null}
       {isEAE ? (
         <p style={printAwardCertTitleStyle}>Republic Polytechnic</p>
       ) : null}
@@ -676,7 +708,7 @@ export const renderPETAwardText = certificate => {
       {isEAE ? (
         <p style={printTextStyle}>is presented to</p>
       ) : (
-        <p style={printTextStyle}>This is to certify that</p>
+        <p style={printPATextStyle}>This is to certify that</p>
       )}
       <br />
       <br />
@@ -684,14 +716,16 @@ export const renderPETAwardText = certificate => {
       <br />
       {isDROH ? (
         <div>
-          <p style={printTextStyle}>has been inducted into the</p>
-          <p style={printAwardCertTitleStyle}>Director&apos;s Roll of Honour</p>
-          <p style={printTextStyle}>for excellent academic performance in</p>
-          <p style={printTextStyle}>
+          <p style={printPATextStyle}>has been inducted into the</p>
+          <p style={printPAwardCertTitleStyle}>
+            Director&apos;s Roll of Honour
+          </p>
+          <p style={printPATextStyle}>for excellent academic performance in</p>
+          <p style={printPATextStyle}>
             Academic Year {get(certificate, "description").substr(0, 4)}{" "}
             Semester {get(certificate, "description").substr(5, 1)} for the
           </p>
-          <p style={printAwardDipTitleStyle}>{get(certificate, "name")}</p>
+          <p style={printPAAwardDipTitleStyle}>{get(certificate, "name")}</p>
           <br />
           <br />
         </div>
@@ -744,7 +778,7 @@ export const renderPETAwardText = certificate => {
       ) : null}
       <br />
       <p style={printTextStyle}>
-        {formatDDMMMYYYY(get(certificate, "issuedOn"))}
+        {isDROH ? null : formatDDMMMYYYY(get(certificate, "issuedOn"))}
       </p>
     </div>
   );

@@ -123,7 +123,7 @@ export const renderCourse = (document, course) => {
   const recipientNricFin = !recipientNric ? recipientFin : recipientNric;
   const studentId = get(document, "recipient.studentId");
   const admissionDate = get(document, "admissionDate");
-  const graduationDate = get(document, "graduationDate");
+  const graduationDate = get(document, "issuedOn"); // graduationDate
 
   // Group all modules by semesters
   const sSemester = orderBy(course, ["semester"]).reverse();

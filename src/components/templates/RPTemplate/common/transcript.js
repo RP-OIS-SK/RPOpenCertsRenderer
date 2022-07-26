@@ -47,8 +47,8 @@ export const renderHeader = () => (
     <div className="col-4">
       <img style={fullWidthStyle} src={IMG_LOGO_RP_HORIZONTAL} />
     </div>
-    <div className="col-2" />
-    <div className="col-6">
+    <div className="col" />
+    <div className="col-7">
       <div style={titleTextStyle}>TRANSCRIPT OF ACADEMIC RECORD</div>
     </div>
   </div>
