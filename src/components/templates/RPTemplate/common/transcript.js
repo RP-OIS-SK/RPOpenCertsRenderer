@@ -72,7 +72,7 @@ export const renderRemarksGradingSystem = (is2020, isCET) => (
   </span>
 );
 
-export const renderTableHeader = () => (
+export const renderTableHeader = isPFP => (
   <tr>
     <th
       style={{
@@ -83,7 +83,11 @@ export const renderTableHeader = () => (
     >
       Grade
     </th>
-    <th style={{ width: "25%", textDecoration: "underline" }}>Point</th>
+    {isPFP ? (
+      <th style={{ width: "25%", textDecoration: "underline" }}></th>
+    ) : (
+      <th style={{ width: "25%", textDecoration: "underline" }}>Point</th>
+    )}
     <th style={{ width: "50%", textDecoration: "underline" }}>Description</th>
   </tr>
 );
@@ -115,10 +119,15 @@ export const renderGradingSystem = document => {
   const strTemplate = get(document, "$template.name");
   // check it is PET template  - position 16 for scheme 1.4, position 9 for scheme 2.0
   const isCET = strTemplate.substr(8, 6) === "P_MAIN" ? 0 : 1;
+  const isPFP = strTemplate.substr(8, 5) === "P_PFP" ? 1 : 0;
+  // RP_ 2022_P_ PFP
+  // 0 12 3456789 01234
+
   // check whether it is DPLUS template
   // const isNOTDPLUS = strTemplate.substr(8, 4) === "C_DP" ? 0 : 1;
   // RP_2020_P_MAIN
   const is2020 = strTemplate.substr(3, 4) === "2020" ? 1 : 0;
+
   const listGradeText1L = [
     { grade: "A", score: "4.0", desc: "Excellent" },
     { grade: "B+", score: "3.5", desc: "Very Good" },
@@ -187,6 +196,22 @@ export const renderGradingSystem = document => {
     { grade: "Exempted", score: "-", desc: "Exempted from taking the module" }
   ];
 
+  const listGradeTextPFPL = [
+    { grade: "DIST", score: "", desc: "Distinction" },
+    { grade: "A", score: "", desc: "Excellent" },
+    { grade: "B+", score: "", desc: "Very Good" },
+    { grade: "B", score: "", desc: "Very Good" },
+    { grade: "C+", score: "", desc: "Good" }
+  ];
+
+  const listGradeTextPFPR = [
+    { grade: "C", score: "", desc: "Good" },
+    { grade: "D+", score: "", desc: "Pass" },
+    { grade: "D", score: "", desc: "Pass" },
+    { grade: "P", score: "", desc: "Pass" },
+    { grade: "F", score: "", desc: "Fail" }
+  ];
+
   /*
   const listGradeTextO2R = [
     { grade: "F", score: "0.0", desc: "Fail" },
@@ -203,98 +228,115 @@ export const renderGradingSystem = document => {
       <div className="col-12" style={{ fontSize: "0.9rem" }}>
         <p style={{ fontWeight: "bold" }}>
           <br />
-          Academic Year 2003 to 2010
+          {isPFP > 0 ? "Grading System" : "Academic Year 2003 to 2010"}
         </p>
         <div className="row">
           <div className="col-6">
             <table style={fullTableWidthStyle}>
               <tbody>
-                {renderTableHeader()}
-                {renderGradeList(listGradeText1L)}
+                {renderTableHeader(isPFP)}
+                {isPFP
+                  ? renderGradeList(listGradeTextPFPL)
+                  : renderGradeList(listGradeText1L)}
               </tbody>
             </table>
           </div>
           <div className="col-6">
             <table style={fullTableWidthStyle}>
               <tbody>
-                {renderTableHeader()}
-                {isCET
+                {renderTableHeader(isPFP)}
+                {isPFP
+                  ? renderGradeList(listGradeTextPFPR)
+                  : isCET
                   ? renderGradeList(listGradeText1R)
                   : renderGradeList(listGradeText1RP)}
               </tbody>
             </table>
           </div>
         </div>
-        <p style={{ fontWeight: "bold" }}>
-          <br />
-          Academic Year 2011 onwards
-        </p>
-        <div className="row">
-          <div className="col-6">
-            <table style={fullTableWidthStyle}>
-              <tbody>
-                {renderTableHeader()}
-                {isCET
-                  ? renderGradeList(listGradeText2L)
-                  : renderGradeList(listGradeText2LP)}
-              </tbody>
-            </table>
-          </div>
-          <div className="col-6">
-            <table style={fullTableWidthStyle}>
-              <tbody>
-                {renderTableHeader()}
-                {isCET
-                  ? renderGradeList(listGradeText2R)
-                  : renderGradeList(listGradeText2RP)}
-                {is2020 > 3 && (
-                  <tr>
-                    <td style={{ paddingLeft: "10px" }}>
-                      {isCET ? " " : "Incomplete"} &nbsp;
-                    </td>
-                    <td>{isCET ? null : "-"}</td>
-                    <td>{isCET ? null : "Incomplete"}</td>
-                  </tr>
-                )}
-                {is2020 > 3 && (
-                  <tr>
-                    <td style={{ paddingLeft: "10px" }}>
-                      {isCET ? " " : "NGP"} &nbsp;
-                    </td>
-                    <td>{isCET ? null : "1.0"}</td>
-                    <td>{isCET ? null : "Non-Graded Pass"}</td>
-                  </tr>
-                )}
-                {isCET ? null : renderBlankLine()}
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <p>
-          ^Distinction is awarded from Academic Year 2012 onwards.
-          {renderRemarksGradingSystem(is2020, isCET)}
-        </p>
-        <div
-          className="row"
-          style={{ padding: "5px 5px 5px 5px", border: "1px solid black" }}
-        >
-          <p>
-            <span style={{ fontWeight: "bold" }}>
-              {" "}
-              Advanced Placement Credits{" "}
-            </span>{" "}
+        {isPFP ? null : (
+          <p style={{ fontWeight: "bold" }}>
             <br />
-            Advanced Placement Credits are granted by Republic Polytechnic for
-            modules taken and awarded a passed grade prior to admission to the
-            Polytechnic. In this regard, Republic Polytechnic recognises these
-            modules that are completed either at another educational institution
-            or based on performance placement tests set by the Polytechnic.
+            Academic Year 2011 onwards
           </p>
-        </div>
-        <p style={{ fontWeight: "bold" }}>
-          <br />
-          The medium of instruction used in this Polytechnic is English.
-        </p>
+        )}
+        {isPFP ? null : (
+          <div className="row">
+            <div className="col-6">
+              <table style={fullTableWidthStyle}>
+                <tbody>
+                  {renderTableHeader(isPFP)}
+                  {isCET
+                    ? renderGradeList(listGradeText2L)
+                    : renderGradeList(listGradeText2LP)}
+                </tbody>
+              </table>
+            </div>
+            <div className="col-6">
+              <table style={fullTableWidthStyle}>
+                <tbody>
+                  {renderTableHeader(isPFP)}
+                  {isPFP
+                    ? null
+                    : isCET
+                    ? renderGradeList(listGradeText2R)
+                    : renderGradeList(listGradeText2RP)}
+                  {is2020 > 3 && (
+                    <tr>
+                      <td style={{ paddingLeft: "10px" }}>
+                        {isCET ? " " : "Incomplete"} &nbsp;
+                      </td>
+                      <td>{isCET ? null : "-"}</td>
+                      <td>{isCET ? null : "Incomplete"}</td>
+                    </tr>
+                  )}
+                  {is2020 > 3 && (
+                    <tr>
+                      <td style={{ paddingLeft: "10px" }}>
+                        {isCET ? " " : "NGP"} &nbsp;
+                      </td>
+                      <td>{isCET ? null : "1.0"}</td>
+                      <td>{isCET ? null : "Non-Graded Pass"}</td>
+                    </tr>
+                  )}
+                  {isCET ? null : renderBlankLine()}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+        {isPFP ? null : (
+          <p>
+            ^Distinction is awarded from Academic Year 2012 onwards.
+            {renderRemarksGradingSystem(is2020, isCET)}
+          </p>
+        )}
+        {isPFP ? null : (
+          <div
+            className="row"
+            style={{ padding: "5px 5px 5px 5px", border: "1px solid black" }}
+          >
+            <p>
+              <span style={{ fontWeight: "bold" }}>
+                {" "}
+                Advanced Placement Credits{" "}
+              </span>{" "}
+              <br />
+              Advanced Placement Credits are granted by Republic Polytechnic for
+              modules taken and awarded a passed grade prior to admission to the
+              Polytechnic. In this regard, Republic Polytechnic recognises these
+              modules that are completed either at another educational
+              institution or based on performance placement tests set by the
+              Polytechnic.
+            </p>
+          </div>
+        )}
+        {isPFP ? null : (
+          <p style={{ fontWeight: "bold" }}>
+            <br />
+            The medium of instruction used in this Polytechnic is English.
+          </p>
+        )}
       </div>
     </div>
   );
@@ -311,16 +353,21 @@ export const renderCourse = (document, course) => {
   const graduationDate = get(document, "graduationDate");
   const strTemplate = get(document, "$template.name");
   const isCET = strTemplate.substr(8, 6) === "P_MAIN" ? 0 : 1;
-
+  const isPFP = strTemplate.substr(8, 5) === "P_PFP" ? 1 : 0;
+  const courseText = isPFP ? "Polytechnic Foundation Programme for " : null;
+  const moduleCodeTitle = isPFP ? "MODULE CODE" : "MODULE";
+  const moduleTitle = isPFP ? "MODULE NAME" : "";
   // Group all modules by semesters
   const groupedSubjects = groupBy(course, "semester");
 
   const renderedSemesters = Object.keys(groupedSubjects).map(semester =>
     groupedSubjects[semester].map((s, i) => (
       <tr key={i}>
-        <td style={{ textAlign: "left" }}>
-          {i || s.semester === "-" ? null : formatBold(s.semester.toString())}
-        </td>
+        {isPFP ? null : (
+          <td style={{ textAlign: "left" }}>
+            {i || s.semester === "-" ? null : formatBold(s.semester.toString())}
+          </td>
+        )}
         <td style={{ textAlign: "left" }}>
           {s.courseCode !== "ZZZ" ? s.courseCode : ""}
         </td>
@@ -356,6 +403,7 @@ export const renderCourse = (document, course) => {
             <div className="col-2">Course</div>
             <div className="col-10">
               :&nbsp;&nbsp;
+              {courseText}
               {document.name}
             </div>
           </div>
@@ -405,13 +453,17 @@ export const renderCourse = (document, course) => {
           <table style={fullWidthStyle}>
             <tbody>
               <tr>
+                {isPFP ? null : (
+                  <th style={{ textAlign: "left" }}>
+                    <u>{isCET ? "TERM" : "SEMESTER"}</u>
+                  </th>
+                )}
                 <th style={{ textAlign: "left" }}>
-                  <u>{isCET ? "TERM" : "SEMESTER"}</u>
+                  <u>{moduleCodeTitle}</u>
                 </th>
                 <th style={{ textAlign: "left" }}>
-                  <u>MODULE</u>
+                  <u>{moduleTitle}</u>
                 </th>
-                <th>&nbsp;</th>
                 <th>
                   <u>{isCET > 0 ? "" : "MODULAR CREDITS"}</u>
                 </th>
@@ -454,13 +506,23 @@ export const renderGPA = document => {
   const isCET = strTemplate.substr(8, 6) === "P_MAIN" ? 0 : 1;
   const isNOTDPLUS = strTemplate.substr(8, 4) === "C_DP" ? 0 : 1;
   const isNOTDCN = strTemplate.substr(8, 4) === "C_DC" ? 0 : 1;
-
+  const isPFP = strTemplate.substr(8, 5) === "P_PFP" ? 1 : 0;
+  // const AwardText = isPFP ? "Completed the Polytechnic Foundation Programme for <br />" + document.name : "Awarded the " + formatBold(document.name) + formatBold(WithMeritTag);
   return GPA ? (
     <div className="row">
       <div className="col-3"> </div>
       <div className="col-6" style={boxStyle}>
         {isNOTDPLUS && isCET && isNOTDCN ? null : renderPETGPA(GPA)}
-        Awarded the {formatBold(document.name)} {formatBold(WithMeritTag)}
+        {isPFP ? (
+          <span>
+            Completed the Polytechnic Foundation Programme for <br />{" "}
+            {document.name}
+          </span>
+        ) : (
+          <span>
+            Awarded the {formatBold(document.name)} {formatBold(WithMeritTag)}
+          </span>
+        )}
         <br />
       </div>
       <div className="col-3"> </div>

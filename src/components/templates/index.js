@@ -37,6 +37,8 @@ import RP_2022_P_BPRZ from "./RPTemplate/2022-P-BPRZ";
 import RP_2022_P_EAE from "./RPTemplate/2022-P-EAE";
 import RP_2022_P_SCHS from "./RPTemplate/2022-P-SCHS";
 import RP_2022_P_NAK from "./RPTemplate/2022-P-NAK";
+import RP_2022_P_PFP from "./RPTemplate/2022-P-PFP";
+import RP_2023_P_LCA from "./RPTemplate/2023-P-LCA";
 
 export default {
   default: DefaultTemplate,
@@ -72,5 +74,7 @@ export default {
   RP_2022_P_EAE: RP_2022_P_EAE,
   RP_2022_P_SCHS: RP_2022_P_SCHS,
   RP_2022_P_NAK: RP_2022_P_NAK,
+  RP_2022_P_PFP: RP_2022_P_PFP,
+  RP_2023_P_LCA: RP_2023_P_LCA,
   NULL: []
 };

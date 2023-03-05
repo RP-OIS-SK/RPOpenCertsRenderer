@@ -2,6 +2,7 @@ import { get } from "lodash";
 import React from "react";
 import {
   IMG_LOGO_RP,
+  IMG_CERTIFICATE_SEAL_PFP,
   IMG_CERTIFICATE_SEAL,
   IMG_LOGO_ALLPOLY,
   IMG_LOGO_SUSS,
@@ -440,7 +441,7 @@ export const renderBlock = () => (
   </div>
 );
 
-// displayname  = 0 - others, 1 - SD for BIA, 2 - MC, 3 - SD for CMW
+// displayname  = 0 - others, 1 - SD for BIA, 2 - MC, 3 - SD for CMW, 4- PFP
 // for 0, 1&2 and isBIA22 = false -  display position only,
 // for 1&2 and isBIA22 = true, display position in 2 lines - "Principle & CEO" | "Republic poly"
 export const renderTwoSignatures = (certificate, displayName) => {
@@ -452,6 +453,7 @@ export const renderTwoSignatures = (certificate, displayName) => {
   );
   // RP_2022_C_MCBIA    RP_2022_C_DCSD
   const tpName = get(certificate, "$template.name");
+
   const isBIA22 =
     tpName.substr(3, 4) === "2020"
       ? false
@@ -460,6 +462,8 @@ export const renderTwoSignatures = (certificate, displayName) => {
       : tpName.substr(12, 3) === "SD"
       ? true
       : false;
+  // RP_2022_P_PFP
+  const isPFP = displayName === 4 ? true : false;
   return (
     <div
       className="row d-flex justify-content-center align-items-end"
@@ -488,7 +492,9 @@ export const renderTwoSignatures = (certificate, displayName) => {
           <span style={signatureTextStyle}>
             {displayName < 3
               ? certSign[0] // display Position
-              : null}
+              : displayName === 3
+              ? null
+              : certSign[0]}
           </span>
         </div>
         <div className="text-center">
@@ -513,6 +519,8 @@ export const renderTwoSignatures = (certificate, displayName) => {
           )}
           {displayName === 3 ? (
             <img style={sealWidthStyle2} src={IMG_CERTIFICATE_SEAL} />
+          ) : isPFP ? (
+            <img style={sealWidthStyle} src={IMG_CERTIFICATE_SEAL_PFP} />
           ) : (
             <img style={sealWidthStyle} src={IMG_CERTIFICATE_SEAL} />
           )}
@@ -541,7 +549,9 @@ export const renderTwoSignatures = (certificate, displayName) => {
           <span style={signatureTextStyle}>
             {displayName < 3
               ? certSign2[0] // display Position
-              : null}
+              : displayName === 3
+              ? null
+              : certSign2[0]}
           </span>
         </div>
         <div className="text-center">
@@ -873,6 +883,28 @@ export const renderAwardText = certificate => (
 
     <div className="row d-flex justify-content-center">
       <p style={printTextStyle}>Given this {renderIssuingDate(certificate)}.</p>
+    </div>
+  </div>
+);
+
+export const renderAwardTextPFP = certificate => (
+  <div>
+    <div
+      className="row d-flex justify-content-center"
+      style={{ marginTop: "3rem" }}
+    />
+    <div style={printTextStyle}>It is hereby certified that </div>
+    <div className="row d-flex justify-content-center">
+      <p style={printRecipientStyle}>{get(certificate, "recipient.name")}</p>
+    </div>
+    <div style={printTextStyle}>has successfully completed the</div>
+    <div className="row d-flex justify-content-center">
+      <div style={printTextStyle}>{get(certificate, "description")}</div>
+    </div>
+    <div className="row d-flex justify-content-center">
+      <p style={printTextStyle}>
+        Academic Year {get(certificate, "graduationDate").substr(0, 4)}
+      </p>
     </div>
   </div>
 );
