@@ -1,7 +1,7 @@
 import { get, groupBy } from "lodash";
 import React from "react";
 import { IMG_LOGO_RP_HORIZONTAL } from "./images";
-import { formatSignatoriesPosition } from "./functions";
+import { formatDDMMMYYYY } from "./functions";
 export const fullWidthStyle = {
   width: "100%",
   height: "auto"
@@ -12,7 +12,6 @@ export const signatureTextStyle = {
   fontSize: "1.1rem"
 };
 export const printCertStyle = {
-  fontFamily: "Times New Roman",
   fontWeight: "bold",
   fontSize: "1.4rem",
   color: "#555",
@@ -27,9 +26,9 @@ export const SignatureDateTextStyle = {
   fontSize: "1.0rem"
 };
 export const printTextStyle = {
-  fontFamily: "Times New Roman",
   fontWeight: "500!important",
-  fontSize: "1.4rem",
+  fontSize: "1.2rem",
+  textDecoration: "none",
   color: "#555",
   textAlign: "left"
 };
@@ -38,8 +37,9 @@ export const nameTextStyle = {
   textAlign: "center"
 };
 export const titleTextStyle = {
-  color: "rgb(30,93,200)",
-  fontSize: "3rem",
+  fontWeight: "bold",
+  fontSize: "1.2rem",
+  textDecoration: "underline",
   textAlign: "center"
 };
 export const imageStyle = {
@@ -79,81 +79,154 @@ export const renderSkill = (skill, skillId, varDType, remarks) => {
   const sem = get(skill, "[0].competencyLevel");
   const sType = sem.substring(0, 1);
   const sem1 = sem.substring(1);
-  const isArchivement = sType === "A" ? true : false;
-
+  const isArchievement = sType === "A" ? true : false;
   if (sType !== varDType.t) {
     varDType.t = sType;
   }
+  let isChangeCompetency = false;
+  let oldCompetency = "-";
+  let oldCompetencyDesc = "";
+  let competency = "-";
+  let competencyDesc = "";
+  let iCnt = 0;
+  let iTotal = -1;
+  // map
+  skill.forEach(() => {
+    iTotal++;
+  });
+  console.log(iTotal);
   const skillRows = skill.map((s, i) => {
     const compNo = s.competencyDescription.substring(0, 1);
-    return (
+
+    isChangeCompetency = competency === s.competencyDescription ? false : true;
+    if (!isArchievement) {
+      // console.log("Not archievement");
+      if (isChangeCompetency) {
+        //console.log("change compentency");
+        oldCompetency = competency;
+        oldCompetencyDesc = competencyDesc;
+        competency = s.competencyDescription;
+        competencyDesc = s.competencyLevelDescription;
+        iCnt = iCnt + 1;
+      } else {
+        competencyDesc = competencyDesc.concat(
+          "\n",
+          s.competencyLevelDescription
+        );
+      }
+      // handle the last category and row.
+      if (iTotal === i) {
+        oldCompetency = competency;
+        oldCompetencyDesc = competencyDesc;
+        isChangeCompetency = true;
+      }
+    }
+    return isArchievement ? (
       <tr key={i} style={thStyle}>
         <td style={thStyle}>
           {s.competencyDescription}
-          {compNo === "1" && isArchivement ? (
+          {compNo === "1" && isArchievement ? (
             <ul>
-              <li>Process ten prescriptions of low complexity</li>
-              <li>Handle at least five simple intervention</li>
+              <li>
+                Process ten prescriptions of low complexity, with not more than
+                6 items
+              </li>
+              <li>
+                Handle at least five simple intervention with documentation:
+                Able to explain clearly the purpose of the call, read back and
+                document the intervention
+              </li>
             </ul>
           ) : null}
-          {compNo === "2" && isArchivement ? (
+          {compNo === "2" && isArchievement ? (
             <ul>
-              <li>Dispense ten prescription</li>
-              <li>Handle at five simple intervention with documentation</li>
+              <li>
+                Dispense ten prescriptions of low complexity, with not more than
+                6 items
+              </li>
+              <li>
+                Handle at least five simple intervention with documentation:
+                Able to explain clearly the purpose of the call, read back and
+                document the intervention
+              </li>
             </ul>
           ) : null}
-          {compNo === "3" && isArchivement ? (
+          {compNo === "3" && isArchievement ? (
             <ul>
-              <li>Counsel patients</li>
+              <li>
+                Counsel patients/caregivers on ten drug or product enquiries
+                with minimum of three acute medications and three chronic
+                medications
+              </li>
             </ul>
           ) : null}
-          {compNo === "4" && isArchivement ? (
+          {compNo === "4" && isArchievement ? (
             <ul>
-              <li>Process and dispense ten</li>
+              <li>
+                Process and dispense ten prescriptions of low complexity, with
+                not more than 6 items, to demonstrate compliance to medication
+                safety practices
+              </li>
             </ul>
           ) : null}
-          {compNo === "5" && isArchivement ? (
-            <p>
+          {compNo === "5" && isArchievement ? (
+            <span>
               On three separate occasions:
               <ul>
-                <li>Obtains individual patients</li>
-                <li>Perform physical count</li>
+                <li>
+                  Obtain individual patient demographic and medication use
+                  record
+                </li>
+                <li>
+                  Perform physical count of medications and match against
+                  medication records
+                </li>
+                <li>
+                  Perform up-to-date documentation of patient’s medication
+                  information in patient records
+                </li>
               </ul>
-            </p>
+            </span>
           ) : null}
-          {compNo === "6" && isArchivement ? (
+          {compNo === "6" && isArchievement ? (
             <ul>
-              <li>Handle at least five unique</li>
+              <li>
+                Handle at least five unique simple enquiries related to sale of
+                General Sales List or Pharmacy-only item and be able to address
+                all enquiries
+              </li>
             </ul>
           ) : null}
         </td>
         <td style={thStyle}>{s.competencyLevelDescription}</td>
-        {!isArchivement && i === 0 ? (
-          <td
-            style={{
-              width: "30%",
-              textAlign: "left",
-              padding: "2px 5px",
-              border: "1px solid black"
-            }}
-          >
-            {remarks}
-          </td>
-        ) : null}
       </tr>
-    );
+    ) : i > 0 ? (
+      isChangeCompetency || i === iTotal ? (
+        <tr key={i} style={thStyle}>
+          <td style={thStyle}>{oldCompetency}</td>
+          <td style={thStyle}>{oldCompetencyDesc}</td>
+          {iCnt === 2 ? (
+            <td
+              rowSpan="0"
+              style={{
+                width: "30%",
+                textAlign: "left",
+                padding: "2px 5px",
+                border: "1px solid black"
+              }}
+            >
+              {remarks}
+            </td>
+          ) : null}
+        </tr>
+      ) : null
+    ) : null;
   });
-
   return (
     <div className="col-12" key={skillId}>
       <div className="text-center">
-        <p
-          style={{
-            textAlign: "left",
-            fontSize: "1.2rem"
-          }}
-        >
-          {!isArchivement ? (
+        <p style={{ textAlign: "left", fontSize: "1.2rem" }}>
+          {!isArchievement ? (
             <p style={{ printTextStyle }}>
               Based on the student&apos;s performance, areas to be strengthened
               are listed in <strong>Table 2</strong>
@@ -175,27 +248,38 @@ export const renderSkill = (skill, skillId, varDType, remarks) => {
                   border: "1px solid black"
                 }}
               >
-                <u>Key Tasks</u>
+                Key Tasks
               </th>
-              <th
-                style={{
-                  textAlign: "left",
-                  padding: "2px 5px",
-                  border: "1px solid black"
-                }}
-              >
-                <u>Achievement</u>
-              </th>
-              {!isArchivement ? (
+              {isArchievement ? (
                 <th
                   style={{
-                    width: "30%",
                     textAlign: "left",
                     padding: "2px 5px",
                     border: "1px solid black"
                   }}
                 >
-                  <u>Remarks</u>
+                  Achievement
+                </th>
+              ) : (
+                <th
+                  style={{
+                    textAlign: "left",
+                    padding: "2px 5px",
+                    border: "1px solid black"
+                  }}
+                >
+                  Elements
+                </th>
+              )}
+              {!isArchievement ? (
+                <th
+                  style={{
+                    textAlign: "left",
+                    padding: "2px 5px",
+                    border: "1px solid black"
+                  }}
+                >
+                  Remarks
                 </th>
               ) : null}
             </tr>
@@ -211,6 +295,7 @@ export const renderSkill = (skill, skillId, varDType, remarks) => {
 export const renderLCA = (document, skills) => {
   // Get student info and course description
   const recipientName = get(document, "recipient.name");
+  const recipientID = get(document, "recipient.studentId");
   const sText = get(document, "additionalData.performancerange").split("|");
   const Venue = sText[0];
   const DateRange = sText[1];
@@ -228,22 +313,34 @@ export const renderLCA = (document, skills) => {
         className="row d-flex justify-content-center"
         style={{ marginTop: "3rem" }}
       />
-      <div style={printTextStyle}>Letter of Competency Attainment</div>
       <div style={printTextStyle}>
-        This is to inform that {recipientName} {recipientName} was trained and
-        assessed based on the National Competency Standards for Pharmacy
-        Technicians (Entry Level) in school (and through structured internship
-        training at <strong>{Venue}</strong> from <strong>{DateRange}</strong>).
+        {formatDDMMMYYYY(get(document, "issuedOn"))}
+      </div>
+      <br />
+      <div style={titleTextStyle}>Letter of Competency Attainment</div>
+      <br />
+      <br />
+      <div style={printTextStyle}>
+        <p>
+          This is to inform that{" "}
+          <strong>
+            {recipientName} {recipientID}
+          </strong>{" "}
+          was trained and assessed based on the National Competency Standards
+          for Pharmacy Technicians (Entry Level) in school (and through
+          structured internship training at <strong>{Venue}</strong> from{" "}
+          <strong>{DateRange}</strong>).
+        </p>
         <p>
           His performance based on the Keys Tasks of Pharmcy Technicial
           Entry-to-Practice (EPT) Competency Assessment is indicated in{" "}
-          <strong>Table 1 </strong>{" "}
+          <strong>Table 1 </strong>
         </p>
         <p>
           <strong>
             Table 1: Achievements based on Key Tasks of Pharmacy Technician ETP
             Competency Assessment
-          </strong>{" "}
+          </strong>
         </p>
       </div>
       <div className="row">{renderedSkill}</div>
@@ -262,9 +359,6 @@ export const renderCompetency = document => {
 };
 // This is to display the SAS HOD signature
 export const renderOneSignature = certificate => {
-  const certSign = formatSignatoriesPosition(
-    get(certificate, "additionalData.certSignatories[0].position")
-  );
   return (
     <div
       className="row d-flex justify-content-left align-items-end"
@@ -272,21 +366,23 @@ export const renderOneSignature = certificate => {
     >
       <div className="col-6">
         <div className="px-6">
+          Sincerely,
           <img
-            style={{ width: "100%", borderBottom: "1px solid black" }}
+            style={{ borderBottom: "1px solid black" }}
             src={get(
               certificate,
-              "additionalData.certSignatories[0].signature"
+              "additionalData.transcriptSignatories[1].signature"
             )}
           />
         </div>
         <div className="text-left">
           <span style={SignatureTextStyle}>
-            {get(certificate, "additionalData.certSignatories[0].name")}
+            {get(certificate, "additionalData.transcriptSignatories[1].name")}
             <br />
-            {certSign[0]}
-            <br />
-            {get(certificate, "additionalData.certSignatories[0].organisation")}
+            {get(
+              certificate,
+              "additionalData.transcriptSignatories[1].position"
+            )}
             <br />
           </span>
           <br />
