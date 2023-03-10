@@ -324,17 +324,17 @@ export const renderLCA = (document, skills) => {
         <p>
           This is to inform that{" "}
           <strong>
-            {recipientName} {recipientID}
+            {recipientName} (Student ID: {recipientID})
           </strong>{" "}
           was trained and assessed based on the National Competency Standards
-          for Pharmacy Technicians (Entry Level) in school (and through
+          for Pharmacy Technicians (Entry Level) in school and through
           structured internship training at <strong>{Venue}</strong> from{" "}
-          <strong>{DateRange}</strong>).
+          <strong>{DateRange}</strong>.
         </p>
         <p>
-          His performance based on the Keys Tasks of Pharmcy Technicial
-          Entry-to-Practice (EPT) Competency Assessment is indicated in{" "}
-          <strong>Table 1 </strong>
+          The student{"'"}s performance based on the Keys Tasks of Pharmacy
+          Technician Entry-to-Practice (ETP) Competency Assessment is indicated
+          in <strong>Table 1 </strong>
         </p>
         <p>
           <strong>
@@ -366,7 +366,7 @@ export const renderOneSignature = certificate => {
     >
       <div className="col-6">
         <div className="px-6">
-          Sincerely,
+          <p>Sincerely,</p>
           <img
             style={{ borderBottom: "1px solid black" }}
             src={get(
