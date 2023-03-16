@@ -6,24 +6,9 @@ export const fullWidthStyle = {
   width: "100%",
   height: "auto"
 };
-export const signatureTextStyle = {
-  color: "#090",
-  fontWeight: "bold",
-  fontSize: "1.1rem"
-};
-export const printCertStyle = {
-  fontWeight: "bold",
-  fontSize: "1.4rem",
-  color: "#555",
-  textAlign: "left"
-};
 export const SignatureTextStyle = {
   fontFamily: "Arial",
-  fontSize: "1.4rem"
-};
-export const SignatureDateTextStyle = {
-  fontFamily: "Arial",
-  fontSize: "1.0rem"
+  fontSize: "1.2rem"
 };
 export const printTextStyle = {
   fontWeight: "500!important",
@@ -31,10 +16,6 @@ export const printTextStyle = {
   textDecoration: "none",
   color: "#555",
   textAlign: "left"
-};
-export const nameTextStyle = {
-  fontSize: "3rem",
-  textAlign: "center"
 };
 export const titleTextStyle = {
   fontWeight: "bold",
@@ -55,6 +36,7 @@ export const fullTableWidthStyle = {
   height: "auto"
 };
 export const thStyle = {
+  fontSize: "1.2rem",
   padding: "2px 5px",
   border: "1px solid black",
   textAlign: "left"
@@ -75,6 +57,11 @@ export const renderHeader = () => (
   </div>
 );
 //
+export const renderElementList = listEvent => {
+  const strList = listEvent.map((s, i) => <p key={i}>{s}</p>);
+  return strList;
+};
+//
 export const renderSkill = (skill, skillId, varDType, remarks) => {
   const sem = get(skill, "[0].competencyLevel");
   const sType = sem.substring(0, 1);
@@ -85,11 +72,15 @@ export const renderSkill = (skill, skillId, varDType, remarks) => {
   }
   let isChangeCompetency = false;
   let oldCompetency = "-";
-  let oldCompetencyDesc = "";
+  let oldCompetencyDesc = [];
   let competency = "-";
-  let competencyDesc = "";
   let iCnt = 0;
   let iTotal = -1;
+  let isRemarks = false; // addition remarks at the end of the table 1 for asterisk
+
+  // initialize a list of competencyLevelDescription;
+  let listCompetencyLevelDescription = [];
+
   // map
   skill.forEach(() => {
     iTotal++;
@@ -97,28 +88,35 @@ export const renderSkill = (skill, skillId, varDType, remarks) => {
   console.log(iTotal);
   const skillRows = skill.map((s, i) => {
     const compNo = s.competencyDescription.substring(0, 1);
-
     isChangeCompetency = competency === s.competencyDescription ? false : true;
+
+    // this for table 2
     if (!isArchievement) {
       // console.log("Not archievement");
       if (isChangeCompetency) {
         //console.log("change compentency");
         oldCompetency = competency;
-        oldCompetencyDesc = competencyDesc;
+        oldCompetencyDesc = [];
+        oldCompetencyDesc = [].concat(listCompetencyLevelDescription); // copy the array
         competency = s.competencyDescription;
-        competencyDesc = s.competencyLevelDescription;
+        listCompetencyLevelDescription = [];
+        listCompetencyLevelDescription.push(s.competencyLevelDescription);
         iCnt = iCnt + 1;
       } else {
-        competencyDesc = competencyDesc.concat(
-          "\n",
-          s.competencyLevelDescription
-        );
+        // insert into listCompetencyLevelDescription
+        listCompetencyLevelDescription.push(s.competencyLevelDescription);
       }
       // handle the last category and row.
       if (iTotal === i) {
         oldCompetency = competency;
-        oldCompetencyDesc = competencyDesc;
+        oldCompetencyDesc = [];
+        oldCompetencyDesc = [].concat(listCompetencyLevelDescription); // copy the array
         isChangeCompetency = true;
+      }
+    } else {
+      // for table 1 - check s.competencyLevelDescription
+      if (s.competencyLevelDescription === "Completed*") {
+        isRemarks = true;
       }
     }
     return isArchievement ? (
@@ -182,7 +180,7 @@ export const renderSkill = (skill, skillId, varDType, remarks) => {
                   medication records
                 </li>
                 <li>
-                  Perform up-to-date documentation of patient’s medication
+                  Perform up-to-date documentation of patient&apos;s medication
                   information in patient records
                 </li>
               </ul>
@@ -204,7 +202,7 @@ export const renderSkill = (skill, skillId, varDType, remarks) => {
       isChangeCompetency || i === iTotal ? (
         <tr key={i} style={thStyle}>
           <td style={thStyle}>{oldCompetency}</td>
-          <td style={thStyle}>{oldCompetencyDesc}</td>
+          <td style={thStyle}>{renderElementList(oldCompetencyDesc)}</td>
           {iCnt === 2 ? (
             <td
               rowSpan="0"
@@ -227,65 +225,34 @@ export const renderSkill = (skill, skillId, varDType, remarks) => {
       <div className="text-center">
         <p style={{ textAlign: "left", fontSize: "1.2rem" }}>
           {!isArchievement ? (
-            <p style={{ printTextStyle }}>
+            <span style={{ printTextStyle }}>
               Based on the student&apos;s performance, areas to be strengthened
               are listed in <strong>Table 2</strong>
               <br />
               <strong>
                 Table 2: Areas to be reinforced for student upon on-boarding
               </strong>
-            </p>
+            </span>
           ) : null}
         </p>
         <p style={{ textAlign: "left", fontWeight: "bold" }}>{sem1} </p>
         <table style={fullTableWidthStyle}>
           <tbody>
             <tr>
-              <th
-                style={{
-                  textAlign: "left",
-                  padding: "2px 5px",
-                  border: "1px solid black"
-                }}
-              >
-                Key Tasks
-              </th>
+              <th style={thStyle}>Key Tasks</th>
               {isArchievement ? (
-                <th
-                  style={{
-                    textAlign: "left",
-                    padding: "2px 5px",
-                    border: "1px solid black"
-                  }}
-                >
-                  Achievement
-                </th>
+                <th style={thStyle}>Achievement</th>
               ) : (
-                <th
-                  style={{
-                    textAlign: "left",
-                    padding: "2px 5px",
-                    border: "1px solid black"
-                  }}
-                >
-                  Elements
-                </th>
+                <th style={thStyle}>Elements</th>
               )}
-              {!isArchievement ? (
-                <th
-                  style={{
-                    textAlign: "left",
-                    padding: "2px 5px",
-                    border: "1px solid black"
-                  }}
-                >
-                  Remarks
-                </th>
-              ) : null}
+              {!isArchievement ? <th style={thStyle}>Remarks</th> : null}
             </tr>
             {skillRows}
           </tbody>
         </table>
+        {isRemarks ? (
+          <p style={printTextStyle}>*Assessment was completed in school.</p>
+        ) : null}
       </div>
       <br />
     </div>
@@ -345,7 +312,7 @@ export const renderLCA = (document, skills) => {
       </div>
       <div className="row">{renderedSkill}</div>
       <div className="row d-flex justify-content-center">
-        <p style={printTextStyle}>.</p>
+        <p style={printTextStyle}></p>
       </div>
     </div>
   );
@@ -371,18 +338,15 @@ export const renderOneSignature = certificate => {
             style={{ borderBottom: "1px solid black" }}
             src={get(
               certificate,
-              "additionalData.transcriptSignatories[1].signature"
+              "additionalData.skillSignatories[0].signature"
             )}
           />
         </div>
         <div className="text-left">
           <span style={SignatureTextStyle}>
-            {get(certificate, "additionalData.transcriptSignatories[1].name")}
+            {get(certificate, "additionalData.skillSignatories[0].name")}
             <br />
-            {get(
-              certificate,
-              "additionalData.transcriptSignatories[1].position"
-            )}
+            {get(certificate, "additionalData.skillSignatories[0].position")}
             <br />
           </span>
           <br />
