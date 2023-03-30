@@ -85,9 +85,10 @@ export const renderSkill = (skill, skillId, varDType, remarks) => {
   skill.forEach(() => {
     iTotal++;
   });
-  console.log(iTotal);
+  console.log(iTotal); //iTotal will be count - 1
   const skillRows = skill.map((s, i) => {
-    const compNo = s.competencyDescription.substring(0, 1);
+    // i will start from 0 to n-1
+    const compNo = s.competencyCode; //s.competencyDescription.substring(0, 1);
     isChangeCompetency = competency === s.competencyDescription ? false : true;
 
     // this for table 2
@@ -112,6 +113,7 @@ export const renderSkill = (skill, skillId, varDType, remarks) => {
         oldCompetencyDesc = [];
         oldCompetencyDesc = [].concat(listCompetencyLevelDescription); // copy the array
         isChangeCompetency = true;
+        iCnt = i === 0 ? 2 : iCnt; // if only one item in the list, display the remarks
       }
     } else {
       // for table 1 - check s.competencyLevelDescription
@@ -122,7 +124,7 @@ export const renderSkill = (skill, skillId, varDType, remarks) => {
     return isArchievement ? (
       <tr key={i} style={thStyle}>
         <td style={thStyle}>
-          {s.competencyDescription}
+          {s.competencyCode}. {s.competencyDescription}
           {compNo === "1" && isArchievement ? (
             <ul>
               <li>
@@ -198,8 +200,8 @@ export const renderSkill = (skill, skillId, varDType, remarks) => {
         </td>
         <td style={thStyle}>{s.competencyLevelDescription}</td>
       </tr>
-    ) : i > 0 ? (
-      isChangeCompetency || i === iTotal ? (
+    ) : i > -1 ? (
+      (isChangeCompetency && i > 0) || i === iTotal ? (
         <tr key={i} style={thStyle}>
           <td style={thStyle}>{oldCompetency}</td>
           <td style={thStyle}>{renderElementList(oldCompetencyDesc)}</td>
