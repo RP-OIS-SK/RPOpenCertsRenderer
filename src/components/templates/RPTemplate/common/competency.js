@@ -88,6 +88,7 @@ export const renderSkill = (skill, skillId, varDType, remarks) => {
   console.log(iTotal); //iTotal will be count - 1
   const skillRows = skill.map((s, i) => {
     // i will start from 0 to n-1
+    console.log(i);
     const compNo = s.competencyCode; //s.competencyDescription.substring(0, 1);
     isChangeCompetency = competency === s.competencyDescription ? false : true;
 
@@ -109,11 +110,13 @@ export const renderSkill = (skill, skillId, varDType, remarks) => {
       }
       // handle the last category and row.
       if (iTotal === i) {
+        console.log("last row");
+        console.log(i);
         oldCompetency = competency;
         oldCompetencyDesc = [];
         oldCompetencyDesc = [].concat(listCompetencyLevelDescription); // copy the array
         isChangeCompetency = true;
-        iCnt = i === 0 ? 2 : iCnt; // if only one item in the list, display the remarks
+        iCnt = iCnt === 1 ? 2 : iCnt; // if only one item in the list, display the remarks
       }
     } else {
       // for table 1 - check s.competencyLevelDescription
