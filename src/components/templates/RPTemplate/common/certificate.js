@@ -865,7 +865,11 @@ export const renderAwardText = certificate => (
         : "On the recommendation of the Senate has"}
     </div>
 
-    <div style={printTextStyle}>conferred</div>
+    <div style={printTextStyle}>
+      {get(certificate, "$template.name") === "RP_2010_P_MAIN"
+        ? "awarded"
+        : "conferred"}
+    </div>
 
     <div className="row d-flex justify-content-center">
       <p style={printRecipientStyle}>{get(certificate, "recipient.name")}</p>

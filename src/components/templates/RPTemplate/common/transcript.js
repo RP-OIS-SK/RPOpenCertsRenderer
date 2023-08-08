@@ -354,6 +354,7 @@ export const renderCourse = (document, course) => {
   const strTemplate = get(document, "$template.name");
   const isCET = strTemplate.substr(8, 6) === "P_MAIN" ? 0 : 1;
   const isPFP = strTemplate.substr(8, 5) === "P_PFP" ? 1 : 0;
+  const is2010 = strTemplate === "RP_2010_P_MAIN" ? 1 : 0;
   const courseText = isPFP ? "Polytechnic Foundation Programme for " : null;
   const moduleCodeTitle = isPFP ? "MODULE CODE" : "MODULE";
   const moduleTitle = isPFP ? "MODULE NAME" : "";
@@ -436,7 +437,7 @@ export const renderCourse = (document, course) => {
               className="col-4 justify-content-right"
               style={{ textAlign: "right" }}
             >
-              Date of Endorsement:
+              Date of {is2010 ? "Graduation" : "Endorsement"}:
             </div>
             <div
               className="col-2 justify-content-right"
@@ -465,7 +466,9 @@ export const renderCourse = (document, course) => {
                   <u>{moduleTitle}</u>
                 </th>
                 <th>
-                  <u>{isCET > 0 ? "" : "MODULAR CREDITS"}</u>
+                  <u>
+                    {isCET > 0 ? "" : is2010 ? "CREDITS" : "MODULAR CREDITS"}
+                  </u>
                 </th>
                 <th>
                   <u>GRADE</u>

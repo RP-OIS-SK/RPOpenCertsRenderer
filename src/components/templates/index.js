@@ -8,6 +8,8 @@ import DefaultTemplate from "./default";
 import CustomTemplate from "./customTemplate";
 import GovTechDemoCert from "./govtechDemoCert";
 import RP_2020_P_MAIN from "./RPTemplate/2020-P-MAIN";
+import RP_2010_P_MAIN from "./RPTemplate/2010-P-MAIN";
+import RP_2006_P_MAIN from "./RPTemplate/2010-P-MAIN";
 import RP_2020_P_CCA from "./RPTemplate/2020-P-CCA";
 import RP_2020_C_DCBIA from "./RPTemplate/2020-C-DCBIA";
 import RP_2022_C_DCBIA from "./RPTemplate/2022-C-DCBIA";
@@ -44,7 +46,9 @@ export default {
   default: DefaultTemplate,
   CUSTOM_TEMPLATE: CustomTemplate,
   GOVTECH_DEMO: GovTechDemoCert,
+  RP_2006_P_MAIN: RP_2006_P_MAIN,
   RP_2020_P_MAIN: RP_2020_P_MAIN,
+  RP_2010_P_MAIN: RP_2010_P_MAIN,
   RP_2020_P_CCA: RP_2020_P_CCA,
   RP_2020_C_DCBIA: RP_2020_C_DCBIA,
   RP_2022_C_DCBIA: RP_2022_C_DCBIA,
