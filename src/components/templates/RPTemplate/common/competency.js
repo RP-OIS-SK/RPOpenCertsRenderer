@@ -63,6 +63,7 @@ export const renderElementList = listEvent => {
 };
 //
 export const renderSkill = (skill, skillId, varDType, remarks) => {
+  //console.log('skill id :', skillId);
   const sem = get(skill, "[0].competencyLevel");
   const sType = sem.substring(0, 1);
   const sem1 = sem.substring(1);
@@ -85,10 +86,10 @@ export const renderSkill = (skill, skillId, varDType, remarks) => {
   skill.forEach(() => {
     iTotal++;
   });
-  console.log(iTotal); //iTotal will be count - 1
+  //console.log('Total:',iTotal); //iTotal will be count - 1
   const skillRows = skill.map((s, i) => {
     // i will start from 0 to n-1
-    console.log(i);
+    //console.log(i);
     const compNo = s.competencyCode; //s.competencyDescription.substring(0, 1);
     isChangeCompetency = competency === s.competencyDescription ? false : true;
 
@@ -103,20 +104,22 @@ export const renderSkill = (skill, skillId, varDType, remarks) => {
         competency = s.competencyDescription;
         listCompetencyLevelDescription = [];
         listCompetencyLevelDescription.push(s.competencyLevelDescription);
-        iCnt = iCnt + 1;
+        iCnt++;
       } else {
         // insert into listCompetencyLevelDescription
         listCompetencyLevelDescription.push(s.competencyLevelDescription);
       }
       // handle the last category and row.
       if (iTotal === i) {
-        console.log("last row");
-        console.log(i);
+        //console.log("last row");
+        //console.log("i : ",i);
         oldCompetency = competency;
         oldCompetencyDesc = [];
         oldCompetencyDesc = [].concat(listCompetencyLevelDescription); // copy the array
         isChangeCompetency = true;
-        iCnt = iCnt === 1 ? 2 : iCnt; // if only one item in the list, display the remarks
+        //iCnt = iCnt === 1 ? 2 : iCnt; // if only one item in the list, display the remarks
+        iCnt = iCnt === 2 ? 3 : iCnt; // to avoid display 3 columns twice if 2 competency descriptions
+        //console.log("iCNT", iCnt);
       }
     } else {
       // for table 1 - check s.competencyLevelDescription
@@ -208,7 +211,7 @@ export const renderSkill = (skill, skillId, varDType, remarks) => {
         <tr key={i} style={thStyle}>
           <td style={thStyle}>{oldCompetency}</td>
           <td style={thStyle}>{renderElementList(oldCompetencyDesc)}</td>
-          {iCnt === 2 ? (
+          {iCnt === 2 || (i === iTotal && iCnt === 1) ? (
             <td
               rowSpan="0"
               style={{
