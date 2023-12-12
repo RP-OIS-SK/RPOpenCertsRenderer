@@ -748,7 +748,7 @@ export const renderPETAwardText = certificate => {
             Most Outstanding Graduate of the Year
           </p>
           <p style={printTextStyle}>for academic and all-round excellence</p>
-          <p style={printTextStyle}>throughout the course of study</p>
+          <p style={printTextStyle}>throughout the course of study.</p>
         </div>
       ) : null}
       {isEAE ? (
