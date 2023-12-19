@@ -517,10 +517,10 @@ export const renderGPA = document => {
       <div className="col-6" style={boxStyle}>
         {isNOTDPLUS && isCET && isNOTDCN ? null : renderPETGPA(GPA)}
         {isPFP ? (
-          <span>
+          <div style={{ textAlign: "left", display: "inline-block" }}>
             Completed the Polytechnic Foundation Programme for <br />{" "}
             {document.name}
-          </span>
+          </div>
         ) : (
           <span>
             Awarded the {formatBold(document.name)} {formatBold(WithMeritTag)}

@@ -897,7 +897,12 @@ export const renderAwardTextPFP = certificate => (
       className="row d-flex justify-content-center"
       style={{ marginTop: "3rem" }}
     />
-    <div style={printTextStyle}>It is hereby certified that </div>
+    <div style={printTextStyle}>
+      <br />
+      <br />
+      <br />
+      It is hereby certified that{" "}
+    </div>
     <div className="row d-flex justify-content-center">
       <p style={printRecipientStyle}>{get(certificate, "recipient.name")}</p>
     </div>
