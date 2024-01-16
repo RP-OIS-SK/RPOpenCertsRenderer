@@ -764,7 +764,7 @@ export const renderPETAwardText = certificate => {
           <p style={printAwardCertTitleStyle}>
             Most Distinguished Graduate of the Year
           </p>
-          <p style={printAwardCertTitleStyle}>(Academic)</p>
+          <p style={printAwardCertTitleStyle}></p>
         </div>
       ) : null}
       {isBPR ? (
@@ -912,7 +912,7 @@ export const renderAwardTextPFP = certificate => (
     </div>
     <div className="row d-flex justify-content-center">
       <p style={printTextStyle}>
-        Academic Year {get(certificate, "graduationDate").substr(0, 4)}
+        Academic Year {get(certificate, "issuedOn").substr(0, 4)}
       </p>
     </div>
   </div>

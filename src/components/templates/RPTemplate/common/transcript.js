@@ -511,7 +511,8 @@ export const renderGPA = document => {
   const isNOTDCN = strTemplate.substr(8, 4) === "C_DC" ? 0 : 1;
   const isPFP = strTemplate.substr(8, 5) === "P_PFP" ? 1 : 0;
   // const AwardText = isPFP ? "Completed the Polytechnic Foundation Programme for <br />" + document.name : "Awarded the " + formatBold(document.name) + formatBold(WithMeritTag);
-  return GPA ? (
+  // return GPA ? (
+  return (
     <div className="row">
       <div className="col-3"> </div>
       <div className="col-6" style={boxStyle}>
@@ -537,7 +538,7 @@ export const renderGPA = document => {
         ----------------------------------------------------{" "}
       </div>
     </div>
-  ) : null;
+  );
 };
 
 export const renderSignature = document => {
