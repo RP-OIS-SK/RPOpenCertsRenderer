@@ -764,6 +764,9 @@ export const renderPETAwardText = certificate => {
           <p style={printAwardCertTitleStyle}>
             Most Distinguished Graduate of the Year
           </p>
+          <p style={printAwardCertTitleStyle}>
+            {tpName === "RP_2022_P_NAK" ? "(Academic)" : null}
+          </p>
           <p style={printAwardCertTitleStyle}></p>
         </div>
       ) : null}
