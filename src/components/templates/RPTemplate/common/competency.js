@@ -62,7 +62,7 @@ export const renderElementList = listEvent => {
   return strList;
 };
 //
-export const renderSkill = (skill, skillId, varDType, remarks) => {
+export const renderSkill = (skill, skillId, varDType, remarks, tversion) => {
   //console.log('skill id :', skillId);
   const sem = get(skill, "[0].competencyLevel");
   const sType = sem.substring(0, 1);
@@ -177,16 +177,24 @@ export const renderSkill = (skill, skillId, varDType, remarks) => {
           ) : null}
           {compNo === "5" && isArchievement ? (
             <span>
+              <br />
               On three separate occasions:
               <ul>
                 <li>
                   Obtain individual patient demographic and medication use
                   record
                 </li>
-                <li>
-                  Perform physical count of medications and match against
-                  medication records
-                </li>
+                {tversion === "2023" ? (
+                  <li>
+                    Perform physical count of medications and match against
+                    medication records
+                  </li>
+                ) : (
+                  <li>
+                    Check the quantity of medications, physically or based on
+                    electronics records, and match against medication records
+                  </li>
+                )}
                 <li>
                   Perform up-to-date documentation of patient&apos;s medication
                   information in patient records
@@ -269,6 +277,10 @@ export const renderSkill = (skill, skillId, varDType, remarks) => {
 
 export const renderLCA = (document, skills) => {
   // Get student info and course description
+  const strTemplate = get(document, "$template.name");
+  // RP_2023_P_LCA
+  // 0 12 3456789 01234
+  const sVersion = strTemplate.substr(3, 4);
   const recipientName = get(document, "recipient.name");
   const recipientID = get(document, "recipient.studentId");
   const sText = get(document, "additionalData.performancerange").split("|");
@@ -279,7 +291,7 @@ export const renderLCA = (document, skills) => {
   let varDType = { t: 0 };
 
   const renderedSkill = Object.keys(groupedSkill).map(skill =>
-    renderSkill(groupedSkill[skill], skill, varDType, Remarks)
+    renderSkill(groupedSkill[skill], skill, varDType, Remarks, sVersion)
   );
 
   return (
