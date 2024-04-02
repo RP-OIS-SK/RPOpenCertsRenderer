@@ -896,6 +896,15 @@ export const renderAwardText = certificate => (
         {formatCertName(get(certificate, "additionalData.merit"))}
       </div>
     </div>
+    <div style={printTextStyle}>
+      {get(certificate, "$template.name").substr(8, 6) === "C_DCSE" ? (
+        <p style={printTextStyle}>
+          Under the joint-collaboration between
+          <br />
+          Republic Polytechnic and Singapore Polytechnic
+        </p>
+      ) : null}
+    </div>
     <div style={printTextStyle}>with all of its privileges and obligations</div>
 
     <div className="row d-flex justify-content-center">
