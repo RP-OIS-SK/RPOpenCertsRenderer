@@ -10,7 +10,8 @@ import {
   IMG_LOGO_NPRP,
   IMG_LOGO_NYP,
   IMG_LOGO_NYP_SEAL,
-  IMG_LOGO_RPTP
+  IMG_LOGO_RPTP,
+  IMG_LOGO_RPSP
 } from "./images";
 
 import {
@@ -252,6 +253,15 @@ export const renderLogoRP = () => (
     <div className="col-2" />
     <div className="row d-flex justify-content-center">
       <img src={IMG_LOGO_RP} />
+    </div>
+    <div className="col-2" />
+  </div>
+);
+export const renderLogoRPSP = () => (
+  <div className="row d-flex justify-content-center">
+    <div className="col-2" />
+    <div className="row d-flex justify-content-center">
+      <img style={{ width: "1050px" }} src={IMG_LOGO_RPSP} />
     </div>
     <div className="col-2" />
   </div>
