@@ -127,6 +127,10 @@ export const renderGradingSystem = document => {
   // const isNOTDPLUS = strTemplate.substr(8, 4) === "C_DP" ? 0 : 1;
   // RP_2020_P_MAIN
   const is2020 = strTemplate.substr(3, 4) === "2020" ? 1 : 0;
+  const is2021or22 =
+    strTemplate.substr(3, 4) === "2021" || strTemplate.substr(3, 4) === "2022"
+      ? 1
+      : 0;
 
   const listGradeText1L = [
     { grade: "A", score: "4.0", desc: "Excellent" },
@@ -176,7 +180,7 @@ export const renderGradingSystem = document => {
     { grade: "Exempted", score: "-", desc: "Exempted from taking the module" },
     { grade: "Incomplete", score: "-", desc: "Incomplete" }
   ];
-  const listGradeText2L = [
+  const listGradeText2LC = [
     { grade: "DIST", score: "4.0", desc: "Distinction^" },
     { grade: "A", score: "4.0", desc: "Excellent" },
     { grade: "B+", score: "3.5", desc: "Very Good" },
@@ -185,8 +189,7 @@ export const renderGradingSystem = document => {
     { grade: "C", score: "2.0", desc: "Good" },
     { grade: "D+", score: "1.5", desc: "Pass" }
   ];
-
-  const listGradeText2R = [
+  const listGradeText2RC = [
     { grade: "D", score: "1.0", desc: "Pass" },
     { grade: "NGP", score: "1.0", desc: "Non-Graded Pass" },
     { grade: "F", score: "0.0", desc: "Fail" },
@@ -195,7 +198,30 @@ export const renderGradingSystem = document => {
     { grade: "Fail", score: "-", desc: "Fail" },
     { grade: "Exempted", score: "-", desc: "Exempted from taking the module" }
   ];
-
+  const listGradeText2LC23 = [
+    { grade: "DIST", score: "4.0", desc: "Distinction^" },
+    { grade: "A", score: "4.0", desc: "Excellent" },
+    { grade: "B+", score: "3.5", desc: "Very Good" },
+    { grade: "B", score: "3.0", desc: "Very Good" },
+    { grade: "C+", score: "2.5", desc: "Good" },
+    { grade: "C", score: "2.0", desc: "Good" },
+    { grade: "D+", score: "1.5", desc: "Pass" },
+    { grade: "D", score: "1.0", desc: "Pass" }
+  ];
+  const listGradeText2RC23 = [
+    { grade: "NGP", score: "1.0", desc: "Non-Graded Pass" },
+    { grade: "F", score: "0.0", desc: "Fail" },
+    { grade: "Pass*", score: "-", desc: "Pass with Commendation" },
+    { grade: "Pass", score: "-", desc: "Pass" },
+    { grade: "Fail", score: "-", desc: "Fail" },
+    {
+      grade: "Exempted/EX",
+      score: "-",
+      desc: "Exempted from taking the module"
+    },
+    { grade: "Incomplete", score: "-", desc: "Incomplete" },
+    { grade: "TRF()", score: "-", desc: "Credit transfer" }
+  ];
   const listGradeTextPFPL = [
     { grade: "DIST", score: "", desc: "Distinction" },
     { grade: "A", score: "", desc: "Excellent" },
@@ -267,7 +293,9 @@ export const renderGradingSystem = document => {
                 <tbody>
                   {renderTableHeader(isPFP)}
                   {isCET
-                    ? renderGradeList(listGradeText2L)
+                    ? is2020 || is2021or22
+                      ? renderGradeList(listGradeText2LC)
+                      : renderGradeList(listGradeText2LC23)
                     : renderGradeList(listGradeText2LP)}
                 </tbody>
               </table>
@@ -279,7 +307,9 @@ export const renderGradingSystem = document => {
                   {isPFP
                     ? null
                     : isCET
-                    ? renderGradeList(listGradeText2R)
+                    ? is2020 || is2021or22
+                      ? renderGradeList(listGradeText2RC)
+                      : renderGradeList(listGradeText2RC23)
                     : renderGradeList(listGradeText2RP)}
                   {is2020 > 3 && (
                     <tr>

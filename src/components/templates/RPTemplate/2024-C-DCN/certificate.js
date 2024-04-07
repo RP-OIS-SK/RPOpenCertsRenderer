@@ -4,7 +4,6 @@ import {
   renderLogoRP,
   renderAwardText,
   renderTwoSignatures,
-  renderLogoRPPartner,
   renderFooter
 } from "../common/certificate";
 
@@ -17,7 +16,6 @@ const Template = ({ document }) => (
       {renderLogoRP()}
       {renderAwardText(document)}
       {renderTwoSignatures(document, 0)}
-      {renderLogoRPPartner(0, 2022)}
     </div>
     {renderFooter(document)}
   </div>

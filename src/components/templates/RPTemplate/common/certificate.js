@@ -5,9 +5,12 @@ import {
   IMG_CERTIFICATE_SEAL_PFP,
   IMG_CERTIFICATE_SEAL,
   IMG_LOGO_ALLPOLY,
+  IMG_LOGO_ALLPOLY24,
   IMG_LOGO_SUSS,
   IMG_LOGO_NP,
   IMG_LOGO_NPRP,
+  IMG_LOGO_NP24,
+  IMG_LOGO_NP24RP,
   IMG_LOGO_NYP,
   IMG_LOGO_NYP_SEAL,
   IMG_LOGO_RPTP,
@@ -221,20 +224,26 @@ export const renderLogoRPNYP = () => (
     <div className="col-2" />
   </div>
 );
-export const renderLogoRPNP = () => (
+export const renderLogoRPNP = nYear => (
   <div className="row d-flex justify-content-center">
     <div className="col-2" />
     <div className="row d-flex justify-content-center">
-      <img style={{ width: "1050px" }} src={IMG_LOGO_NP} />
+      <img
+        style={{ width: "1050px" }}
+        src={nYear === 2024 ? IMG_LOGO_NP24 : IMG_LOGO_NP}
+      />
     </div>
     <div className="col-2" />
   </div>
 );
-export const renderLogoNPRP = () => (
+export const renderLogoNPRP = nYear => (
   <div className="row d-flex justify-content-center">
     <div className="col-2" />
     <div className="row d-flex justify-content-center">
-      <img style={{ width: "1050px" }} src={IMG_LOGO_NPRP} />
+      <img
+        style={{ width: "1050px" }}
+        src={nYear === 2024 ? IMG_LOGO_NP24RP : IMG_LOGO_NPRP}
+      />
     </div>
     <div className="col-2" />
   </div>
@@ -291,9 +300,9 @@ export const renderLogoRPLeftText = (title1, title2) => (
   </div>
 );
 // type = 0 (SUSS), 1 (Joint Poly)
-export const renderLogoRPPartner = type => {
+export const renderLogoRPPartner = (type, nYear) => {
   let logo = IMG_LOGO_SUSS;
-  if (type === 1) logo = IMG_LOGO_ALLPOLY;
+  if (type === 1) logo = nYear === 2024 ? IMG_LOGO_ALLPOLY24 : IMG_LOGO_ALLPOLY;
   const logoST = type === 0 ? "col-4 mx-auto" : "mx-auto";
   return (
     <div
@@ -875,12 +884,16 @@ export const renderAwardText = certificate => (
     <div style={printTextStyle}>
       {get(certificate, "$template.name").substr(8, 7) === "C_DCCMW"
         ? "the recommendation of the respective Senates have"
+        : get(certificate, "$template.name").substr(8, 6) === "C_DCSE"
+        ? null
         : "On the recommendation of the Senate has"}
     </div>
 
     <div style={printTextStyle}>
       {get(certificate, "$template.name") === "RP_2010_P_MAIN"
         ? "awarded"
+        : get(certificate, "$template.name").substr(8, 6) === "C_DCSE"
+        ? "has conferred"
         : "conferred"}
     </div>
 
