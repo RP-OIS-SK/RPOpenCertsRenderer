@@ -471,6 +471,7 @@ export const renderTwoSignatures = (certificate, displayName) => {
     get(certificate, "additionalData.certSignatories[1].position")
   );
   // RP_2022_C_MCBIA    RP_2022_C_DCSD
+  // 012 3456 789 012
   const tpName = get(certificate, "$template.name");
 
   const isBIA22 =
@@ -478,7 +479,9 @@ export const renderTwoSignatures = (certificate, displayName) => {
       ? false
       : tpName.substr(12, 3) === "BIA"
       ? true
-      : tpName.substr(12, 3) === "SD"
+      : tpName.substr(12, 2) === "SD"
+      ? true
+      : tpName.substr(12, 2) === "SE"
       ? true
       : false;
   // RP_2022_P_PFP
