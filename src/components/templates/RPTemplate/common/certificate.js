@@ -593,12 +593,9 @@ export const renderTwoSignatures = (certificate, displayName) => {
                   )
               : null}
             {displayName === 2
-              ? isBIA22 && (
-                  <span>
-                    <br />
-                    <br />
-                  </span>
-                )
+              ? isBIA22
+                ? certSign2.length > 1 && <span></span>
+                : certSign.length > 1 && <span></span>
               : null}
           </span>
         </div>
