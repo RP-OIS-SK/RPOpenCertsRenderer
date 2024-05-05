@@ -385,6 +385,13 @@ export const renderCourse = (document, course) => {
   const isCET = strTemplate.substr(8, 6) === "P_MAIN" ? 0 : 1;
   const isPFP = strTemplate.substr(8, 5) === "P_PFP" ? 1 : 0;
   const is2010 = strTemplate === "RP_2010_P_MAIN" ? 1 : 0;
+  const isBefore2024 =
+    strTemplate.substr(3, 4) === "2021" ||
+    strTemplate.substr(3, 4) === "2022" ||
+    strTemplate.substr(3, 4) === "2023"
+      ? 1
+      : 0;
+  const isCETBefore2024 = isCET && isBefore2024 ? 1 : 0;
   const courseText = isPFP ? "Polytechnic Foundation Programme for " : null;
   const moduleCodeTitle = isPFP ? "MODULE CODE" : "MODULE";
   const moduleTitle = isPFP ? "MODULE NAME" : "";
@@ -408,7 +415,7 @@ export const renderCourse = (document, course) => {
             : formatBold(s.name)}
         </td>
         <td>
-          {isCET > 0 || s.courseCredit === 0 || s.courseCredit === "0"
+          {isCETBefore2024 || s.courseCredit === 0 || s.courseCredit === "0"
             ? ""
             : s.courseCredit}
         </td>
@@ -497,7 +504,13 @@ export const renderCourse = (document, course) => {
                 </th>
                 <th>
                   <u>
-                    {isCET > 0 ? "" : is2010 ? "CREDITS" : "MODULAR CREDITS"}
+                    {isCET
+                      ? isBefore2024
+                        ? ""
+                        : "CREDITS"
+                      : is2010
+                      ? "CREDITS"
+                      : "MODULAR CREDITS"}
                   </u>
                 </th>
                 <th>

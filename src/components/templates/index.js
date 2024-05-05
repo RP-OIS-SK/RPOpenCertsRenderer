@@ -24,9 +24,11 @@ import RP_2020_C_DCSU from "./RPTemplate/2020-C-DCSU";
 import RP_2022_C_DCSU from "./RPTemplate/2022-C-DCSU";
 import RP_2024_C_DCSU from "./RPTemplate/2024-C-DCSU";
 import RP_2021_C_DCCMW from "./RPTemplate/2021-C-DCCMW";
+import RP_2024_C_DCCMW from "./RPTemplate/2024-C-DCCMW";
 import RP_2020_C_DPLUS from "./RPTemplate/2020-C-DPLUS";
 import RP_2022_C_DPLUS from "./RPTemplate/2022-C-DPLUS";
 import RP_2022_C_DCSD from "./RPTemplate/2022-C-DCSD";
+import RP_2024_C_DCSD from "./RPTemplate/2024-C-DCSD";
 import RP_2024_C_DCSE from "./RPTemplate/2024-C-DCSE";
 import RP_2020_C_MC from "./RPTemplate/2020-C-MC";
 import RP_2022_C_MC from "./RPTemplate/2022-C-MC";
@@ -77,7 +79,9 @@ export default {
   RP_2020_C_DPLUS: RP_2020_C_DPLUS,
   RP_2022_C_DPLUS: RP_2022_C_DPLUS,
   RP_2022_C_DCSD: RP_2022_C_DCSD,
+  RP_2024_C_DCSD: RP_2024_C_DCSD,
   RP_2021_C_DCCMW: RP_2021_C_DCCMW,
+  RP_2024_C_DCCMW: RP_2024_C_DCCMW,
   RP_2024_C_DCSE: RP_2024_C_DCSE,
   RP_2020_C_MC: RP_2020_C_MC,
   RP_2022_C_MC: RP_2022_C_MC,
