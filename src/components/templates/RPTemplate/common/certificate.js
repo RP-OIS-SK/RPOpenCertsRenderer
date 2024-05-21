@@ -523,7 +523,7 @@ export const renderTwoSignatures = (certificate, displayName) => {
           <span style={signatureTextStyle}>
             {displayName === 3 // CMW - do not display.  title in image
               ? null
-              : displayName > 0 // MC/DTC  -display position
+              : displayName < 3 // MC/DTC  -display position
               ? certSign.length > 1
                 ? certSign[1]
                 : null
@@ -580,11 +580,9 @@ export const renderTwoSignatures = (certificate, displayName) => {
           <span style={signatureTextStyle}>
             {displayName === 3 // CMW - do not display.  title in image
               ? null
-              : displayName > 0 // MC/DTC  -display position
-              ? isBIA22
-                ? certSign2.length > 1
-                  ? certSign2[1]
-                  : null
+              : displayName < 3 // MC/DTC  -display position
+              ? certSign2.length > 1
+                ? certSign2[1]
                 : certSign.length > 1 && (
                     <span>
                       <br />
