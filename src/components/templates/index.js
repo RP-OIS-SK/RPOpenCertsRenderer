@@ -7,6 +7,8 @@
 import DefaultTemplate from "./default";
 import CustomTemplate from "./customTemplate";
 import GovTechDemoCert from "./govtechDemoCert";
+import RP_2024_P_MINOR from "./RPTemplate/2024-P-MINOR";
+import RP_2024_P_NMAIN from "./RPTemplate/2024-P-NMAIN";
 import RP_2020_P_MAIN from "./RPTemplate/2020-P-MAIN";
 import RP_2010_P_MAIN from "./RPTemplate/2010-P-MAIN";
 import RP_2006_P_MAIN from "./RPTemplate/2006-P-MAIN";
@@ -60,6 +62,8 @@ export default {
   default: DefaultTemplate,
   CUSTOM_TEMPLATE: CustomTemplate,
   GOVTECH_DEMO: GovTechDemoCert,
+  RP_2024_P_MINOR: RP_2024_P_MINOR,
+  RP_2024_P_NMAIN: RP_2024_P_NMAIN,
   RP_2006_P_MAIN: RP_2006_P_MAIN,
   RP_2020_P_MAIN: RP_2020_P_MAIN,
   RP_2010_P_MAIN: RP_2010_P_MAIN,

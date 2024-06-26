@@ -382,7 +382,8 @@ export const renderCourse = (document, course) => {
   const admissionDate = get(document, "admissionDate");
   const graduationDate = get(document, "graduationDate");
   const strTemplate = get(document, "$template.name");
-  const isCET = strTemplate.substr(8, 6) === "P_MAIN" ? 0 : 1;
+  const isCET = strTemplate.substr(8, 2) === "P_" ? 0 : 1;
+  //const isPET = strTemplate.substr(8, 6) === "P_MAIN" ? 1 : 0;
   const isPFP = strTemplate.substr(8, 5) === "P_PFP" ? 1 : 0;
   const is2010 = strTemplate === "RP_2010_P_MAIN" ? 1 : 0;
   const isBefore2024 =
@@ -392,9 +393,12 @@ export const renderCourse = (document, course) => {
       ? 1
       : 0;
   const isCETBefore2024 = isCET && isBefore2024 ? 1 : 0;
+  const isMinCert = strTemplate.substr(8, 7) === "P_MINOR" ? 1 : 0;
+  const isPETMinor = strTemplate.substr(8, 7) === "P_NMAIN" ? 1 : 0;
   const courseText = isPFP ? "Polytechnic Foundation Programme for " : null;
   const moduleCodeTitle = isPFP ? "MODULE CODE" : "MODULE";
   const moduleTitle = isPFP ? "MODULE NAME" : "";
+  const minorTitle = isMinCert ? document.name + " in the " : "";
   // Group all modules by semesters
   const groupedSubjects = groupBy(course, "semester");
 
@@ -442,7 +446,8 @@ export const renderCourse = (document, course) => {
             <div className="col-10">
               :&nbsp;&nbsp;
               {courseText}
-              {document.name}
+              {isMinCert ? minorTitle : ""}
+              {isMinCert || isPETMinor ? document.description : document.name}
             </div>
           </div>
           <div className="row">
@@ -455,13 +460,13 @@ export const renderCourse = (document, course) => {
               className="col-4 justify-content-right"
               style={{ textAlign: "right" }}
             >
-              Date of Admission:
+              {isMinCert ? "" : "Date of Admission:"}
             </div>
             <div
               className="col-2 justify-content-right"
               style={{ textAlign: "right" }}
             >
-              {formatDDMMMYYYY(admissionDate)}
+              {isMinCert ? "" : formatDDMMMYYYY(admissionDate)}
             </div>
           </div>
           <div className="row">
@@ -474,7 +479,13 @@ export const renderCourse = (document, course) => {
               className="col-4 justify-content-right"
               style={{ textAlign: "right" }}
             >
-              Date of {is2010 ? "Graduation" : "Endorsement"}:
+              Date of{" "}
+              {isMinCert
+                ? "Endorsement"
+                : is2010
+                ? "Graduation"
+                : "Endorsement"}
+              :
             </div>
             <div
               className="col-2 justify-content-right"
@@ -549,17 +560,25 @@ export const renderGPA = document => {
   const WithMerit = get(document, "additionalData.merit");
   const WithMeritTag = WithMerit === "Y" ? "with Merit" : "";
   const strTemplate = get(document, "$template.name");
-  const isCET = strTemplate.substr(8, 6) === "P_MAIN" ? 0 : 1;
+  const isCET = strTemplate.substr(8, 6) === "P_MAIN" || "P_NMAI" ? 0 : 1;
   const isNOTDPLUS = strTemplate.substr(8, 4) === "C_DP" ? 0 : 1;
   const isNOTDCN = strTemplate.substr(8, 4) === "C_DC" ? 0 : 1;
   const isPFP = strTemplate.substr(8, 5) === "P_PFP" ? 1 : 0;
+  const isMinCert = strTemplate.substr(8, 7) === "P_MINOR" ? 1 : 0;
+  const isPETMinor = strTemplate.substr(8, 7) === "P_NMAIN" ? 1 : 0;
+  const minorTitle = isMinCert ? document.name + " in the " : "";
+  const withMinorText = isPETMinor ? " with " + document.name : "";
   // const AwardText = isPFP ? "Completed the Polytechnic Foundation Programme for <br />" + document.name : "Awarded the " + formatBold(document.name) + formatBold(WithMeritTag);
   // return GPA ? (
   return (
     <div className="row">
       <div className="col-3"> </div>
       <div className="col-6" style={boxStyle}>
-        {isNOTDPLUS && isCET && isNOTDCN ? null : renderPETGPA(GPA)}
+        {isNOTDPLUS && isCET && isNOTDCN
+          ? null
+          : isMinCert
+          ? null
+          : renderPETGPA(GPA)}
         {isPFP ? (
           <div style={{ textAlign: "left", display: "inline-block" }}>
             Completed the Polytechnic Foundation Programme for <br />{" "}
@@ -567,7 +586,13 @@ export const renderGPA = document => {
           </div>
         ) : (
           <span>
-            Awarded the {formatBold(document.name)} {formatBold(WithMeritTag)}
+            Awarded the {formatBold(minorTitle)}
+            {isMinCert || isPETMinor
+              ? formatBold(document.description)
+              : formatBold(document.name)}{" "}
+            {formatBold(WithMeritTag)}
+            {isPETMinor ? <br /> : null}
+            {formatBold(withMinorText)}
           </span>
         )}
         <br />

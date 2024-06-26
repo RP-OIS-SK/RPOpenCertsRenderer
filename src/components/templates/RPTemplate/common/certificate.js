@@ -890,6 +890,10 @@ export const renderAwardText = certificate => (
     <div style={printTextStyle}>
       {get(certificate, "$template.name") === "RP_2010_P_MAIN"
         ? "awarded"
+        : get(certificate, "$template.name") === "RP_2024_P_NMAIN"
+        ? "conferred"
+        : get(certificate, "$template.name") === "RP_2024_P_MINOR"
+        ? "conferred"
         : get(certificate, "$template.name").substr(8, 6) === "C_DCSE"
         ? "has conferred"
         : "conferred"}
@@ -903,8 +907,23 @@ export const renderAwardText = certificate => (
 
     <div className="row d-flex justify-content-center">
       <div style={printTextStyle}>
-        <p style={printCertStyle}>{get(certificate, "description")}</p>
+        <p>
+          {get(certificate, "$template.name").substr(8, 7) === "P_MINOR" ? (
+            <span style={printCertStyle}>
+              {get(certificate, "name")} in the
+              <br />
+              {get(certificate, "description")}
+            </span>
+          ) : (
+            <span style={printCertStyle}>
+              {get(certificate, "description")}
+            </span>
+          )}
+        </p>
         {formatCertName(get(certificate, "additionalData.merit"))}
+        {get(certificate, "$template.name").substr(8, 7) === "P_NMAIN" ? (
+          <span style={printCertStyle}>with {get(certificate, "name")}</span>
+        ) : null}
       </div>
     </div>
     <div style={printTextStyle}>
