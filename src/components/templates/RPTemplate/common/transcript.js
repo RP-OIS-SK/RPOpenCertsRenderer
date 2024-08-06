@@ -426,7 +426,10 @@ export const renderCourse = (document, course) => {
             : formatBold(s.name)}
         </td>
         <td>
-          {isCETBefore2024 || s.courseCredit === 0 || s.courseCredit === "0"
+          {isPFP ||
+          isCETBefore2024 ||
+          s.courseCredit === 0 ||
+          s.courseCredit === "0"
             ? ""
             : s.courseCredit}
         </td>
@@ -528,6 +531,8 @@ export const renderCourse = (document, course) => {
                         : "CREDITS"
                       : is2010
                       ? "CREDITS"
+                      : isPFP
+                      ? ""
                       : "MODULAR CREDITS"}
                   </u>
                 </th>
@@ -577,6 +582,8 @@ export const renderGPA = document => {
   const withMinorText = isPETMinor ? " with " + document.name : "";
   // const AwardText = isPFP ? "Completed the Polytechnic Foundation Programme for <br />" + document.name : "Awarded the " + formatBold(document.name) + formatBold(WithMeritTag);
   // return GPA ? (
+
+  // PFP - do not render the GPA if it is PFP
   return (
     <div className="row">
       <div className="col-3"> </div>
@@ -584,6 +591,8 @@ export const renderGPA = document => {
         {isNOTDPLUS && isCET && isNOTDCN
           ? null
           : isMinCert
+          ? null
+          : isPFP
           ? null
           : renderPETGPA(GPA)}
         {isPFP ? (
