@@ -596,7 +596,7 @@ export const renderGPA = document => {
           ? null
           : renderPETGPA(GPA)}
         {isPFP ? (
-          <div style={{ textAlign: "center", display: "inline-block" }}>
+          <div style={{ textAlign: "left", display: "inline-block" }}>
             Completed the Polytechnic Foundation Programme for <br />{" "}
             {document.name}
           </div>
