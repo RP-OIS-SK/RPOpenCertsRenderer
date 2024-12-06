@@ -13,7 +13,7 @@ const Template = ({ document }) => (
       className="container"
       style={{ border: 0, borderColor: "#AAA", borderStyle: "solid" }}
     >
-      {renderLogoRP()}
+      {renderLogoRP(2010)}
       {renderAwardText(document)}
       {renderTwoSignatures(document, 0)}
     </div>

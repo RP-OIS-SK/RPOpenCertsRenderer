@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { get, groupBy } from "lodash";
 import React from "react";
-import { IMG_LOGO_RP_HORIZONTAL } from "./images";
+import { IMG_LOGO_RP_HORIZONTAL, IMG_LOGO_RP_HORIZONTAL24 } from "./images";
 import {
   formatDDMMMYYYY,
   formatBold,
@@ -41,18 +41,6 @@ export const boxStyle = {
   borderStyle: "solid",
   textAlign: "center"
 };
-
-export const renderHeader = () => (
-  <div className="row">
-    <div className="col-4">
-      <img style={fullWidthStyle} src={IMG_LOGO_RP_HORIZONTAL} />
-    </div>
-    <div className="col" />
-    <div className="col-7">
-      <div style={titleTextStyle}>TRANSCRIPT OF ACADEMIC RECORD</div>
-    </div>
-  </div>
-);
 
 // additional remarks for PET only
 export const renderRemarksGradingSystem = (is2020, isDisplayOldCETLegend) => (
@@ -112,6 +100,51 @@ export const renderGradeList = listGrade => {
     </tr>
   ));
   return strList;
+};
+export const renderHeader = document => {
+  const strTemplate = get(document, "$template.name");
+  // check it is PET template  - position 16 for scheme 1.4, position 9 for scheme 2.0
+  //const isCET = strTemplate.substr(8, 6) === "P_MAIN" ? 0 : 1;
+  const isCET = strTemplate.substr(8, 2) === "C_" ? 1 : 0;
+  const isPET = !isCET;
+  //const isPFP = strTemplate.substr(8, 5) === "P_PFP" ? 1 : 0;
+  /* const isBefore2023 =
+    strTemplate.substr(3, 4) === "2020" ||
+    strTemplate.substr(3, 4) === "2021" ||
+    strTemplate.substr(3, 4) === "2022"
+      ? 1
+      : 0;
+    */
+
+  const isBefore2024 =
+    strTemplate.substr(3, 4) === "2006" ||
+    strTemplate.substr(3, 4) === "2010" ||
+    strTemplate.substr(3, 4) === "2020" ||
+    strTemplate.substr(3, 4) === "2021" ||
+    strTemplate.substr(3, 4) === "2022" ||
+    strTemplate.substr(3, 4) === "2023"
+      ? 1
+      : 0;
+  const isBefore2025 =
+    isBefore2024 || strTemplate.substr(3, 4) === "2024" ? 1 : 0;
+  const isDisplayNewLogo =
+    (isCET && isBefore2024) || (isPET && isBefore2025) ? 0 : 1;
+  return (
+    <div className="row">
+      <div className="col-4">
+        <img
+          style={fullWidthStyle}
+          src={
+            isDisplayNewLogo ? IMG_LOGO_RP_HORIZONTAL24 : IMG_LOGO_RP_HORIZONTAL
+          }
+        />
+      </div>
+      <div className="col" />
+      <div className="col-7">
+        <div style={titleTextStyle}>TRANSCRIPT OF ACADEMIC RECORD</div>
+      </div>
+    </div>
+  );
 };
 
 export const renderGradingSystem = document => {
@@ -664,7 +697,7 @@ export const renderSignature = document => {
 
 const Template = ({ document }) => (
   <div className="container" style={{ fontSize: "0.9rem" }}>
-    {renderHeader()}
+    {renderHeader(document)}
     {renderTranscript(document)}
     {renderGPA(document)}
     {renderSignature(document)}

@@ -12,9 +12,13 @@ import {
   IMG_LOGO_NP24,
   IMG_LOGO_NP24RP,
   IMG_LOGO_NYP,
+  IMG_LOGO_NYP24,
   IMG_LOGO_NYP_SEAL,
   IMG_LOGO_RPTP,
-  IMG_LOGO_RPSP
+  IMG_LOGO_RPSP,
+  IMG_LOGO_RP24,
+  IMG_LOGO_RP24TP,
+  IMG_LOGO_RP24SP
 } from "./images";
 
 import {
@@ -215,11 +219,14 @@ export const renderSingapore = () => (
     <p style={singaporeTextStyle} />
   </div>
 );
-export const renderLogoRPNYP = () => (
+export const renderLogoRPNYP = nYear => (
   <div className="row d-flex justify-content-center">
     <div className="col-2" />
     <div className="row d-flex justify-content-center">
-      <img style={{ width: "1050px" }} src={IMG_LOGO_NYP} />
+      <img
+        style={{ width: "1050px" }}
+        src={nYear === 2024 ? IMG_LOGO_NYP24 : IMG_LOGO_NYP}
+      />
     </div>
     <div className="col-2" />
   </div>
@@ -248,29 +255,35 @@ export const renderLogoNPRP = nYear => (
     <div className="col-2" />
   </div>
 );
-export const renderLogoRPTP = () => (
+export const renderLogoRPTP = nYear => (
   <div className="row d-flex justify-content-center">
     <div className="col-2" />
     <div className="row d-flex justify-content-center">
-      <img style={{ width: "1050px" }} src={IMG_LOGO_RPTP} />
+      <img
+        style={{ width: "1050px" }}
+        src={nYear === 2024 ? IMG_LOGO_RP24TP : IMG_LOGO_RPTP}
+      />
     </div>
     <div className="col-2" />
   </div>
 );
-export const renderLogoRP = () => (
+export const renderLogoRP = nYear => (
   <div className="row d-flex justify-content-center">
     <div className="col-2" />
     <div className="row d-flex justify-content-center">
-      <img src={IMG_LOGO_RP} />
+      <img src={nYear === 2024 ? IMG_LOGO_RP24 : IMG_LOGO_RP} />
     </div>
     <div className="col-2" />
   </div>
 );
-export const renderLogoRPSP = () => (
+export const renderLogoRPSP = nYear => (
   <div className="row d-flex justify-content-center">
     <div className="col-2" />
     <div className="row d-flex justify-content-center">
-      <img style={{ width: "1050px" }} src={IMG_LOGO_RPSP} />
+      <img
+        style={{ width: "1050px" }}
+        src={nYear === 2024 ? IMG_LOGO_RP24SP : IMG_LOGO_RPSP}
+      />
     </div>
     <div className="col-2" />
   </div>

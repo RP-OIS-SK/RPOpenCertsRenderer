@@ -14,7 +14,7 @@ const Template = ({ document }) => (
       className="container"
       style={{ border: 0, borderColor: "#AAA", borderStyle: "solid" }}
     >
-      {renderLogoRP()}
+      {renderLogoRP(2024)}
       {renderAwardText(document)}
       {renderTwoSignatures(document, 0)}
       {renderLogoRPPartner(1, 2024)}
