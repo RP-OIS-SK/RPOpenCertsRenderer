@@ -725,6 +725,10 @@ export const renderAwardTextDROH = certificate => (
 //01234567890
 export const renderPETAwardText = certificate => {
   const tpName = get(certificate, "$template.name");
+  const bf2024 =
+    tpName.substr(3, 4) === "2022" || tpName.substr(3, 4) === "2021"
+      ? true
+      : false;
   const tpCode = tpName.substr(10, 3);
   const isDROH = tpCode === "AWA" ? true : false;
   const isBOG = tpCode === "BOG" ? true : false;
@@ -739,7 +743,11 @@ export const renderPETAwardText = certificate => {
         className="row d-flex justify-content-center"
         style={{ marginTop: "3rem" }}
       />
-      {isDROH ? <p style={printPAwardCertTitleStyle}>Academic Awards</p> : null}
+      {isDROH ? (
+        <p style={printPAwardCertTitleStyle}>
+          Academic Award{bf2024 ? "s" : null}
+        </p>
+      ) : null}
       {isEAE ? (
         <p style={printAwardCertTitleStyle}>Republic Polytechnic</p>
       ) : null}
@@ -760,10 +768,15 @@ export const renderPETAwardText = certificate => {
           <p style={printPAwardCertTitleStyle}>
             Director&apos;s Roll of Honour
           </p>
-          <p style={printPATextStyle}>for excellent academic performance in</p>
+          {bf2024 ? (
+            <p style={printPATextStyle}>
+              for excellent academic performance in
+            </p>
+          ) : null}
           <p style={printPATextStyle}>
             Academic Year {get(certificate, "description").substr(0, 4)}{" "}
-            Semester {get(certificate, "description").substr(5, 1)} for the
+            Semester {get(certificate, "description").substr(5, 1)}{" "}
+            {bf2024 ? "for the" : "in the"}
           </p>
           <p style={printPAAwardDipTitleStyle}>{get(certificate, "name")}</p>
           <br />
