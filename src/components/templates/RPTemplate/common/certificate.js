@@ -774,8 +774,9 @@ export const renderPETAwardText = certificate => {
             </p>
           ) : null}
           <p style={printPATextStyle}>
-            Academic Year {get(certificate, "description").substr(0, 4)}{" "}
-            Semester {get(certificate, "description").substr(5, 1)}{" "}
+            {bf2024 ? null : "for "}Academic Year{" "}
+            {get(certificate, "description").substr(0, 4)} Semester{" "}
+            {get(certificate, "description").substr(5, 1)}{" "}
             {bf2024 ? "for the" : "in the"}
           </p>
           <p style={printPAAwardDipTitleStyle}>{get(certificate, "name")}</p>
