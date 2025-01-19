@@ -9,6 +9,7 @@ import CustomTemplate from "./customTemplate";
 import GovTechDemoCert from "./govtechDemoCert";
 import RP_2024_P_MINOR from "./RPTemplate/2024-P-MINOR";
 import RP_2024_P_NMAIN from "./RPTemplate/2024-P-NMAIN";
+import RP_2024_P_MAIN from "./RPTemplate/2024-P-MAIN";
 import RP_2020_P_MAIN from "./RPTemplate/2020-P-MAIN";
 import RP_2010_P_MAIN from "./RPTemplate/2010-P-MAIN";
 import RP_2006_P_MAIN from "./RPTemplate/2006-P-MAIN";
@@ -57,6 +58,7 @@ import RP_2022_P_SCHS from "./RPTemplate/2022-P-SCHS";
 import RP_2022_P_NAK from "./RPTemplate/2022-P-NAK";
 import RP_2024_P_NAK from "./RPTemplate/2024-P-NAK";
 import RP_2022_P_PFP from "./RPTemplate/2022-P-PFP";
+import RP_2024_P_PFP from "./RPTemplate/2024-P-PFP";
 import RP_2023_P_LCA from "./RPTemplate/2023-P-LCA";
 import RP_2024_P_LCA from "./RPTemplate/2024-P-LCA";
 
@@ -67,8 +69,9 @@ export default {
   RP_2024_P_MINOR: RP_2024_P_MINOR,
   RP_2024_P_NMAIN: RP_2024_P_NMAIN,
   RP_2006_P_MAIN: RP_2006_P_MAIN,
-  RP_2020_P_MAIN: RP_2020_P_MAIN,
   RP_2010_P_MAIN: RP_2010_P_MAIN,
+  RP_2020_P_MAIN: RP_2020_P_MAIN,
+  RP_2024_P_MAIN: RP_2024_P_MAIN,
   RP_2020_P_CCA: RP_2020_P_CCA,
   RP_2020_C_DCBIA: RP_2020_C_DCBIA,
   RP_2022_C_DCBIA: RP_2022_C_DCBIA,
@@ -114,6 +117,7 @@ export default {
   RP_2022_P_NAK: RP_2022_P_NAK,
   RP_2024_P_NAK: RP_2024_P_NAK,
   RP_2022_P_PFP: RP_2022_P_PFP,
+  RP_2024_P_PFP: RP_2024_P_PFP,
   RP_2023_P_LCA: RP_2023_P_LCA,
   RP_2024_P_LCA: RP_2024_P_LCA,
   NULL: []
