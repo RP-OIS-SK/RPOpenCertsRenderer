@@ -3,7 +3,9 @@ import React from "react";
 import {
   IMG_LOGO_RP,
   IMG_CERTIFICATE_SEAL_PFP,
+  IMG_CERTIFICATE_SEAL_PFP_25,
   IMG_CERTIFICATE_SEAL,
+  IMG_CERTIFICATE_SEAL_25,
   IMG_LOGO_ALLPOLY,
   IMG_LOGO_ALLPOLY24,
   IMG_LOGO_SUSS,
@@ -14,9 +16,10 @@ import {
   IMG_LOGO_NYP,
   IMG_LOGO_NYP24,
   IMG_LOGO_NYP_SEAL,
+  IMG_LOGO_NYP_SEAL25,
   IMG_LOGO_RPTP,
   IMG_LOGO_RPSP,
-  IMG_LOGO_RP24,
+  IMG_LOGO_RP24L,
   IMG_LOGO_RP24TP,
   IMG_LOGO_RP24SP
 } from "./images";
@@ -72,21 +75,31 @@ export const printCertStyle = {
   color: "#555",
   textAlign: "center"
 };
-
+export const printCertStyle24 = {
+  fontFamily: "Arial",
+  fontWeight: "bold",
+  fontSize: "3rem",
+  color: "#555",
+  textAlign: "center"
+};
 export const printAwardCertTitleStyle = {
   fontFamily: "Times New Roman",
   fontSize: "3.5rem",
   color: "#008000",
   textAlign: "center"
 };
-
+export const printAwardCertTitleStyle24 = {
+  fontFamily: "Arial",
+  fontSize: "3.0rem",
+  color: "#008000",
+  textAlign: "center"
+};
 export const printPAwardCertTitleStyle = {
   fontFamily: "Californian FB",
   fontSize: "3.5rem",
   color: "#008000",
   textAlign: "center"
 };
-
 export const printAwardDipTitleStyle = {
   fontFamily: "Times New Roman",
   fontSize: "2.5rem",
@@ -150,6 +163,14 @@ export const printRecipientStyle = {
   color: "#555",
   textAlign: "center"
 };
+export const printRecipientStyle24 = {
+  fontFamily: "Arial",
+  fontWeight: "bold",
+  textTransform: "uppercase",
+  fontSize: "3rem",
+  color: "#555",
+  textAlign: "center"
+};
 export const printAwardTitleStyle = {
   fontFamily: "Lucida Calligraphy",
   fontWeight: "500!important",
@@ -164,7 +185,20 @@ export const printTextStyle = {
   color: "#555",
   textAlign: "center"
 };
-
+export const printTextStyle24 = {
+  fontFamily: "Arial",
+  fontWeight: "500!important",
+  fontSize: "2rem",
+  color: "#555",
+  textAlign: "center"
+};
+export const printAwardTextStyle24 = {
+  fontFamily: "Arial",
+  fontWeight: "bold",
+  fontSize: "3.0rem",
+  color: "#555",
+  textAlign: "center"
+};
 export const printPATextStyle = {
   fontFamily: "Californian FB",
   fontWeight: "500!important",
@@ -210,7 +244,13 @@ export const supportJPTextStyle = {
   fontWeight: "900",
   textAlign: "center"
 };
-
+export const supportJPTextStyle24 = {
+  fontFamily: "Arial",
+  display: "block",
+  fontSize: "1.5rem",
+  fontWeight: "900",
+  textAlign: "center"
+};
 export const renderSingapore = () => (
   <div
     className="row d-flex justify-content-center"
@@ -271,7 +311,10 @@ export const renderLogoRP = nYear => (
   <div className="row d-flex justify-content-center">
     <div className="col-2" />
     <div className="row d-flex justify-content-center">
-      <img src={nYear === 2024 ? IMG_LOGO_RP24 : IMG_LOGO_RP} />
+      <img
+        style={{ width: "1050px" }}
+        src={nYear === 2024 ? IMG_LOGO_RP24L : IMG_LOGO_RP}
+      />
     </div>
     <div className="col-2" />
   </div>
@@ -327,7 +370,9 @@ export const renderLogoRPPartner = (type, nYear) => {
         <span style={supportSUSSTextStyle}>
           {type === 0 ? "This programme is supported by" : null}{" "}
         </span>
-        <span style={supportJPTextStyle}>
+        <span
+          style={nYear === 2024 ? supportJPTextStyle24 : supportJPTextStyle}
+        >
           {type === 1 ? "In collaboration with:" : null}{" "}
         </span>
         <div className={logoST}>
@@ -499,6 +544,17 @@ export const renderTwoSignatures = (certificate, displayName) => {
       : false;
   // RP_2022_P_PFP
   const isPFP = displayName === 4 ? true : false;
+
+  const sYear = tpName.substr(3, 4); // extract year from template name
+  const bf2025 =
+    sYear === "2010" ||
+    sYear === "2020" ||
+    sYear === "2021" ||
+    sYear === "2022" ||
+    sYear === "2023" ||
+    sYear === "2024"
+      ? true
+      : false; //check year
   return (
     <div
       className="row d-flex justify-content-center align-items-end"
@@ -548,16 +604,30 @@ export const renderTwoSignatures = (certificate, displayName) => {
         <div className="px-4">
           {displayName === 3 && (
             <span>
-              <img style={sealWidthStyle2} src={IMG_LOGO_NYP_SEAL} />
+              <img
+                style={sealWidthStyle2}
+                src={bf2025 ? IMG_LOGO_NYP_SEAL : IMG_LOGO_NYP_SEAL25}
+              />
               <br /> <br />
             </span>
           )}
           {displayName === 3 ? (
-            <img style={sealWidthStyle2} src={IMG_CERTIFICATE_SEAL} />
+            <img
+              style={sealWidthStyle2}
+              src={bf2025 ? IMG_CERTIFICATE_SEAL : IMG_CERTIFICATE_SEAL_25}
+            />
           ) : isPFP ? (
-            <img style={sealWidthStyle} src={IMG_CERTIFICATE_SEAL_PFP} />
+            <img
+              style={sealWidthStyle}
+              src={
+                bf2025 ? IMG_CERTIFICATE_SEAL_PFP : IMG_CERTIFICATE_SEAL_PFP_25
+              }
+            />
           ) : (
-            <img style={sealWidthStyle} src={IMG_CERTIFICATE_SEAL} />
+            <img
+              style={sealWidthStyle}
+              src={bf2025 ? IMG_CERTIFICATE_SEAL : IMG_CERTIFICATE_SEAL_25}
+            />
           )}
         </div>
       </div>
@@ -622,51 +692,73 @@ export const renderIssuingDate = certificate => (
   </span>
 );
 
-// type = 0 - DPLUS, 1 - Modular Cert, 2 - PTD/SD
-export const renderAwardTextCET = (certificate, type) => (
-  <div>
-    <div
-      className="row d-flex justify-content-center"
-      style={{ marginTop: "3rem" }}
-    />
+// this is for MC certificate,  type = 0 - DPLUS, 1 - Modular Cert, 2 - PTD/SD
+export const renderAwardTextCET = (certificate, type) => {
+  const tpName = get(certificate, "$template.name");
+  const sYear = tpName.substr(3, 4); // extract year from template name
+  const bf2025 =
+    sYear === "2010" ||
+    sYear === "2020" ||
+    sYear === "2021" ||
+    sYear === "2022" ||
+    sYear === "2023" ||
+    sYear === "2024"
+      ? true
+      : false; //check year
+  const awardPrintTextStyle = bf2025 ? printTextStyle : printTextStyle24;
+  return (
+    <div>
+      <div
+        className="row d-flex justify-content-center"
+        style={{ marginTop: "3rem" }}
+      />
 
-    <div style={printTextStyle}>&nbsp;</div>
+      <div style={awardPrintTextStyle}>&nbsp;</div>
 
-    <div style={printTextStyle}>&nbsp;</div>
+      <div style={awardPrintTextStyle}>&nbsp;</div>
 
-    <div style={printTextStyle}>It is hereby certified that</div>
+      <div style={awardPrintTextStyle}>It is hereby certified that</div>
 
-    <div className="row d-flex justify-content-center">
-      <p style={printRecipientStyle}>{get(certificate, "recipient.name")}</p>
-    </div>
-
-    <div style={printTextStyle}>having satisfied all course requirements</div>
-
-    <div style={printTextStyle}>was awarded the</div>
-
-    <div className="row d-flex justify-content-center">
-      <div style={printTextStyle}>
-        <p style={printCertStyle}>{get(certificate, "name")}</p>
+      <div className="row d-flex justify-content-center">
+        <p style={bf2025 ? printRecipientStyle : printRecipientStyle24}>
+          {get(certificate, "recipient.name")}
+        </p>
       </div>
-    </div>
 
-    <div style={printTextStyle}>{type === 1 ? "leading to the " : null}</div>
+      <div style={awardPrintTextStyle}>
+        having satisfied all course requirements
+      </div>
 
-    <div className="row d-flex justify-content-center">
-      <div style={printTextStyle}>
-        <p style={printCertStyle}>
-          {type === 1 ? get(certificate, "description") : null}
+      <div style={awardPrintTextStyle}>was awarded the</div>
+
+      <div className="row d-flex justify-content-center">
+        <div style={awardPrintTextStyle}>
+          <p style={bf2025 ? printCertStyle : printAwardTextStyle24}>
+            {get(certificate, "name")}
+          </p>
+        </div>
+      </div>
+
+      <div style={awardPrintTextStyle}>
+        {type === 1 ? "leading to the " : null}
+      </div>
+
+      <div className="row d-flex justify-content-center">
+        <div style={awardPrintTextStyle}>
+          <p style={bf2025 ? printCertStyle : printAwardTextStyle24}>
+            {type === 1 ? get(certificate, "description") : null}
+          </p>
+        </div>
+      </div>
+
+      <div className="row d-flex justify-content-center">
+        <p style={awardPrintTextStyle}>
+          {formatDDMMMYYYY(get(certificate, "issuedOn"))}
         </p>
       </div>
     </div>
-
-    <div className="row d-flex justify-content-center">
-      <p style={printTextStyle}>
-        {formatDDMMMYYYY(get(certificate, "issuedOn"))}
-      </p>
-    </div>
-  </div>
-);
+  );
+};
 
 // Render the main text for Short Course Cert
 export const renderAwardTextSH = certificate => (
@@ -887,115 +979,166 @@ export const renderCOAAwardTextDROH = certificate => (
     <br />
   </div>
 );
-export const renderAwardText = certificate => (
-  <div>
-    <div
-      className="row d-flex justify-content-center"
-      style={{ marginTop: "3rem" }}
-    />
-    <div style={printTextStyle}>
-      The Board of Governors of{" "}
-      {get(certificate, "$template.name").substr(8, 7) === "C_DCCMW"
-        ? null
-        : "the"}
-    </div>
+// This is for diploma cert
+//RP_2024_P_MAIN
+//01234567890
+export const renderAwardText = certificate => {
+  const tpName = get(certificate, "$template.name");
+  const sYear = tpName.substr(3, 4); // extract year from template name
+  const bf2025 =
+    sYear === "2010" ||
+    sYear === "2020" ||
+    sYear === "2021" ||
+    sYear === "2022" ||
+    sYear === "2023" ||
+    sYear === "2024"
+      ? true
+      : false; //check year
+  const awardPrintTextStyle = bf2025 ? printTextStyle : printTextStyle24;
+  return (
+    <div>
+      <div
+        className="row d-flex justify-content-center"
+        style={{ marginTop: "3rem" }}
+      />
+      <div style={awardPrintTextStyle}>
+        The Board of Governors of{" "}
+        {get(certificate, "$template.name").substr(8, 7) === "C_DCCMW"
+          ? null
+          : "the"}
+      </div>
 
-    <div style={printTextStyle}>
-      {get(certificate, "$template.name").substr(8, 7) === "C_DCCMW"
-        ? "Nanyang Polytechnic and Republic Polytechnic on"
-        : "Republic Polytechnic"}
-    </div>
+      <div style={awardPrintTextStyle}>
+        {get(certificate, "$template.name").substr(8, 7) === "C_DCCMW"
+          ? "Nanyang Polytechnic and Republic Polytechnic on"
+          : "Republic Polytechnic"}
+      </div>
 
-    <div style={printTextStyle}>
-      {get(certificate, "$template.name").substr(8, 7) === "C_DCCMW"
-        ? "the recommendation of the respective Senates have"
-        : get(certificate, "$template.name").substr(8, 6) === "C_DCSE"
-        ? null
-        : "On the recommendation of the Senate has"}
-    </div>
+      <div style={awardPrintTextStyle}>
+        {get(certificate, "$template.name").substr(8, 7) === "C_DCCMW"
+          ? "the recommendation of the respective Senates have"
+          : //: get(certificate, "$template.name").substr(8, 6) === "C_DCSE"
+            //? null
+            "On the recommendation of the Senate has"}
+      </div>
 
-    <div style={printTextStyle}>
-      {get(certificate, "$template.name") === "RP_2010_P_MAIN"
-        ? "awarded"
-        : get(certificate, "$template.name") === "RP_2024_P_NMAIN"
-        ? "conferred"
-        : get(certificate, "$template.name") === "RP_2024_P_MINOR"
-        ? "conferred"
-        : get(certificate, "$template.name").substr(8, 6) === "C_DCSE"
-        ? "has conferred"
-        : "conferred"}
-    </div>
+      <div style={awardPrintTextStyle}>
+        {get(certificate, "$template.name") === "RP_2010_P_MAIN"
+          ? "awarded"
+          : get(certificate, "$template.name") === "RP_2024_P_NMAIN"
+          ? "conferred"
+          : get(certificate, "$template.name") === "RP_2024_P_MINOR"
+          ? "conferred"
+          : get(certificate, "$template.name").substr(8, 6) === "C_DCSE"
+          ? "has conferred"
+          : "conferred"}
+      </div>
 
-    <div className="row d-flex justify-content-center">
-      <p style={printRecipientStyle}>{get(certificate, "recipient.name")}</p>
-    </div>
-
-    <div style={printTextStyle}>the</div>
-
-    <div className="row d-flex justify-content-center">
-      <div style={printTextStyle}>
-        <p>
-          {get(certificate, "$template.name").substr(8, 7) === "P_MINOR" ? (
-            <span style={printCertStyle}>
-              {get(certificate, "name")} in the
-              <br />
-              {get(certificate, "description")}
-            </span>
-          ) : (
-            <span style={printCertStyle}>
-              {get(certificate, "description")}
-            </span>
-          )}
+      <div className="row d-flex justify-content-center">
+        <p style={bf2025 ? printRecipientStyle : printRecipientStyle24}>
+          {get(certificate, "recipient.name")}
         </p>
-        {formatCertName(get(certificate, "additionalData.merit"))}
-        {get(certificate, "$template.name").substr(8, 7) === "P_NMAIN" ? (
-          <span style={printCertStyle}>with {get(certificate, "name")}</span>
+      </div>
+
+      <div style={awardPrintTextStyle}>the</div>
+
+      <div className="row d-flex justify-content-center">
+        <div style={awardPrintTextStyle}>
+          <p>
+            {get(certificate, "$template.name").substr(8, 7) === "P_MINOR" ? (
+              bf2025 ? (
+                <span style={bf2025 ? printCertStyle : printAwardTextStyle24}>
+                  {get(certificate, "name")} in the
+                  <br />
+                  {get(certificate, "description")}
+                </span>
+              ) : (
+                <span style={bf2025 ? printCertStyle : printAwardTextStyle24}>
+                  {get(certificate, "name")}
+                </span>
+              )
+            ) : (
+              <span style={bf2025 ? printCertStyle : printAwardTextStyle24}>
+                {get(certificate, "description")}
+              </span>
+            )}
+          </p>
+          {get(certificate, "$template.name").substr(8, 7) === "P_MINOR" &&
+          !bf2025
+            ? null
+            : formatCertName(get(certificate, "additionalData.merit"))}
+          {get(certificate, "$template.name").substr(8, 7) === "P_NMAIN" ? (
+            <span style={bf2025 ? printCertStyle : printAwardTextStyle24}>
+              with {get(certificate, "name")}
+            </span>
+          ) : null}
+        </div>
+      </div>
+      <div style={awardPrintTextStyle}>
+        {get(certificate, "$template.name").substr(8, 6) === "C_DCSE" ? (
+          <p style={awardPrintTextStyle}>
+            Under the joint-collaboration between
+            <br />
+            Republic Polytechnic and Singapore Polytechnic
+          </p>
         ) : null}
       </div>
-    </div>
-    <div style={printTextStyle}>
-      {get(certificate, "$template.name").substr(8, 6) === "C_DCSE" ? (
-        <p style={printTextStyle}>
-          Under the joint-collaboration between
-          <br />
-          Republic Polytechnic and Singapore Polytechnic
+      <div style={awardPrintTextStyle}>
+        with all of its privileges and obligations
+      </div>
+
+      <div className="row d-flex justify-content-center">
+        <p style={awardPrintTextStyle}>
+          Given this {renderIssuingDate(certificate)}.
         </p>
-      ) : null}
+      </div>
     </div>
-    <div style={printTextStyle}>with all of its privileges and obligations</div>
-
-    <div className="row d-flex justify-content-center">
-      <p style={printTextStyle}>Given this {renderIssuingDate(certificate)}.</p>
+  );
+};
+export const renderAwardTextPFP = certificate => {
+  const tpName = get(certificate, "$template.name");
+  const sYear = tpName.substr(3, 4); // extract year from template name
+  const bf2025 =
+    sYear === "2010" ||
+    sYear === "2020" ||
+    sYear === "2021" ||
+    sYear === "2022" ||
+    sYear === "2023" ||
+    sYear === "2024"
+      ? true
+      : false; //check year
+  const awardPrintTextStyle = bf2025 ? printTextStyle : printTextStyle24;
+  return (
+    <div>
+      <div
+        className="row d-flex justify-content-center"
+        style={{ marginTop: "3rem" }}
+      />
+      <div style={awardPrintTextStyle}>
+        <br />
+        <br />
+        <br />
+        It is hereby certified that{" "}
+      </div>
+      <div className="row d-flex justify-content-center">
+        <p style={bf2025 ? printRecipientStyle : printRecipientStyle24}>
+          {get(certificate, "recipient.name")}
+        </p>
+      </div>
+      <div style={awardPrintTextStyle}>has successfully completed the</div>
+      <div className="row d-flex justify-content-center">
+        <div style={bf2025 ? printTextStyle : printAwardTextStyle24}>
+          {get(certificate, "description")}
+        </div>
+      </div>
+      <div className="row d-flex justify-content-center">
+        <p style={awardPrintTextStyle}>
+          Academic Year {get(certificate, "issuedOn").substr(0, 4)}
+        </p>
+      </div>
     </div>
-  </div>
-);
-
-export const renderAwardTextPFP = certificate => (
-  <div>
-    <div
-      className="row d-flex justify-content-center"
-      style={{ marginTop: "3rem" }}
-    />
-    <div style={printTextStyle}>
-      <br />
-      <br />
-      <br />
-      It is hereby certified that{" "}
-    </div>
-    <div className="row d-flex justify-content-center">
-      <p style={printRecipientStyle}>{get(certificate, "recipient.name")}</p>
-    </div>
-    <div style={printTextStyle}>has successfully completed the</div>
-    <div className="row d-flex justify-content-center">
-      <div style={printTextStyle}>{get(certificate, "description")}</div>
-    </div>
-    <div className="row d-flex justify-content-center">
-      <p style={printTextStyle}>
-        Academic Year {get(certificate, "issuedOn").substr(0, 4)}
-      </p>
-    </div>
-  </div>
-);
+  );
+};
 
 export const renderFooter = certificate => (
   <div className="container">
