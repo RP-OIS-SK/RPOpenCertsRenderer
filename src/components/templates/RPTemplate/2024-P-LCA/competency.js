@@ -12,7 +12,7 @@ const Template = ({ document }) => (
       className="container"
       style={{ border: 0, borderColor: "#AAA", borderStyle: "solid" }}
     >
-      {renderHeader()}
+      {renderHeader(document)}
       {renderCompetency(document)}
       {renderOneSignature(document, 0)}
     </div>

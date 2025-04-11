@@ -1,6 +1,6 @@
 import { get, groupBy } from "lodash";
 import React from "react";
-import { IMG_LOGO_RP_HORIZONTAL } from "./images";
+import { IMG_LOGO_RP_HORIZONTAL, IMG_LOGO_RP_HORIZONTAL24 } from "./images";
 import { formatDDMMMYYYY } from "./functions";
 export const fullWidthStyle = {
   width: "100%",
@@ -41,21 +41,42 @@ export const thStyle = {
   border: "1px solid black",
   textAlign: "left"
 };
-export const renderHeader = () => (
-  <div className="row">
-    <div className="col-7">
-      9 Woodlands Avenue 9, Sinagpore 738964
-      <br />
-      tel: (65) 6510 3000
-      <br />
-      <a href="https://www.rp.edu.sg">www.rp.edu.sg</a>
+export const renderHeader = document => {
+  const strTemplate = get(document, "$template.name");
+  //RP_2024_P_LCA
+  //0123456789012
+  const isBefore2025 =
+    strTemplate.substr(3, 4) === "2006" ||
+    strTemplate.substr(3, 4) === "2010" ||
+    strTemplate.substr(3, 4) === "2020" ||
+    strTemplate.substr(3, 4) === "2021" ||
+    strTemplate.substr(3, 4) === "2022" ||
+    strTemplate.substr(3, 4) === "2023" ||
+    strTemplate.substr(3, 4) === "2024"
+      ? 1
+      : 0;
+  const isDisplayNewLogo = isBefore2025 ? 0 : 1;
+  return (
+    <div className="row">
+      <div className="col-7">
+        9 Woodlands Avenue 9, Sinagpore 738964
+        <br />
+        tel: (65) 6510 3000
+        <br />
+        <a href="https://www.rp.edu.sg">www.rp.edu.sg</a>
+      </div>
+      <div className="col" />
+      <div className="col-4">
+        <img
+          style={fullWidthStyle}
+          src={
+            isDisplayNewLogo ? IMG_LOGO_RP_HORIZONTAL24 : IMG_LOGO_RP_HORIZONTAL
+          }
+        />
+      </div>
     </div>
-    <div className="col" />
-    <div className="col-4">
-      <img style={fullWidthStyle} src={IMG_LOGO_RP_HORIZONTAL} />
-    </div>
-  </div>
-);
+  );
+};
 //
 export const renderElementList = listEvent => {
   const strList = listEvent.map((s, i) => <p key={i}>{s}</p>);
