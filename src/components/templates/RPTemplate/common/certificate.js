@@ -355,7 +355,10 @@ export const renderLogoRPLeftText = (title1, title2) => (
     </div>
   </div>
 );
+///
+// Render the logo for RP Partner
 // type = 0 (SUSS), 1 (Joint Poly)
+///
 export const renderLogoRPPartner = (type, nYear) => {
   let logo = IMG_LOGO_SUSS;
   if (type === 1) logo = nYear === 2024 ? IMG_LOGO_ALLPOLY24 : IMG_LOGO_ALLPOLY;
@@ -383,7 +386,9 @@ export const renderLogoRPPartner = (type, nYear) => {
     </div>
   );
 };
+///
 // signature for short courses
+///
 export const renderCOAOneSignature = certificate => {
   return (
     <div
@@ -415,6 +420,9 @@ export const renderCOAOneSignature = certificate => {
     </div>
   );
 };
+
+// render one signature for awards with 1 signatory
+//
 export const renderOneSignature = certificate => {
   const certSign = formatSignatoriesPosition(
     get(certificate, "additionalData.certSignatories[0].position")
@@ -454,6 +462,10 @@ export const renderOneSignature = certificate => {
     </div>
   );
 };
+
+//
+// render two signatures for awards with 2 signatories
+//
 export const renderTwoSignaturesAwards = certificate => {
   return (
     <div
@@ -509,6 +521,9 @@ export const renderTwoSignaturesAwards = certificate => {
   );
 };
 
+//
+// Render the signature block for the certificate
+///
 export const renderBlock = () => (
   <div className="text-center">
     <span style={signatureTextStyle}>
@@ -518,15 +533,27 @@ export const renderBlock = () => (
   </div>
 );
 
+///
 // displayname  = 0 - others, 1 - SD for BIA, 2 - MC, 3 - SD for CMW, 4- PFP
 // for 0, 1&2 and isBIA22 = false -  display position only,
 // for 1&2 and isBIA22 = true, display position in 2 lines - "Principle & CEO" | "Republic poly"
+///
 export const renderTwoSignatures = (certificate, displayName) => {
   const certSign = formatSignatoriesPosition(
     get(certificate, "additionalData.certSignatories[0].position")
   );
   const certSign2 = formatSignatoriesPosition(
     get(certificate, "additionalData.certSignatories[1].position")
+  );
+  const sigAdd0 = certSign2.length > certSign.length ? 1 : 0;
+  const sigAdd1 = certSign.length > certSign2.length ? 1 : 0;
+  const RPName0 = get(
+    certificate,
+    "additionalData.certSignatories[0].organisation"
+  );
+  const RPName1 = get(
+    certificate,
+    "additionalData.certSignatories[1].organisation"
   );
   // RP_2022_C_MCBIA    RP_2022_C_DCSD
   // 012 3456 789 012
@@ -597,6 +624,19 @@ export const renderTwoSignatures = (certificate, displayName) => {
                 ? certSign[1]
                 : null
               : null}
+          </span>
+        </div>
+        <div className="text-center">
+          <span style={signatureTextStyle}>
+            {displayName === 0 && !bf2025 // PET 2025 display RP
+              ? RPName0
+              : null}
+            {displayName === 0 && !bf2025 && sigAdd0 ? ( // check if BOE signature has additional line, add line break
+              <span>
+                <br />
+                <br />
+              </span>
+            ) : null}
           </span>
         </div>
       </div>
@@ -680,10 +720,25 @@ export const renderTwoSignatures = (certificate, displayName) => {
               : null}
           </span>
         </div>
+        <div className="text-center">
+          <span style={signatureTextStyle}>
+            {displayName === 0 && !bf2025 // PET 2025 display RP
+              ? RPName1
+              : null}
+            {displayName === 0 && !bf2025 && sigAdd1 ? ( // check if RP signature has additional line, add line break
+              <span>
+                <br />
+                <br />
+              </span>
+            ) : null}
+          </span>
+        </div>
       </div>
     </div>
   );
 };
+///
+// Remnder Issue Date
 
 export const renderIssuingDate = certificate => (
   <span>
@@ -691,8 +746,9 @@ export const renderIssuingDate = certificate => (
     {formatDate(get(certificate, "issuedOn"))}
   </span>
 );
-
+///
 // this is for MC certificate,  type = 0 - DPLUS, 1 - Modular Cert, 2 - PTD/SD
+///
 export const renderAwardTextCET = (certificate, type) => {
   const tpName = get(certificate, "$template.name");
   const sYear = tpName.substr(3, 4); // extract year from template name
@@ -759,8 +815,9 @@ export const renderAwardTextCET = (certificate, type) => {
     </div>
   );
 };
-
+///
 // Render the main text for Short Course Cert
+//
 export const renderAwardTextSH = certificate => (
   <div>
     <div
@@ -807,6 +864,7 @@ export const renderAwardTextDROH = certificate => (
     <br />
   </div>
 );
+///
 // Render the main text for DROH
 //RP_2021_P_AWARD
 //RP_2022_P_BOG
@@ -932,6 +990,9 @@ export const renderPETAwardText = certificate => {
     </div>
   );
 };
+///
+// Render the main text for COA Award for Excellence in Mentoring Programme
+///
 export const renderCOAAwardTextEMP = certificate => (
   <div>
     <div
@@ -954,7 +1015,9 @@ export const renderCOAAwardTextEMP = certificate => (
     <br />
   </div>
 );
-
+///
+// Render the main text for COA Award for Director's Roll of Honour
+///
 export const renderCOAAwardTextDROH = certificate => (
   <div>
     <div
@@ -979,9 +1042,12 @@ export const renderCOAAwardTextDROH = certificate => (
     <br />
   </div>
 );
+
+////
 // This is for diploma cert
 //RP_2024_P_MAIN
 //01234567890
+////
 export const renderAwardText = certificate => {
   const tpName = get(certificate, "$template.name");
   const sYear = tpName.substr(3, 4); // extract year from template name
@@ -1095,6 +1161,10 @@ export const renderAwardText = certificate => {
     </div>
   );
 };
+
+///
+// Render the main text for PFP Award Certificate
+///
 export const renderAwardTextPFP = certificate => {
   const tpName = get(certificate, "$template.name");
   const sYear = tpName.substr(3, 4); // extract year from template name
@@ -1140,6 +1210,9 @@ export const renderAwardTextPFP = certificate => {
   );
 };
 
+///
+// Render the footer for all certificates
+///
 export const renderFooter = certificate => (
   <div className="container">
     <div className="row d-flex justify-content-center">

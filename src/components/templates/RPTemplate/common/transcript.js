@@ -163,12 +163,18 @@ export const renderGradingSystem = document => {
   // const is2020 = strTemplate.substr(3, 4) === "2020" ? 1 : 0;
 
   //const is2021or22 =strTemplate.substr(3, 4) === "2021" || strTemplate.substr(3, 4) === "2022" ? 1 : 0;
+  const sYear = strTemplate.substr(3, 4);
   const isBefore2023 =
-    strTemplate.substr(3, 4) === "2020" ||
-    strTemplate.substr(3, 4) === "2021" ||
-    strTemplate.substr(3, 4) === "2022"
-      ? 1
-      : 0;
+    sYear === "2020" || sYear === "2021" || sYear === "2022" ? 1 : 0;
+  const isBf2025 =
+    sYear === "2010" ||
+    sYear === "2020" ||
+    sYear === "2021" ||
+    sYear === "2022" ||
+    sYear === "2023" ||
+    sYear === "2024"
+      ? true
+      : false; //check year
   const isDisplayOldCETLegend = isCET && isBefore2023 ? 1 : 0;
 
   const listGradeText1L = [
@@ -349,7 +355,9 @@ export const renderGradingSystem = document => {
                     ? isBefore2023
                       ? renderGradeList(listGradeText2RC)
                       : renderGradeList(listGradeText2RC23)
-                    : renderGradeList(listGradeText2RP)}
+                    : isBf2025
+                    ? renderGradeList(listGradeText2RP)
+                    : renderGradeList(listGradeText2RC23)}
                   {isBefore2023 > 3 && (
                     <tr>
                       <td style={{ paddingLeft: "10px" }}>
@@ -368,7 +376,7 @@ export const renderGradingSystem = document => {
                       <td>{isCET ? null : "Non-Graded Pass"}</td>
                     </tr>
                   )}
-                  {isCET ? null : renderBlankLine()}
+                  {isCET ? null : isBf2025 ? renderBlankLine() : null}
                 </tbody>
               </table>
             </div>

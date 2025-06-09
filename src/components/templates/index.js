@@ -65,14 +65,19 @@ import RP_2024_C_MCSE from "./RPTemplate/2024-C-MCSE";
 import RP_2025_C_MCSE from "./RPTemplate/2025-C-MCSE";
 import RP_2021_P_AWARD from "./RPTemplate/2021-P-AWARD";
 import RP_2024_P_AWARD from "./RPTemplate/2024-P-AWARD";
+import RP_2025_P_AWARD from "./RPTemplate/2025-P-AWARD";
 import RP_2022_P_COA_DROH from "./RPTemplate/2022-P-COA-DROH";
 import RP_2022_D_COA_EMP from "./RPTemplate/2022-D-COA-EMP";
 import RP_2022_P_BOG from "./RPTemplate/2022-P-BOG";
+import RP_2025_P_BOG from "./RPTemplate/2025-P-BOG";
 import RP_2022_P_BPRZ from "./RPTemplate/2022-P-BPRZ";
+import RP_2025_P_BPRZ from "./RPTemplate/2025-P-BPRZ";
 import RP_2022_P_EAE from "./RPTemplate/2022-P-EAE";
+import RP_2025_P_EAE from "./RPTemplate/2025-P-EAE";
 import RP_2022_P_SCHS from "./RPTemplate/2022-P-SCHS";
 import RP_2022_P_NAK from "./RPTemplate/2022-P-NAK";
 import RP_2024_P_NAK from "./RPTemplate/2024-P-NAK";
+import RP_2025_P_NAK from "./RPTemplate/2025-P-NAK";
 import RP_2022_P_PFP from "./RPTemplate/2022-P-PFP";
 import RP_2024_P_PFP from "./RPTemplate/2024-P-PFP";
 import RP_2025_P_PFP from "./RPTemplate/2025-P-PFP";
@@ -142,14 +147,19 @@ export default {
   RP_2025_C_MCSE: RP_2025_C_MCSE,
   RP_2021_P_AWARD: RP_2021_P_AWARD,
   RP_2024_P_AWARD: RP_2024_P_AWARD,
+  RP_2025_P_AWARD: RP_2025_P_AWARD,
   RP_2022_P_COA_DROH: RP_2022_P_COA_DROH,
   RP_2022_D_COA_EMP: RP_2022_D_COA_EMP,
   RP_2022_P_BOG: RP_2022_P_BOG,
+  RP_2025_P_BOG: RP_2025_P_BOG,
   RP_2022_P_BPRZ: RP_2022_P_BPRZ,
+  RP_2025_P_BPRZ: RP_2025_P_BPRZ,
   RP_2022_P_EAE: RP_2022_P_EAE,
+  RP_2025_P_EAE: RP_2025_P_EAE,
   RP_2022_P_SCHS: RP_2022_P_SCHS,
   RP_2022_P_NAK: RP_2022_P_NAK,
   RP_2024_P_NAK: RP_2024_P_NAK,
+  RP_2025_P_NAK: RP_2025_P_NAK,
   RP_2022_P_PFP: RP_2022_P_PFP,
   RP_2024_P_PFP: RP_2024_P_PFP,
   RP_2025_P_PFP: RP_2025_P_PFP,
