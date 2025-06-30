@@ -12,7 +12,7 @@ const Template = ({ document }) => (
       className="container"
       style={{ border: 0, borderColor: "#AAA", borderStyle: "solid" }}
     >
-      {renderLogoRPLeft()}
+      {renderLogoRPLeft(2024)}
       {renderPETAwardText(document)}
       {renderOneSignature(document)}
     </div>

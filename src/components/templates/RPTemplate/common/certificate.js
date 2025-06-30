@@ -2,6 +2,8 @@ import { get } from "lodash";
 import React from "react";
 import {
   IMG_LOGO_RP,
+  IMG_AWARD_LOGO_RP,
+  IMG_AWARD_LOGO_RP24,
   IMG_CERTIFICATE_SEAL_PFP,
   IMG_CERTIFICATE_SEAL_PFP_25,
   IMG_CERTIFICATE_SEAL,
@@ -331,19 +333,22 @@ export const renderLogoRPSP = nYear => (
     <div className="col-2" />
   </div>
 );
-export const renderLogoRPLeft = () => (
+export const renderLogoRPLeft = nYear => (
   <div className="row d-flex justify-content-left">
     <div className="row d-flex justify-content-left">
-      <img src={IMG_LOGO_RP} />
+      <img src={nYear === 2024 ? IMG_AWARD_LOGO_RP24 : IMG_AWARD_LOGO_RP} />
     </div>
     <div className="col-2" />
     <div className="col-2" />
   </div>
 );
-export const renderLogoRPLeftText = (title1, title2) => (
+export const renderLogoRPLeftText = (title1, title2, nYear) => (
   <div className="row d-flex justify-content-left">
     <div className="col2">
-      <img style={RPlogoAwardStyle} src={IMG_LOGO_RP} />
+      <img
+        style={RPlogoAwardStyle}
+        src={nYear === 2024 ? IMG_AWARD_LOGO_RP24 : IMG_AWARD_LOGO_RP}
+      />
     </div>
     <div className="col-2" />
     <div className="col-6">

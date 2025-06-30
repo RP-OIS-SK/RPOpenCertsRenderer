@@ -43,12 +43,19 @@ export const boxStyle = {
 };
 
 // additional remarks for PET only
-export const renderRemarksGradingSystem = (is2020, isDisplayOldCETLegend) => (
+// 2025 added changes for second line.
+export const renderRemarksGradingSystem = (
+  is2020,
+  isDisplayOldCETLegend,
+  isBf2025
+) => (
   <span>
     <br />
     {isDisplayOldCETLegend
       ? null
-      : "Incomplete Grade is implemented from Academic Year 2012 Semester 2 onwards\n"}
+      : isBf2025
+      ? "Incomplete Grade is implemented from Academic Year 2012 Semester 2 onwards.\n"
+      : "Incomplete Grade is implemented for full-time diplomas from Academic Year 2012 Semester 2 onwards.\n"}
     {!isDisplayOldCETLegend && <br />}
     {isDisplayOldCETLegend
       ? "Non-Graded Pass Grade is implemented from March 2022 onwards."
@@ -385,7 +392,7 @@ export const renderGradingSystem = document => {
         {isPFP ? null : (
           <p>
             ^Distinction is awarded from Academic Year 2012 onwards.
-            {renderRemarksGradingSystem(isCET, isDisplayOldCETLegend)}
+            {renderRemarksGradingSystem(isCET, isDisplayOldCETLegend, isBf2025)}
           </p>
         )}
         {isPFP ? null : (
