@@ -23,7 +23,9 @@ import {
   IMG_LOGO_RPSP,
   IMG_LOGO_RP24L,
   IMG_LOGO_RP24TP,
-  IMG_LOGO_RP24SP
+  IMG_LOGO_RP24SP,
+  IMG_LOGO_HEADER,
+  IMG_LOGO_FOOTER
 } from "./images";
 
 import {
@@ -92,7 +94,8 @@ export const printAwardCertTitleStyle = {
 };
 export const printAwardCertTitleStyle24 = {
   fontFamily: "Arial",
-  fontSize: "3.0rem",
+  fontWeight: "bold",
+  fontSize: "3.5rem",
   color: "#008000",
   textAlign: "center"
 };
@@ -100,6 +103,27 @@ export const printPAwardCertTitleStyle = {
   fontFamily: "Californian FB",
   fontSize: "3.5rem",
   color: "#008000",
+  textAlign: "center"
+};
+export const printPAwardCertTitleStyle24 = {
+  fontFamily: "Arial",
+  fontWeight: "bold",
+  fontSize: "3.5rem",
+  color: "#008000",
+  textAlign: "center"
+};
+
+export const printPAwardCertRecipentStyle = {
+  fontFamily: "Californian FB",
+  fontSize: "3.5rem",
+  color: "#008000",
+  textAlign: "center"
+};
+export const printPAwardCertRecipentStyle24 = {
+  fontFamily: "Arial",
+  fontWeight: "bold",
+  fontSize: "3.0rem",
+  color: "#555",
   textAlign: "center"
 };
 export const printAwardDipTitleStyle = {
@@ -180,6 +204,20 @@ export const printAwardTitleStyle = {
   color: "#008000",
   textAlign: "right"
 };
+export const printAwardTitleStyle24 = {
+  fontFamily: "Arial",
+  fontWeight: "bold",
+  fontSize: "3.5rem",
+  color: "#008000",
+  textAlign: "right"
+};
+export const printAwardTextStyle24 = {
+  fontFamily: "Arial",
+  fontWeight: "bold",
+  fontSize: "3.0rem",
+  color: "#555",
+  textAlign: "center"
+};
 export const printTextStyle = {
   fontFamily: "Times New Roman",
   fontWeight: "500!important",
@@ -194,13 +232,6 @@ export const printTextStyle24 = {
   color: "#555",
   textAlign: "center"
 };
-export const printAwardTextStyle24 = {
-  fontFamily: "Arial",
-  fontWeight: "bold",
-  fontSize: "3.0rem",
-  color: "#555",
-  textAlign: "center"
-};
 export const printPATextStyle = {
   fontFamily: "Californian FB",
   fontWeight: "500!important",
@@ -208,7 +239,13 @@ export const printPATextStyle = {
   color: "#555",
   textAlign: "center"
 };
-
+export const printPATextStyle24 = {
+  fontFamily: "Arial",
+  fontWeight: "500!important",
+  fontSize: "2rem",
+  color: "#555",
+  textAlign: "center"
+};
 export const singaporeTextStyle = {
   color: "#555",
   fontSize: "3rem"
@@ -253,6 +290,38 @@ export const supportJPTextStyle24 = {
   fontWeight: "900",
   textAlign: "center"
 };
+export const renderHeaderImage = () => (
+  <div className="col-12">
+    <br />
+    <br />
+    <img
+      src={IMG_LOGO_HEADER}
+      style={{ position: "absolute", top: 0, left: 0 }}
+    />
+  </div>
+);
+
+export const renderFooterImage = () => (
+  <div className="col-12">
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <img
+      src={IMG_LOGO_FOOTER}
+      style={{ position: "absolute", bottom: 0, right: 0 }}
+    />
+  </div>
+);
+
 export const renderSingapore = () => (
   <div
     className="row d-flex justify-content-center"
@@ -333,33 +402,49 @@ export const renderLogoRPSP = nYear => (
     <div className="col-2" />
   </div>
 );
-export const renderLogoRPLeft = nYear => (
-  <div className="row d-flex justify-content-left">
-    <div className="row d-flex justify-content-left">
-      <img src={nYear === 2024 ? IMG_AWARD_LOGO_RP24 : IMG_AWARD_LOGO_RP} />
-    </div>
-    <div className="col-2" />
-    <div className="col-2" />
-  </div>
-);
-export const renderLogoRPLeftText = (title1, title2, nYear) => (
-  <div className="row d-flex justify-content-left">
-    <div className="col2">
-      <img
-        style={RPlogoAwardStyle}
-        src={nYear === 2024 ? IMG_AWARD_LOGO_RP24 : IMG_AWARD_LOGO_RP}
-      />
-    </div>
-    <div className="col-2" />
-    <div className="col-6">
-      <div style={printAwardTitleStyle}>
-        {title1}
-        <br />
-        {title2}
+export const renderLogoRPLeft = nYear => {
+  const IAWARD_LOGO_RP =
+    nYear === 2024 ? IMG_AWARD_LOGO_RP24 : IMG_AWARD_LOGO_RP;
+  const RPlogoAwardStyle =
+    nYear === 2024
+      ? "row d-flex justify-content-center"
+      : "row d-flex justify-content-left";
+  return (
+    <div className={RPlogoAwardStyle} style={{ marginTop: "6rem" }}>
+      <div className="col-10">
+        <div className={RPlogoAwardStyle}>
+          <img src={IAWARD_LOGO_RP} />
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
+export const renderLogoRPLeftText = (title1, title2, nYear) => {
+  const IAWARD_LOGO_RP =
+    nYear === 2024 ? IMG_AWARD_LOGO_RP24 : IMG_AWARD_LOGO_RP;
+  const RPlogoAwardStyle =
+    nYear === 2024
+      ? "row d-flex justify-content-center"
+      : "row d-flex justify-content-left";
+  const pPrintAwardTitleStyle =
+    nYear === 2024 ? printAwardTitleStyle24 : printAwardTitleStyle;
+  return (
+    <div className={RPlogoAwardStyle} style={{ marginTop: "6rem" }}>
+      <div className="col2">
+        <img src={IAWARD_LOGO_RP} />
+      </div>
+      <div className="col-2" />
+      <div className="col-6">
+        <div style={pPrintAwardTitleStyle}>
+          {title1}
+          <br />
+          {title2}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 ///
 // Render the logo for RP Partner
 // type = 0 (SUSS), 1 (Joint Poly)
@@ -416,7 +501,7 @@ export const renderCOAOneSignature = certificate => {
             {get(certificate, "signature.organisation")}
             <br />
           </span>
-
+          {renderFooterImage()}
           <br />
           <br />
           <p>{formatDDMMMYYYY(get(certificate, "issuedOn"))}</p>
@@ -428,7 +513,7 @@ export const renderCOAOneSignature = certificate => {
 
 // render one signature for awards with 1 signatory
 //
-export const renderOneSignature = certificate => {
+export const renderOneSignature = (certificate, nYear) => {
   const certSign = formatSignatoriesPosition(
     get(certificate, "additionalData.certSignatories[0].position")
   );
@@ -456,7 +541,6 @@ export const renderOneSignature = certificate => {
             {get(certificate, "additionalData.certSignatories[0].organisation")}
             <br />
           </span>
-
           <br />
           <br />
           <p style={PAsignatureDateTextStyle}>
@@ -464,6 +548,7 @@ export const renderOneSignature = certificate => {
           </p>
         </div>
       </div>
+      {nYear === 2024 ? renderFooterImage() : null}
     </div>
   );
 };
@@ -471,7 +556,7 @@ export const renderOneSignature = certificate => {
 //
 // render two signatures for awards with 2 signatories
 //
-export const renderTwoSignaturesAwards = certificate => {
+export const renderTwoSignaturesAwards = (certificate, nYear) => {
   return (
     <div
       className="row d-flex justify-content-center align-items-end"
@@ -522,6 +607,11 @@ export const renderTwoSignaturesAwards = certificate => {
           </span>
         </div>
       </div>
+      <br />
+      <br />
+      <br />
+      <br />
+      {nYear === 2024 ? renderFooterImage() : null}
     </div>
   );
 };
@@ -550,8 +640,15 @@ export const renderTwoSignatures = (certificate, displayName) => {
   const certSign2 = formatSignatoriesPosition(
     get(certificate, "additionalData.certSignatories[1].position")
   );
-  const sigAdd0 = certSign2.length > certSign.length ? 1 : 0;
-  const sigAdd1 = certSign.length > certSign2.length ? 1 : 0;
+
+  // get the length of the signatures ARRAY
+  const certSignLength = certSign === null ? 0 : certSign.length;
+  const certSign2Length = certSign2 === null ? 0 : certSign2.length;
+
+  // check if the signature has additional line
+  const sigAdd0 = certSign2Length > certSignLength ? 1 : 0;
+  const sigAdd1 = certSignLength > certSign2Length ? 1 : 0;
+
   const RPName0 = get(
     certificate,
     "additionalData.certSignatories[0].organisation"
@@ -880,8 +977,18 @@ export const renderAwardTextDROH = certificate => (
 //01234567890
 export const renderPETAwardText = certificate => {
   const tpName = get(certificate, "$template.name");
+  const sYear = tpName.substr(3, 4); // extract year from template name
   const bf2024 =
     tpName.substr(3, 4) === "2022" || tpName.substr(3, 4) === "2021"
+      ? true
+      : false;
+  const bf2025 =
+    sYear === "2010" ||
+    sYear === "2020" ||
+    sYear === "2021" ||
+    sYear === "2022" ||
+    sYear === "2023" ||
+    sYear === "2024"
       ? true
       : false;
   const tpCode = tpName.substr(10, 3);
@@ -892,6 +999,19 @@ export const renderPETAwardText = certificate => {
   const isSCH = tpCode === "SCH" ? true : false;
   const isNAK = tpCode === "NAK" ? true : false;
   const sDesc = get(certificate, "description");
+  const awardPrintTextStyle = bf2025 ? printTextStyle : printTextStyle24;
+  const pPAwardCertTitleStyle = bf2025
+    ? printPAwardCertTitleStyle
+    : printPAwardCertTitleStyle24;
+  const pAwardCertTitleStyle = bf2025
+    ? printAwardCertTitleStyle
+    : printAwardCertTitleStyle24;
+  const pPATextStyle = bf2025 ? printPATextStyle : printPATextStyle24;
+  const pTextStyle = bf2025 ? printTextStyle : printTextStyle24;
+  const pRecipientStyle = bf2025 ? printRecipientStyle : printRecipientStyle24;
+  const pPAwardCertRecipentStyle = bf2025
+    ? printPAwardCertRecipentStyle
+    : printPAwardCertRecipentStyle24;
   return (
     <div>
       <div
@@ -899,84 +1019,74 @@ export const renderPETAwardText = certificate => {
         style={{ marginTop: "3rem" }}
       />
       {isDROH ? (
-        <p style={printPAwardCertTitleStyle}>
-          Academic Award{bf2024 ? "s" : null}
-        </p>
+        <p style={pPAwardCertTitleStyle}>Academic Award{bf2024 ? "s" : null}</p>
       ) : null}
-      {isEAE ? (
-        <p style={printAwardCertTitleStyle}>Republic Polytechnic</p>
-      ) : null}
-      {isEAE ? <p style={printAwardCertTitleStyle}>EAE Award</p> : null}
+      {isEAE ? <p style={pAwardCertTitleStyle}>Republic Polytechnic</p> : null}
+      {isEAE ? <p style={pAwardCertTitleStyle}>EAE Award</p> : null}
       <br />
       {isEAE ? (
-        <p style={printTextStyle}>is presented to</p>
+        <p style={awardPrintTextStyle}>is presented to</p>
       ) : (
-        <p style={printPATextStyle}>This is to certify that</p>
+        <p style={pPATextStyle}>This is to certify that</p>
       )}
       <br />
       <br />
-      <p style={printRecipientStyle}>{get(certificate, "recipient.name")}</p>
+      <p style={pRecipientStyle}>{get(certificate, "recipient.name")}</p>
       <br />
       {isDROH ? (
         <div>
-          <p style={printPATextStyle}>has been inducted into the</p>
-          <p style={printPAwardCertTitleStyle}>
-            Director&apos;s Roll of Honour
-          </p>
+          <p style={pPATextStyle}>has been inducted into the</p>
+          <p style={pAwardCertTitleStyle}>Director&apos;s Roll of Honour</p>
           {bf2024 ? (
-            <p style={printPATextStyle}>
-              for excellent academic performance in
-            </p>
+            <p style={pPATextStyle}>for excellent academic performance in</p>
           ) : null}
-          <p style={printPATextStyle}>
+          <p style={pPATextStyle}>
             {bf2024 ? null : "for "}Academic Year{" "}
             {get(certificate, "description").substr(0, 4)} Semester{" "}
             {get(certificate, "description").substr(5, 1)}{" "}
             {bf2024 ? "for the" : "in the"}
           </p>
-          <p style={printPAAwardDipTitleStyle}>{get(certificate, "name")}</p>
-          <br />
-          <br />
+          <p style={pPAwardCertRecipentStyle}>{get(certificate, "name")}</p>
         </div>
       ) : null}
       {isBOG ? (
         <div>
-          <p style={printTextStyle}>is a recipient of the</p>
-          <p style={printAwardCertTitleStyle}>Board of Governors Award</p>
-          <p style={printAwardCertTitleStyle}>
+          <p style={pTextStyle}>is a recipient of the</p>
+          <p style={pAwardCertTitleStyle}>Board of Governors Award</p>
+          <p style={pAwardCertTitleStyle}>
             Most Outstanding Graduate of the Year
           </p>
-          <p style={printTextStyle}>for academic and all-round excellence</p>
-          <p style={printTextStyle}>throughout the course of study.</p>
+          <p style={pTextStyle}>for academic and all-round excellence</p>
+          <p style={pTextStyle}>throughout the course of study.</p>
         </div>
       ) : null}
       {isEAE ? (
         <div>
-          <p style={printTextStyle}>for achieving outstanding</p>
-          <p style={printTextStyle}>EAE assessment performance</p>
+          <p style={pTextStyle}>for achieving outstanding</p>
+          <p style={pTextStyle}>EAE assessment performance</p>
         </div>
       ) : null}
       {isNAK ? (
         <div>
-          <p style={printTextStyle}>is a recipient of the</p>
-          <p style={printAwardCertTitleStyle}>Ngee Ann Kongsi Award</p>
-          <p style={printAwardCertTitleStyle}>
+          <p style={pTextStyle}>is a recipient of the</p>
+          <p style={pAwardCertTitleStyle}>Ngee Ann Kongsi Award</p>
+          <p style={pAwardCertTitleStyle}>
             Most Distinguished Graduate of the Year
           </p>
-          <p style={printAwardCertTitleStyle}>
+          <p style={pAwardCertTitleStyle}>
             {tpName === "RP_2022_P_NAK" ? "(Academic)" : null}
           </p>
-          <p style={printAwardCertTitleStyle}></p>
+          <p style={pAwardCertTitleStyle}></p>
         </div>
       ) : null}
       {isBPR ? (
         <div>
-          <p style={printTextStyle}>is a recipient of the</p>
-          <p style={printAwardCertTitleStyle}>
+          <p style={pTextStyle}>is a recipient of the</p>
+          <p style={pAwardCertTitleStyle}>
             {sDesc.substr(0, sDesc.length - 4)}
           </p>
-          <p style={printTextStyle}>for outstanding academic performance in</p>
-          <p style={printTextStyle}>
+          <p style={pTextStyle}>for outstanding academic performance in</p>
+          <p style={pTextStyle}>
             Academic Year {sDesc.substr(sDesc.length - 4, 4)} for
           </p>
           <p style={printAwardDipTitleStyle}>{get(certificate, "name")}</p>
@@ -984,12 +1094,12 @@ export const renderPETAwardText = certificate => {
       ) : null}
       {isSCH ? (
         <div>
-          <p style={printTextStyle}>is a recipient of the</p>
-          <p style={printAwardCertTitleStyle}>{sDesc}</p>
+          <p style={pTextStyle}>is a recipient of the</p>
+          <p style={pAwardCertTitleStyle}>{sDesc}</p>
         </div>
       ) : null}
       <br />
-      <p style={printTextStyle}>
+      <p style={pTextStyle}>
         {isDROH ? null : formatDDMMMYYYY(get(certificate, "issuedOn"))}
       </p>
     </div>

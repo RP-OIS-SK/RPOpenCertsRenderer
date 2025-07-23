@@ -1,7 +1,7 @@
-import PropTypes from "prop-types";
-import { get, groupBy, orderBy } from "lodash";
 import React from "react";
-import { IMG_LOGO_RP_HORIZONTAL } from "./images";
+
+import { get, groupBy, orderBy } from "lodash";
+import { IMG_LOGO_RP_HORIZONTAL, IMG_LOGO_RP_HORIZONTAL24 } from "./images";
 import { formatDDMMMYYYY } from "./functions";
 
 export const fullWidthStyle = {
@@ -38,13 +38,15 @@ export const boxStyle = {
   textAlign: "center"
 };
 
-export const renderHeader = () => (
+export const renderHeader = nYear => (
   <div>
     <div className="row">
       <div className="row d-flex justify-content-left">
         <img
           style={fullWidthStyle}
-          src={IMG_LOGO_RP_HORIZONTAL}
+          src={
+            nYear === 2025 ? IMG_LOGO_RP_HORIZONTAL24 : IMG_LOGO_RP_HORIZONTAL
+          }
           alt="RP Logo"
         />
       </div>
@@ -227,15 +229,3 @@ export const renderTranscript = document => {
   const renderedCourses = renderCourse(document, transcript);
   return <div>{renderedCourses}</div>;
 };
-
-const Template = ({ document }) => (
-  <div className="container" style={{ fontSize: "0.9rem" }}>
-    {renderHeader()}
-    {renderTranscript(document)}
-  </div>
-);
-
-Template.propTypes = {
-  document: PropTypes.object.isRequired
-};
-export default Template;

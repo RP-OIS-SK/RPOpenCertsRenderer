@@ -13,14 +13,13 @@ const Template = ({ document }) => (
       className="container"
       style={{ border: 0, borderColor: "#AAA", borderStyle: "solid" }}
     >
-      {renderHeaderImage()}
-      {renderLogoRPLeftText("EAE", "Award", 2024)}
+      {renderHeaderImage(document)}
+      {renderLogoRPLeftText("Academic", "Awards", 2024)}
       {renderPETAwardText(document)}
       {renderTwoSignaturesAwards(document, 2024)}
     </div>
   </div>
 );
-
 Template.propTypes = {
   document: PropTypes.object.isRequired
 };

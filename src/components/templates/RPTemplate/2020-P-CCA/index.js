@@ -1,4 +1,4 @@
-import RPTranscript from "../common/CCATranscript";
+import RPTranscript from "./transcript";
 
 const templates = [
   {
