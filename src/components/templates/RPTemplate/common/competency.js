@@ -72,6 +72,7 @@ export const renderHeader = document => {
           src={
             isDisplayNewLogo ? IMG_LOGO_RP_HORIZONTAL24 : IMG_LOGO_RP_HORIZONTAL
           }
+          alt="RP Logo"
         />
       </div>
     </div>
@@ -381,6 +382,7 @@ export const renderOneSignature = certificate => {
               certificate,
               "additionalData.skillSignatories[0].signature"
             )}
+            alt="Signature"
           />
         </div>
         <div className="text-left">

@@ -72,6 +72,14 @@ export const signatureTextStyle = {
   fontWeight: "bold",
   fontSize: "1.1rem"
 };
+
+export const compSignatureTextStyle = {
+  color: "#090",
+  fontWeight: "bold",
+  fontSize: "1.1rem",
+  textTransform: "uppercase"
+};
+
 export const printCertStyle = {
   fontFamily: "Old English Text MT",
   fontWeight: "bold",
@@ -297,6 +305,7 @@ export const renderHeaderImage = () => (
     <img
       src={IMG_LOGO_HEADER}
       style={{ position: "absolute", top: 0, left: 0 }}
+      alt="RP Logo Header"
     />
   </div>
 );
@@ -318,6 +327,7 @@ export const renderFooterImage = () => (
     <img
       src={IMG_LOGO_FOOTER}
       style={{ position: "absolute", bottom: 0, right: 0 }}
+      alt="certificate Footer"
     />
   </div>
 );
@@ -337,6 +347,7 @@ export const renderLogoRPNYP = nYear => (
       <img
         style={{ width: "1050px" }}
         src={nYear === 2024 ? IMG_LOGO_NYP24 : IMG_LOGO_NYP}
+        alt="RP NYP Logo"
       />
     </div>
     <div className="col-2" />
@@ -349,6 +360,7 @@ export const renderLogoRPNP = nYear => (
       <img
         style={{ width: "1050px" }}
         src={nYear === 2024 ? IMG_LOGO_NP24 : IMG_LOGO_NP}
+        alt="RP NP Logo"
       />
     </div>
     <div className="col-2" />
@@ -361,6 +373,7 @@ export const renderLogoNPRP = nYear => (
       <img
         style={{ width: "1050px" }}
         src={nYear === 2024 ? IMG_LOGO_NP24RP : IMG_LOGO_NPRP}
+        alt="RP NP RP Logo"
       />
     </div>
     <div className="col-2" />
@@ -373,6 +386,7 @@ export const renderLogoRPTP = nYear => (
       <img
         style={{ width: "1050px" }}
         src={nYear === 2024 ? IMG_LOGO_RP24TP : IMG_LOGO_RPTP}
+        alt="RP TP Logo"
       />
     </div>
     <div className="col-2" />
@@ -385,6 +399,7 @@ export const renderLogoRP = nYear => (
       <img
         style={{ width: "1050px" }}
         src={nYear === 2024 ? IMG_LOGO_RP24L : IMG_LOGO_RP}
+        alt="RP Logo"
       />
     </div>
     <div className="col-2" />
@@ -397,6 +412,7 @@ export const renderLogoRPSP = nYear => (
       <img
         style={{ width: "1050px" }}
         src={nYear === 2024 ? IMG_LOGO_RP24SP : IMG_LOGO_RPSP}
+        alt="RP SP Logo"
       />
     </div>
     <div className="col-2" />
@@ -413,7 +429,7 @@ export const renderLogoRPLeft = nYear => {
     <div className={RPlogoAwardStyle} style={{ marginTop: "6rem" }}>
       <div className="col-10">
         <div className={RPlogoAwardStyle}>
-          <img src={IAWARD_LOGO_RP} />
+          <img src={IAWARD_LOGO_RP} alt="RP logo" />
         </div>
       </div>
     </div>
@@ -429,9 +445,9 @@ export const renderLogoRPLeftText = (title1, title2, nYear) => {
   const pPrintAwardTitleStyle =
     nYear === 2024 ? printAwardTitleStyle24 : printAwardTitleStyle;
   return (
-    <div className={RPlogoAwardStyle} style={{ marginTop: "6rem" }}>
+    <div className={RPlogoAwardStyle}>
       <div className="col2">
-        <img src={IAWARD_LOGO_RP} />
+        <img src={IAWARD_LOGO_RP} alt="RP logo" />
       </div>
       <div className="col-2" />
       <div className="col-6">
@@ -469,7 +485,7 @@ export const renderLogoRPPartner = (type, nYear) => {
           {type === 1 ? "In collaboration with:" : null}{" "}
         </span>
         <div className={logoST}>
-          <img style={imageStyle} src={logo} />
+          <img style={imageStyle} src={logo} alt="RP Partner Logo" />
         </div>
       </div>
       <div className="col-1" />
@@ -490,6 +506,7 @@ export const renderCOAOneSignature = certificate => {
           <img
             style={{ width: "100%", borderBottom: "1px solid black" }}
             src={get(certificate, "signature.signature")}
+            alt="Signature"
           />
         </div>
         <div className="text-center">
@@ -530,6 +547,7 @@ export const renderOneSignature = (certificate, nYear) => {
               certificate,
               "additionalData.certSignatories[0].signature"
             )}
+            alt="Signature"
           />
         </div>
         <div className="text-center">
@@ -570,6 +588,7 @@ export const renderTwoSignaturesAwards = (certificate, nYear) => {
               certificate,
               "additionalData.certSignatories[0].signature"
             )}
+            alt="Signature"
           />
         </div>
         <div className="text-center">
@@ -594,6 +613,7 @@ export const renderTwoSignaturesAwards = (certificate, nYear) => {
               certificate,
               "additionalData.certSignatories[1].signature"
             )}
+            alt="Signature"
           />
         </div>
         <div className="text-center">
@@ -607,11 +627,7 @@ export const renderTwoSignaturesAwards = (certificate, nYear) => {
           </span>
         </div>
       </div>
-      <br />
-      <br />
-      <br />
-      <br />
-      {nYear === 2024 ? renderFooterImage() : null}
+      {nYear < 2024 ? null : null}
     </div>
   );
 };
@@ -649,14 +665,6 @@ export const renderTwoSignatures = (certificate, displayName) => {
   const sigAdd0 = certSign2Length > certSignLength ? 1 : 0;
   const sigAdd1 = certSignLength > certSign2Length ? 1 : 0;
 
-  const RPName0 = get(
-    certificate,
-    "additionalData.certSignatories[0].organisation"
-  );
-  const RPName1 = get(
-    certificate,
-    "additionalData.certSignatories[1].organisation"
-  );
   // RP_2022_C_MCBIA    RP_2022_C_DCSD
   // 012 3456 789 012
   const tpName = get(certificate, "$template.name");
@@ -697,6 +705,7 @@ export const renderTwoSignatures = (certificate, displayName) => {
               certificate,
               "additionalData.certSignatories[0].signature"
             )}
+            alt="Signature"
           />
         </div>
         <div className="text-center">
@@ -729,10 +738,7 @@ export const renderTwoSignatures = (certificate, displayName) => {
           </span>
         </div>
         <div className="text-center">
-          <span style={signatureTextStyle}>
-            {displayName === 0 && !bf2025 // PET 2025 display RP
-              ? RPName0
-              : null}
+          <span style={compSignatureTextStyle}>
             {displayName === 0 && !bf2025 && sigAdd0 ? ( // check if BOE signature has additional line, add line break
               <span>
                 <br />
@@ -749,6 +755,7 @@ export const renderTwoSignatures = (certificate, displayName) => {
               <img
                 style={sealWidthStyle2}
                 src={bf2025 ? IMG_LOGO_NYP_SEAL : IMG_LOGO_NYP_SEAL25}
+                alt="NYP Seal"
               />
               <br /> <br />
             </span>
@@ -757,6 +764,7 @@ export const renderTwoSignatures = (certificate, displayName) => {
             <img
               style={sealWidthStyle2}
               src={bf2025 ? IMG_CERTIFICATE_SEAL : IMG_CERTIFICATE_SEAL_25}
+              alt="RP Seal"
             />
           ) : isPFP ? (
             <img
@@ -764,11 +772,13 @@ export const renderTwoSignatures = (certificate, displayName) => {
               src={
                 bf2025 ? IMG_CERTIFICATE_SEAL_PFP : IMG_CERTIFICATE_SEAL_PFP_25
               }
+              alt="RP PFP Seal"
             />
           ) : (
             <img
               style={sealWidthStyle}
               src={bf2025 ? IMG_CERTIFICATE_SEAL : IMG_CERTIFICATE_SEAL_25}
+              alt="RP Seal"
             />
           )}
         </div>
@@ -781,6 +791,7 @@ export const renderTwoSignatures = (certificate, displayName) => {
               certificate,
               "additionalData.certSignatories[1].signature"
             )}
+            alt="Signature"
           />
         </div>
         <div className="text-center">
@@ -823,10 +834,7 @@ export const renderTwoSignatures = (certificate, displayName) => {
           </span>
         </div>
         <div className="text-center">
-          <span style={signatureTextStyle}>
-            {displayName === 0 && !bf2025 // PET 2025 display RP
-              ? RPName1
-              : null}
+          <span style={compSignatureTextStyle}>
             {displayName === 0 && !bf2025 && sigAdd1 ? ( // check if RP signature has additional line, add line break
               <span>
                 <br />
@@ -929,7 +937,6 @@ export const renderAwardTextSH = certificate => (
     <p style={printSCCertStyle}>Certificate of Attendance</p>
     <br /> <br />
     <p style={printSCTextStyle1}>This is to certify that</p>
-    <br />
     <p style={printSCRecipentStyle}>{get(certificate, "recipient.name")}</p>
     <p style={printSCTextStyle1}>has successfully completed the course</p>
     <br />
@@ -1029,8 +1036,6 @@ export const renderPETAwardText = certificate => {
       ) : (
         <p style={pPATextStyle}>This is to certify that</p>
       )}
-      <br />
-      <br />
       <p style={pRecipientStyle}>{get(certificate, "recipient.name")}</p>
       <br />
       {isDROH ? (

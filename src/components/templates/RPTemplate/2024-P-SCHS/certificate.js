@@ -12,13 +12,12 @@ const Template = ({ document }) => (
       className="container"
       style={{ border: 0, borderColor: "#AAA", borderStyle: "solid" }}
     >
-      {renderLogoRPLeftText("Special", "Awards", 2024)}
+      {renderLogoRPLeftText("Academic", "Awards")}
       {renderPETAwardText(document)}
-      {renderTwoSignaturesAwards(document, 2024)}
+      {renderTwoSignaturesAwards(document)}
     </div>
   </div>
 );
-
 Template.propTypes = {
   document: PropTypes.object.isRequired
 };
