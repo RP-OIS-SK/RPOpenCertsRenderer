@@ -140,7 +140,12 @@ export const printAwardDipTitleStyle = {
   color: "#008000",
   textAlign: "center"
 };
-
+export const printAwardDipTitleStyle24 = {
+  fontFamily: "Arial",
+  fontSize: "2.5rem",
+  color: "#008000",
+  textAlign: "center"
+};
 export const printPAAwardDipTitleStyle = {
   fontFamily: "Californian FB",
   fontSize: "2.5rem",
@@ -648,7 +653,7 @@ export const renderBlock = () => (
 // displayname  = 0 - others, 1 - SD for BIA, 2 - MC, 3 - SD for CMW, 4- PFP
 // for 0, 1&2 and isBIA22 = false -  display position only,
 // for 1&2 and isBIA22 = true, display position in 2 lines - "Principle & CEO" | "Republic poly"
-///
+//
 export const renderTwoSignatures = (certificate, displayName) => {
   const certSign = formatSignatoriesPosition(
     get(certificate, "additionalData.certSignatories[0].position")
@@ -679,6 +684,7 @@ export const renderTwoSignatures = (certificate, displayName) => {
       : tpName.substr(12, 2) === "SE"
       ? true
       : false;
+
   // RP_2022_P_PFP
   const isPFP = displayName === 4 ? true : false;
 
@@ -692,6 +698,28 @@ export const renderTwoSignatures = (certificate, displayName) => {
     sYear === "2024"
       ? true
       : false; //check year
+  /* only these template names will print the organisation name
+01234567890
+RP_2025_C_DCN
+RP_2025_C_DCJP
+RP_2025_C_DCSU
+RP_2024_C_DCSD
+RP_2020_C_MC
+RP_2025_C_MCSU
+RP_2025_C_MCJP */
+
+  const printORG =
+    tpName.substr(10, 3) === "DCN" ||
+    tpName.substr(10, 4) === "DCJP" ||
+    tpName.substr(10, 4) === "DCSU" ||
+    tpName.substr(10, 2) === "MC" ||
+    tpName.substr(10, 4) === "MCSU" ||
+    tpName.substr(10, 4) === "MCJP"
+      ? bf2025
+        ? false
+        : true
+      : false; // check if the template is DCN, DCJP, DCSU, MC, MCSU, MCJP
+
   return (
     <div
       className="row d-flex justify-content-center align-items-end"
@@ -811,6 +839,15 @@ export const renderTwoSignatures = (certificate, displayName) => {
               ? null
               : certSign2[0]}
           </span>
+          {printORG ? (
+            <span style={compSignatureTextStyle}>
+              <br />
+              {get(
+                certificate,
+                "additionalData.certSignatories[1].organisation"
+              )}
+            </span>
+          ) : null}
         </div>
         <div className="text-center">
           <span style={signatureTextStyle}>
@@ -1019,6 +1056,9 @@ export const renderPETAwardText = certificate => {
   const pPAwardCertRecipentStyle = bf2025
     ? printPAwardCertRecipentStyle
     : printPAwardCertRecipentStyle24;
+  const pPrintAwardDipTitleStyle = bf2025
+    ? printAwardDipTitleStyle
+    : printAwardDipTitleStyle24;
   return (
     <div>
       <div
@@ -1094,7 +1134,7 @@ export const renderPETAwardText = certificate => {
           <p style={pTextStyle}>
             Academic Year {sDesc.substr(sDesc.length - 4, 4)} for
           </p>
-          <p style={printAwardDipTitleStyle}>{get(certificate, "name")}</p>
+          <p style={pPrintAwardDipTitleStyle}>{get(certificate, "name")}</p>
         </div>
       ) : null}
       {isSCH ? (
