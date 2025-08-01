@@ -662,6 +662,9 @@ export const renderTwoSignatures = (certificate, displayName) => {
     get(certificate, "additionalData.certSignatories[1].position")
   );
 
+  // flag to indicate MC certificate
+  const isMC = displayName === 2 ? 1 : 0;
+
   // get the length of the signatures ARRAY
   const certSignLength = certSign === null ? 0 : certSign.length;
   const certSign2Length = certSign2 === null ? 0 : certSign2.length;
@@ -756,14 +759,23 @@ RP_2025_C_MCJP */
         </div>
         <div className="text-center">
           <span style={signatureTextStyle}>
-            {displayName === 3 // CMW - do not display.  title in image
-              ? null
-              : displayName < 3 // MC/DTC  -display position
-              ? certSign.length > 1
-                ? certSign[1]
-                : null
-              : null}
+            {displayName === 3 ? null : displayName < 3 ? ( // CMW - do not display.  title in image // MC/DTC  -display position
+              certSign.length > 1 ? (
+                <span>
+                  {certSign[1]}
+                  <br />
+                </span>
+              ) : null
+            ) : null}
           </span>
+          {printORG && !isMC ? (
+            <span style={compSignatureTextStyle}>
+              {get(
+                certificate,
+                "additionalData.certSignatories[0].organisation"
+              )}
+            </span>
+          ) : null}
         </div>
         <div className="text-center">
           <span style={compSignatureTextStyle}>
@@ -856,17 +868,20 @@ RP_2025_C_MCJP */
               : displayName < 3 // MC/DTC  -display position
               ? certSign2.length > 1
                 ? certSign2[1]
-                : certSign.length > 1 && (
-                    <span>
-                      <br />
-                      <br />
-                    </span>
-                  )
+                : null
               : null}
             {displayName === 2
               ? isBIA22
-                ? certSign2.length > 1 && <span></span>
-                : certSign.length > 1 && <span></span>
+                ? certSign2.length > 1 && (
+                    <span>
+                      <br />
+                    </span>
+                  )
+                : certSign.length > 1 && (
+                    <span>
+                      <br />
+                    </span>
+                  )
               : null}
           </span>
         </div>
@@ -874,6 +889,7 @@ RP_2025_C_MCJP */
           <span style={compSignatureTextStyle}>
             {displayName === 0 && !bf2025 && sigAdd1 ? ( // check if RP signature has additional line, add line break
               <span>
+                {sigAdd1}
                 <br />
                 <br />
               </span>

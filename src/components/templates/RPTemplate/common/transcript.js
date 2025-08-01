@@ -463,7 +463,9 @@ export const renderCourse = (document, course) => {
       <tr key={i}>
         {isPFP ? null : (
           <td style={{ textAlign: "left" }}>
-            {i || s.semester === "-" ? null : formatBold(s.semester.toString())}
+            {i || s.semester === "-" || s.semester === "null"
+              ? null
+              : formatBold(s.semester.toString())}
           </td>
         )}
         <td style={{ textAlign: "left" }}>
