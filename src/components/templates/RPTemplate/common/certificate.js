@@ -654,6 +654,10 @@ export const renderBlock = () => (
 // for 0, 1&2 and isBIA22 = false -  display position only,
 // for 1&2 and isBIA22 = true, display position in 2 lines - "Principle & CEO" | "Republic poly"
 //
+// DCJP -0, DCN -0, DCSU - 0, DCBIA -1, DCSD -1, DCSE - 1, DPLUS - 2, DCCMW - 3
+// MC - 2, MCBIA  - 2, MCJP - 2, MCSU - 2, MSSE  - 2
+//////
+
 export const renderTwoSignatures = (certificate, displayName) => {
   const certSign = formatSignatoriesPosition(
     get(certificate, "additionalData.certSignatories[0].position")
@@ -782,7 +786,6 @@ RP_2025_C_MCJP */
             {displayName === 0 && !bf2025 && sigAdd0 ? ( // check if BOE signature has additional line, add line break
               <span>
                 <br />
-                <br />
               </span>
             ) : null}
           </span>
@@ -851,15 +854,6 @@ RP_2025_C_MCJP */
               ? null
               : certSign2[0]}
           </span>
-          {printORG ? (
-            <span style={compSignatureTextStyle}>
-              <br />
-              {get(
-                certificate,
-                "additionalData.certSignatories[1].organisation"
-              )}
-            </span>
-          ) : null}
         </div>
         <div className="text-center">
           <span style={signatureTextStyle}>
@@ -870,6 +864,15 @@ RP_2025_C_MCJP */
                 ? certSign2[1]
                 : null
               : null}
+            {printORG ? (
+              <span style={compSignatureTextStyle}>
+                <br />
+                {get(
+                  certificate,
+                  "additionalData.certSignatories[1].organisation"
+                )}
+              </span>
+            ) : null}
             {displayName === 2
               ? isBIA22
                 ? certSign2.length > 1 && (
@@ -889,8 +892,6 @@ RP_2025_C_MCJP */
           <span style={compSignatureTextStyle}>
             {displayName === 0 && !bf2025 && sigAdd1 ? ( // check if RP signature has additional line, add line break
               <span>
-                {sigAdd1}
-                <br />
                 <br />
               </span>
             ) : null}
