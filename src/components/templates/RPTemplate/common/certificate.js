@@ -765,20 +765,17 @@ RP_2025_C_MCJP */
           <span style={signatureTextStyle}>
             {displayName === 3 ? null : displayName < 3 ? ( // CMW - do not display.  title in image // MC/DTC  -display position
               certSign.length > 1 ? (
-                <span>
-                  {certSign[1]}
-                  <br />
-                </span>
+                <span>{certSign[1]}</span>
               ) : null
             ) : null}
           </span>
           {printORG && !isMC ? (
-            <span style={compSignatureTextStyle}>
+            <p style={compSignatureTextStyle}>
               {get(
                 certificate,
                 "additionalData.certSignatories[0].organisation"
               )}
-            </span>
+            </p>
           ) : null}
         </div>
         <div className="text-center">
@@ -865,13 +862,12 @@ RP_2025_C_MCJP */
                 : null
               : null}
             {printORG ? (
-              <span style={compSignatureTextStyle}>
-                <br />
+              <p style={compSignatureTextStyle}>
                 {get(
                   certificate,
                   "additionalData.certSignatories[1].organisation"
                 )}
-              </span>
+              </p>
             ) : null}
             {displayName === 2
               ? isBIA22
