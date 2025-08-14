@@ -677,10 +677,10 @@ export const renderTwoSignatures = (certificate, displayName) => {
   const sigAdd0 = certSign2Length > certSignLength ? 1 : 0;
   const sigAdd1 = certSignLength > certSign2Length ? 1 : 0;
 
-  // RP_2022_C_MCBIA    RP_2022_C_DCSD
+  // RP_ 2022 _C_ MCBIA    RP_2022_C_DCSD
   // 012 3456 789 012
   const tpName = get(certificate, "$template.name");
-
+  const isMCSP = tpName.substr(10, 4) === "MCSE" ? 1 : 0;
   const isBIA22 =
     tpName.substr(3, 4) === "2020"
       ? false
@@ -861,7 +861,7 @@ RP_2025_C_MCJP */
                 ? certSign2[1]
                 : null
               : null}
-            {printORG ? (
+            {printORG && !isMCSP ? (
               <p style={compSignatureTextStyle}>
                 {get(
                   certificate,
