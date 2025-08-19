@@ -870,12 +870,13 @@ RP_2025_C_MCJP */
                 : null
               : null}
             {printORG && !isMCSP ? (
-              <p style={compSignatureTextStyle}>
+              <span style={compSignatureTextStyle}>
                 {get(
                   certificate,
                   "additionalData.certSignatories[1].organisation"
                 )}
-              </p>
+                <br />
+              </span>
             ) : null}
             {displayName === 2
               ? isBIA22
