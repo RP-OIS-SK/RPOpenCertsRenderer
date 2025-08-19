@@ -673,9 +673,17 @@ export const renderTwoSignatures = (certificate, displayName) => {
   const certSignLength = certSign === null ? 0 : certSign.length;
   const certSign2Length = certSign2 === null ? 0 : certSign2.length;
 
+  // debug
+  // console.log("certSignLength: ", certSignLength);
+  // console.log("certSign2Length: ", certSign2Length);
+
   // check if the signature has additional line
   const sigAdd0 = certSign2Length > certSignLength ? 1 : 0;
   const sigAdd1 = certSignLength > certSign2Length ? 1 : 0;
+
+  // debug
+  // console.log("sigAdd0: ", sigAdd0);
+  // console.log("sigAdd1: ", sigAdd1);
 
   // RP_ 2022 _C_ MCBIA    RP_2022_C_DCSD
   // 012 3456 789 012
@@ -754,7 +762,7 @@ RP_2025_C_MCJP */
         </div>
         <div className="text-center">
           <span style={signatureTextStyle}>
-            {displayName < 3
+            {displayName < 3 // all certificates except CMW and PFP, include MC / PDC
               ? certSign[0] // display Position
               : displayName === 3
               ? null
@@ -871,12 +879,12 @@ RP_2025_C_MCJP */
             ) : null}
             {displayName === 2
               ? isBIA22
-                ? certSign2.length > 1 && (
+                ? sigAdd1 > 0 && (
                     <span>
                       <br />
                     </span>
                   )
-                : certSign.length > 1 && (
+                : sigAdd1 > 0 && (
                     <span>
                       <br />
                     </span>
