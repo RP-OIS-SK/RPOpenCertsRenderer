@@ -683,7 +683,7 @@ export const renderTwoSignatures = (certificate, displayName) => {
 
   // debug
   // console.log("sigAdd0: ", sigAdd0);
-  // console.log("sigAdd1: ", sigAdd1);
+  //console.log("sigAdd1: ", sigAdd1);
 
   // RP_ 2022 _C_ MCBIA    RP_2022_C_DCSD
   // 012 3456 789 012
@@ -735,6 +735,8 @@ RP_2025_C_MCJP */
         : true
       : false; // check if the template is DCN, DCJP, DCSU, MC, MCSU, MCJP
 
+  // debug
+  //console.log("printORG: ", printORG);
   return (
     <div
       className="row d-flex justify-content-center align-items-end"
@@ -778,12 +780,13 @@ RP_2025_C_MCJP */
             ) : null}
           </span>
           {printORG && !isMC ? (
-            <p style={compSignatureTextStyle}>
+            <span style={compSignatureTextStyle}>
               {get(
                 certificate,
                 "additionalData.certSignatories[0].organisation"
               )}
-            </p>
+              <br />
+            </span>
           ) : null}
         </div>
         <div className="text-center">
@@ -862,13 +865,14 @@ RP_2025_C_MCJP */
         </div>
         <div className="text-center">
           <span style={signatureTextStyle}>
-            {displayName === 3 // CMW - do not display.  title in image
-              ? null
-              : displayName < 3 // MC/DTC  -display position
-              ? certSign2.length > 1
-                ? certSign2[1]
-                : null
-              : null}
+            {displayName === 3 ? null : displayName < 3 ? ( // CMW - do not display.  title in image // MC/DTC  -display position
+              certSign2.length > 1 ? (
+                <span style={signatureTextStyle}>
+                  {certSign2[1]}
+                  <br />
+                </span>
+              ) : null
+            ) : null}
             {printORG && !isMCSP ? (
               <span style={compSignatureTextStyle}>
                 {get(
