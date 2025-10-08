@@ -650,11 +650,11 @@ export const renderBlock = () => (
 );
 
 ///
-// displayname  = 0 - others, 1 - SD for BIA, 2 - MC, 3 - SD for CMW, 4- PFP
+// displayname  = 0 - PET, others, 1 - SD for BIA, 2 - MC, 3 - SD for CMW, 4- PFP
 // for 0, 1&2 and isBIA22 = false -  display position only,
 // for 1&2 and isBIA22 = true, display position in 2 lines - "Principle & CEO" | "Republic poly"
 //
-// DCJP -0, DCN -0, DCSU - 0, DCBIA -1, DCSD -1, DCSE - 1, DPLUS - 2, DCCMW - 3
+// PET - 0, PFP - 4, DCJP -0, DCN -0, DCSU - 0, DCBIA -1, DCSD -1, DCSE - 1, DPLUS - 2, DCCMW - 3
 // MC - 2, MCBIA  - 2, MCJP - 2, MCSU - 2, MSSE  - 2
 //////
 
@@ -702,7 +702,6 @@ export const renderTwoSignatures = (certificate, displayName) => {
 
   // RP_2022_P_PFP
   const isPFP = displayName === 4 ? true : false;
-
   const sYear = tpName.substr(3, 4); // extract year from template name
   const bf2025 =
     sYear === "2010" ||
@@ -722,7 +721,7 @@ RP_2024_C_DCSD
 RP_2020_C_MC
 RP_2025_C_MCSU
 RP_2025_C_MCJP */
-
+  const bf2026 = bf2025 || sYear === "2025" ? true : false;
   const printORG =
     tpName.substr(10, 3) === "DCN" ||
     tpName.substr(10, 4) === "DCJP" ||
@@ -735,6 +734,8 @@ RP_2025_C_MCJP */
         : true
       : false; // check if the template is DCN, DCJP, DCSU, MC, MCSU, MCJP
 
+  // const isPET = tpName.substr(8, 1) === "P" || tpName.substr(10, 5) === "DPLUS" ? true : false;
+  const isMCafter2026 = tpName.substr(10, 2) === "MC" && !bf2026 ? true : false; // CET after 2026
   // debug
   //console.log("printORG: ", printORG);
   return (
@@ -744,50 +745,60 @@ RP_2025_C_MCJP */
     >
       <div className="col-4">
         <div className="px-4">
-          <img
-            style={logoLStyle}
-            src={get(
-              certificate,
-              "additionalData.certSignatories[0].signature"
-            )}
-            alt="Signature"
-          />
-        </div>
-        <div className="text-center">
-          <span style={signatureTextStyle}>
-            {displayName === 1 // SD for BIA, display P name for 2020, otherwise do not display
-              ? isBIA22
-                ? null
-                : get(certificate, "additionalData.certSignatories[0].name")
-              : null}
-          </span>
-        </div>
-        <div className="text-center">
-          <span style={signatureTextStyle}>
-            {displayName < 3 // all certificates except CMW and PFP, include MC / PDC
-              ? certSign[0] // display Position
-              : displayName === 3
-              ? null
-              : certSign[0]}
-          </span>
-        </div>
-        <div className="text-center">
-          <span style={signatureTextStyle}>
-            {displayName === 3 ? null : displayName < 3 ? ( // CMW - do not display.  title in image // MC/DTC  -display position
-              certSign.length > 1 ? (
-                <span>{certSign[1]}</span>
-              ) : null
-            ) : null}
-          </span>
-          {printORG && !isMC ? (
-            <span style={compSignatureTextStyle}>
-              {get(
+          {!isMCafter2026 && (
+            <img
+              style={logoLStyle}
+              src={get(
                 certificate,
-                "additionalData.certSignatories[0].organisation"
+                "additionalData.certSignatories[0].signature"
               )}
-              <br />
+              alt="Signature"
+            />
+          )}
+        </div>
+        <div className="text-center">
+          {!isMCafter2026 && (
+            <span style={signatureTextStyle}>
+              {displayName === 1 // SD for BIA, display P name for 2020, otherwise do not display
+                ? isBIA22
+                  ? null
+                  : get(certificate, "additionalData.certSignatories[0].name")
+                : null}
             </span>
-          ) : null}
+          )}
+        </div>
+        <div className="text-center">
+          {!isMCafter2026 && (
+            <span style={signatureTextStyle}>
+              {displayName < 3 // all certificates except CMW and PFP, include MC / PDC
+                ? certSign[0] // display Position
+                : displayName === 3
+                ? null
+                : certSign[0]}
+            </span>
+          )}
+        </div>
+        <div className="text-center">
+          {!isMCafter2026 && (
+            <span>
+              <span style={signatureTextStyle}>
+                {displayName === 3 ? null : displayName < 3 ? ( // CMW - do not display.  title in image // MC/DTC  -display position
+                  certSign.length > 1 ? (
+                    <span>{certSign[1]}</span>
+                  ) : null
+                ) : null}
+              </span>
+              {printORG && !isMC ? (
+                <span style={compSignatureTextStyle}>
+                  {get(
+                    certificate,
+                    "additionalData.certSignatories[0].organisation"
+                  )}
+                  <br />
+                </span>
+              ) : null}
+            </span>
+          )}
         </div>
         <div className="text-center">
           <span style={compSignatureTextStyle}>

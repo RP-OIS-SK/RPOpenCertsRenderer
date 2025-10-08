@@ -348,6 +348,7 @@ export const renderSignature = document => {
           <img
             style={fullWidthStyle}
             src={document.additionalData.transcriptSignatories[0].signature}
+            alt="signature"
           />
           <hr />
         </div>

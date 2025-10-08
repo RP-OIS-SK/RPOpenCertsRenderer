@@ -22,21 +22,26 @@ import RP_2020_C_DCBIA from "./RPTemplate/2020-C-DCBIA";
 import RP_2022_C_DCBIA from "./RPTemplate/2022-C-DCBIA";
 import RP_2024_C_DCBIA from "./RPTemplate/2024-C-DCBIA";
 import RP_2025_C_DCBIA from "./RPTemplate/2025-C-DCBIA";
+import RP_2026_C_DCBIA from "./RPTemplate/2026-C-DCBIA";
 import RP_2020_C_DCJP from "./RPTemplate/2020-C-DCJP";
 import RP_2022_C_DCJP from "./RPTemplate/2022-C-DCJP";
 import RP_2024_C_DCJP from "./RPTemplate/2024-C-DCJP";
 import RP_2025_C_DCJP from "./RPTemplate/2025-C-DCJP";
+import RP_2026_C_DCJP from "./RPTemplate/2026-C-DCJP";
 import RP_2020_C_DCN from "./RPTemplate/2020-C-DCN";
 import RP_2022_C_DCN from "./RPTemplate/2022-C-DCN";
 import RP_2024_C_DCN from "./RPTemplate/2024-C-DCN";
 import RP_2025_C_DCN from "./RPTemplate/2025-C-DCN";
+import RP_2026_C_DCN from "./RPTemplate/2026-C-DCN";
 import RP_2020_C_DCSU from "./RPTemplate/2020-C-DCSU";
 import RP_2022_C_DCSU from "./RPTemplate/2022-C-DCSU";
 import RP_2024_C_DCSU from "./RPTemplate/2024-C-DCSU";
 import RP_2025_C_DCSU from "./RPTemplate/2025-C-DCSU";
+import RP_2026_C_DCSU from "./RPTemplate/2026-C-DCSU";
 import RP_2021_C_DCCMW from "./RPTemplate/2021-C-DCCMW";
 import RP_2024_C_DCCMW from "./RPTemplate/2024-C-DCCMW";
 import RP_2025_C_DCCMW from "./RPTemplate/2025-C-DCCMW";
+import RP_2026_C_DCCMW from "./RPTemplate/2026-C-DCCMW";
 import RP_2020_C_DPLUS from "./RPTemplate/2020-C-DPLUS";
 import RP_2022_C_DPLUS from "./RPTemplate/2022-C-DPLUS";
 import RP_2024_C_DPLUS from "./RPTemplate/2024-C-DPLUS";
@@ -44,26 +49,33 @@ import RP_2025_C_DPLUS from "./RPTemplate/2025-C-DPLUS";
 import RP_2022_C_DCSD from "./RPTemplate/2022-C-DCSD";
 import RP_2024_C_DCSD from "./RPTemplate/2024-C-DCSD";
 import RP_2025_C_DCSD from "./RPTemplate/2025-C-DCSD";
+import RP_2026_C_DCSD from "./RPTemplate/2026-C-DCSD";
 import RP_2024_C_DCSE from "./RPTemplate/2024-C-DCSE";
 import RP_2025_C_DCSE from "./RPTemplate/2025-C-DCSE";
+import RP_2026_C_DCSE from "./RPTemplate/2026-C-DCSE";
 import RP_2020_C_MC from "./RPTemplate/2020-C-MC";
 import RP_2022_C_MC from "./RPTemplate/2022-C-MC";
 import RP_2024_C_MC from "./RPTemplate/2024-C-MC";
 import RP_2025_C_MC from "./RPTemplate/2025-C-MC";
+import RP_2026_C_MC from "./RPTemplate/2026-C-MC";
 import RP_2020_C_MCBIA from "./RPTemplate/2020-C-MCBIA";
 import RP_2022_C_MCBIA from "./RPTemplate/2022-C-MCBIA";
 import RP_2024_C_MCBIA from "./RPTemplate/2024-C-MCBIA";
 import RP_2025_C_MCBIA from "./RPTemplate/2025-C-MCBIA";
+import RP_2026_C_MCBIA from "./RPTemplate/2026-C-MCBIA";
 import RP_2020_C_MCJP from "./RPTemplate/2020-C-MCJP";
 import RP_2022_C_MCJP from "./RPTemplate/2022-C-MCJP";
 import RP_2024_C_MCJP from "./RPTemplate/2024-C-MCJP";
 import RP_2025_C_MCJP from "./RPTemplate/2025-C-MCJP";
+import RP_2026_C_MCJP from "./RPTemplate/2026-C-MCJP";
 import RP_2020_C_MCSU from "./RPTemplate/2020-C-MCSU";
 import RP_2022_C_MCSU from "./RPTemplate/2022-C-MCSU";
 import RP_2024_C_MCSU from "./RPTemplate/2024-C-MCSU";
 import RP_2025_C_MCSU from "./RPTemplate/2025-C-MCSU";
+import RP_2026_C_MCSU from "./RPTemplate/2026-C-MCSU";
 import RP_2024_C_MCSE from "./RPTemplate/2024-C-MCSE";
 import RP_2025_C_MCSE from "./RPTemplate/2025-C-MCSE";
+import RP_2026_C_MCSE from "./RPTemplate/2026-C-MCSE";
 import RP_2021_P_AWARD from "./RPTemplate/2021-P-AWARD";
 import RP_2024_P_AWARD from "./RPTemplate/2024-P-AWARD";
 import RP_2025_P_AWARD from "./RPTemplate/2025-P-AWARD";
@@ -107,18 +119,22 @@ export default {
   RP_2022_C_DCBIA: RP_2022_C_DCBIA,
   RP_2024_C_DCBIA: RP_2024_C_DCBIA,
   RP_2025_C_DCBIA: RP_2025_C_DCBIA,
+  RP_2026_C_DCBIA: RP_2026_C_DCBIA,
   RP_2020_C_DCJP: RP_2020_C_DCJP,
   RP_2022_C_DCJP: RP_2022_C_DCJP,
   RP_2024_C_DCJP: RP_2024_C_DCJP,
   RP_2025_C_DCJP: RP_2025_C_DCJP,
+  RP_2026_C_DCJP: RP_2026_C_DCJP,
   RP_2020_C_DCN: RP_2020_C_DCN,
   RP_2022_C_DCN: RP_2022_C_DCN,
   RP_2024_C_DCN: RP_2024_C_DCN,
   RP_2025_C_DCN: RP_2025_C_DCN,
+  RP_2026_C_DCN: RP_2026_C_DCN,
   RP_2020_C_DCSU: RP_2020_C_DCSU,
   RP_2022_C_DCSU: RP_2022_C_DCSU,
   RP_2024_C_DCSU: RP_2024_C_DCSU,
   RP_2025_C_DCSU: RP_2025_C_DCSU,
+  RP_2026_C_DCSU: RP_2026_C_DCSU,
   RP_2020_C_DPLUS: RP_2020_C_DPLUS,
   RP_2022_C_DPLUS: RP_2022_C_DPLUS,
   RP_2024_C_DPLUS: RP_2024_C_DPLUS,
@@ -126,29 +142,37 @@ export default {
   RP_2022_C_DCSD: RP_2022_C_DCSD,
   RP_2024_C_DCSD: RP_2024_C_DCSD,
   RP_2025_C_DCSD: RP_2025_C_DCSD,
+  RP_2026_C_DCSD: RP_2026_C_DCSD,
   RP_2021_C_DCCMW: RP_2021_C_DCCMW,
   RP_2024_C_DCCMW: RP_2024_C_DCCMW,
   RP_2025_C_DCCMW: RP_2025_C_DCCMW,
+  RP_2026_C_DCCMW: RP_2026_C_DCCMW,
   RP_2024_C_DCSE: RP_2024_C_DCSE,
   RP_2025_C_DCSE: RP_2025_C_DCSE,
+  RP_2026_C_DCSE: RP_2026_C_DCSE,
   RP_2020_C_MC: RP_2020_C_MC,
   RP_2022_C_MC: RP_2022_C_MC,
   RP_2024_C_MC: RP_2024_C_MC,
   RP_2025_C_MC: RP_2025_C_MC,
+  RP_2026_C_MC: RP_2026_C_MC,
   RP_2020_C_MCBIA: RP_2020_C_MCBIA,
   RP_2022_C_MCBIA: RP_2022_C_MCBIA,
   RP_2024_C_MCBIA: RP_2024_C_MCBIA,
   RP_2025_C_MCBIA: RP_2025_C_MCBIA,
+  RP_2026_C_MCBIA: RP_2026_C_MCBIA,
   RP_2020_C_MCJP: RP_2020_C_MCJP,
   RP_2022_C_MCJP: RP_2022_C_MCJP,
   RP_2024_C_MCJP: RP_2024_C_MCJP,
   RP_2025_C_MCJP: RP_2025_C_MCJP,
+  RP_2026_C_MCJP: RP_2026_C_MCJP,
   RP_2020_C_MCSU: RP_2020_C_MCSU,
   RP_2022_C_MCSU: RP_2022_C_MCSU,
   RP_2024_C_MCSU: RP_2024_C_MCSU,
   RP_2025_C_MCSU: RP_2025_C_MCSU,
+  RP_2026_C_MCSU: RP_2026_C_MCSU,
   RP_2024_C_MCSE: RP_2024_C_MCSE,
   RP_2025_C_MCSE: RP_2025_C_MCSE,
+  RP_2026_C_MCSE: RP_2026_C_MCSE,
   RP_2021_P_AWARD: RP_2021_P_AWARD,
   RP_2024_P_AWARD: RP_2024_P_AWARD,
   RP_2025_P_AWARD: RP_2025_P_AWARD,
