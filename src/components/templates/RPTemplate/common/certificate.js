@@ -655,7 +655,7 @@ export const renderBlock = () => (
 // for 1&2 and isBIA22 = true, display position in 2 lines - "Principle & CEO" | "Republic poly"
 //
 // PET - 0, PFP - 4, DCJP -0, DCN -0, DCSU - 0, DCBIA -1, DCSD -1, DCSE - 1, DPLUS - 2, DCCMW - 3
-// MC - 2, MCBIA  - 2, MCJP - 2, MCSU - 2, MSSE  - 2
+// MC - 2, MCBIA  - 2, MCJP - 2, MCSU - 2, MCSE  - 2
 //////
 
 export const renderTwoSignatures = (certificate, displayName) => {
@@ -728,6 +728,7 @@ RP_2025_C_MCJP */
     tpName.substr(10, 4) === "DCSU" ||
     tpName.substr(10, 2) === "MC" ||
     tpName.substr(10, 4) === "MCSU" ||
+    tpName.substr(10, 4) === "MCSE" ||
     tpName.substr(10, 4) === "MCJP"
       ? bf2025
         ? false
@@ -735,7 +736,8 @@ RP_2025_C_MCJP */
       : false; // check if the template is DCN, DCJP, DCSU, MC, MCSU, MCJP
 
   // const isPET = tpName.substr(8, 1) === "P" || tpName.substr(10, 5) === "DPLUS" ? true : false;
-  const isMCafter2026 = tpName.substr(10, 2) === "MC" && !bf2026 ? true : false; // CET after 2026
+  const isMCafter2026 =
+    tpName.substr(10, 2) === "MC" && !isMCSP && !bf2026 ? true : false; // CET after 2026
   // debug
   //console.log("printORG: ", printORG);
   return (
@@ -784,11 +786,14 @@ RP_2025_C_MCJP */
               <span style={signatureTextStyle}>
                 {displayName === 3 ? null : displayName < 3 ? ( // CMW - do not display.  title in image // MC/DTC  -display position
                   certSign.length > 1 ? (
-                    <span>{certSign[1]}</span>
+                    <span>
+                      {certSign[1]}
+                      <br />
+                    </span>
                   ) : null
                 ) : null}
               </span>
-              {printORG && !isMC ? (
+              {printORG && (!isMC || isMCSP) ? (
                 <span style={compSignatureTextStyle}>
                   {get(
                     certificate,
@@ -884,7 +889,7 @@ RP_2025_C_MCJP */
                 </span>
               ) : null
             ) : null}
-            {printORG && !isMCSP ? (
+            {printORG ? (
               <span style={compSignatureTextStyle}>
                 {get(
                   certificate,

@@ -677,6 +677,17 @@ export const renderGPA = document => {
 };
 
 export const renderSignature = document => {
+  const tpName = get(document, "$template.name");
+  const sYear = tpName.substr(3, 4); // extract year from template name
+  const bf2025 =
+    sYear === "2010" ||
+    sYear === "2020" ||
+    sYear === "2021" ||
+    sYear === "2022" ||
+    sYear === "2023" ||
+    sYear === "2024"
+      ? true
+      : false; //check year
   const certSign = formatSignatoriesPosition(
     document.additionalData.transcriptSignatories[0].position
   );
@@ -699,10 +710,17 @@ export const renderSignature = document => {
         <div className="text-center">
           <span style={signatureTextStyle}>{certSign[0]}</span>
           <br />
-          <span style={signatureTextStyle}>
-            {certSign.length > 0 ? certSign[1] : null}
-          </span>
-          <br />
+          {certSign.length > 0 ? (
+            <span style={signatureTextStyle}>
+              {certSign[1]} <br />
+            </span>
+          ) : null}
+          {!bf2025 ? (
+            <span style={signatureTextStyle}>
+              {document.additionalData.transcriptSignatories[0].organisation}
+              <br />
+            </span>
+          ) : null}
           <br />
           <br />
           {document.additionalData.transcriptId}
