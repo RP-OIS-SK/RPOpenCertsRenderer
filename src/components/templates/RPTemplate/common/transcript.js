@@ -691,6 +691,11 @@ export const renderSignature = document => {
   const certSign = formatSignatoriesPosition(
     document.additionalData.transcriptSignatories[0].position
   );
+  const certOrg = document.additionalData.transcriptSignatories[0].organisation;
+  // debug
+  // const certSign = formatSignatoriesPosition("Registrar");
+  // console.log("position: ", certSign.length);
+  // const certOrg = "Republic Polytechnic";
   return (
     <div
       className="row d-flex justify-content-center align-items-end"
@@ -710,14 +715,14 @@ export const renderSignature = document => {
         <div className="text-center">
           <span style={signatureTextStyle}>{certSign[0]}</span>
           <br />
-          {certSign.length > 0 ? (
+          {certSign.length > 1 ? (
             <span style={signatureTextStyle}>
               {certSign[1]} <br />
             </span>
           ) : null}
           {!bf2025 ? (
             <span style={signatureTextStyle}>
-              {document.additionalData.transcriptSignatories[0].organisation}
+              {certOrg}
               <br />
             </span>
           ) : null}

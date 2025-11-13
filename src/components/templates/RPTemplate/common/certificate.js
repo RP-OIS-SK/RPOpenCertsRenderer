@@ -666,6 +666,10 @@ export const renderTwoSignatures = (certificate, displayName) => {
     get(certificate, "additionalData.certSignatories[1].position")
   );
 
+  //test data for certSign position
+  //const certSign = formatSignatoriesPosition("REGISTRAR");
+  //const certSign2 = formatSignatoriesPosition("DIRECTOR|PROFESSIONAL & ADULT CONTINUING EDUCATION");
+
   // flag to indicate MC certificate
   const isMC = displayName === 2 ? 1 : 0;
 
@@ -673,17 +677,45 @@ export const renderTwoSignatures = (certificate, displayName) => {
   const certSignLength = certSign === null ? 0 : certSign.length;
   const certSign2Length = certSign2 === null ? 0 : certSign2.length;
 
+  const nMaxChar = 30; // max characters per line
+  let nSignLine = 0;
+  let nSign2Line = 0;
+  nSignLine =
+    certSignLength === 0
+      ? (nSignLine = 0)
+      : certSign[0].length > nMaxChar
+      ? 2
+      : 1;
+  nSign2Line =
+    certSign2Length === 0
+      ? (nSign2Line = 0)
+      : certSign2[0].length > nMaxChar
+      ? 2
+      : 1;
+  if (certSignLength === 2) {
+    nSignLine =
+      certSign[1].length > nMaxChar ? (nSignLine += 2) : (nSignLine += 1);
+  }
+  if (certSign2Length === 2) {
+    nSign2Line =
+      certSign2[1].length > nMaxChar ? (nSign2Line += 2) : (nSign2Line += 1);
+  }
+
+  // debug
+  //console.log("certSignLength: ", nSignLine);
+  //console.log("certSign2Length: ", nSign2Line);
+
   // debug
   // console.log("certSignLength: ", certSignLength);
   // console.log("certSign2Length: ", certSign2Length);
 
-  // check if the signature has additional line
-  const sigAdd0 = certSign2Length > certSignLength ? 1 : 0;
-  const sigAdd1 = certSignLength > certSign2Length ? 1 : 0;
+  // chck if the signature has additional line
+  const sigAdd0 = nSign2Line > nSignLine ? nSign2Line - nSignLine : 0;
+  const sigAdd1 = nSignLine > nSign2Line ? nSignLine - nSign2Line : 0;
 
   // debug
   // console.log("sigAdd0: ", sigAdd0);
-  //console.log("sigAdd1: ", sigAdd1);
+  // console.log("sigAdd1: ", sigAdd1);
 
   // RP_ 2022 _C_ MCBIA    RP_2022_C_DCSD
   // 012 3456 789 012
@@ -807,10 +839,17 @@ RP_2025_C_MCJP */
         </div>
         <div className="text-center">
           <span style={compSignatureTextStyle}>
-            {displayName === 0 && !bf2025 && sigAdd0 ? ( // check if BOE signature has additional line, add line break
-              <span>
-                <br />
-              </span>
+            {sigAdd0 ? ( // displayName === 0 && !bf2025 && sigAdd0 ? ( // check if BOE signature has additional line, add line break
+              sigAdd0 > 1 ? (
+                <span>
+                  <br />
+                  <br />
+                </span>
+              ) : (
+                <span>
+                  <br />
+                </span>
+              )
             ) : null}
           </span>
         </div>
@@ -889,7 +928,7 @@ RP_2025_C_MCJP */
                 </span>
               ) : null
             ) : null}
-            {printORG ? (
+            {printORG && (!isMC || isMCSP) ? (
               <span style={compSignatureTextStyle}>
                 {get(
                   certificate,
@@ -898,7 +937,7 @@ RP_2025_C_MCJP */
                 <br />
               </span>
             ) : null}
-            {displayName === 2
+            {displayName === 10 // 2 - not required
               ? isBIA22
                 ? sigAdd1 > 0 && (
                     <span>
@@ -915,10 +954,17 @@ RP_2025_C_MCJP */
         </div>
         <div className="text-center">
           <span style={compSignatureTextStyle}>
-            {displayName === 0 && !bf2025 && sigAdd1 ? ( // check if RP signature has additional line, add line break
-              <span>
-                <br />
-              </span>
+            {sigAdd1 ? ( //displayName === 0 && !bf2025 && sigAdd1 ? ( // check if RP signature has additional line, add line break
+              sigAdd1 > 1 ? (
+                <span>
+                  <br />
+                  <br />
+                </span>
+              ) : (
+                <span>
+                  <br />
+                </span>
+              )
             ) : null}
           </span>
         </div>
@@ -1415,13 +1461,29 @@ export const renderAwardTextPFP = certificate => {
 ///
 // Render the footer for all certificates
 ///
-export const renderFooter = certificate => (
-  <div className="container">
-    <div className="row d-flex justify-content-center">
-      <div className="col-6 text-left">&nbsp;</div>
-      <div className="col-6 text-right">
-        {get(certificate, "additionalData.additionalCertId")}
+export const renderFooter = certificate => {
+  const tpName = get(certificate, "$template.name");
+  const sYear = tpName.substr(3, 4); // extract year from template name
+  const bf2026 =
+    sYear === "2010" ||
+    sYear === "2020" ||
+    sYear === "2021" ||
+    sYear === "2022" ||
+    sYear === "2023" ||
+    sYear === "2024" ||
+    sYear === "2025"
+      ? true
+      : false;
+  return (
+    <div className="container">
+      <div className="row d-flex justify-content-center">
+        <div className="col-6 text-left">
+          {!bf2026 ? get(certificate, "recipient.nric") : null}
+        </div>
+        <div className="col-6 text-right">
+          {get(certificate, "additionalData.additionalCertId")}
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
