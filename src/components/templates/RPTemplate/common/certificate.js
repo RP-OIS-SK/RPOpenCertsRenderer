@@ -928,7 +928,7 @@ RP_2025_C_MCJP */
                 </span>
               ) : null
             ) : null}
-            {printORG && (!isMC || isMCSP) ? (
+            {printORG ? (
               <span style={compSignatureTextStyle}>
                 {get(
                   certificate,
