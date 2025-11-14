@@ -11,6 +11,7 @@ import {
   IMG_LOGO_ALLPOLY,
   IMG_LOGO_ALLPOLY24,
   IMG_LOGO_SUSS,
+  IMG_LOGO_SUSS26,
   IMG_LOGO_NP,
   IMG_LOGO_NPRP,
   IMG_LOGO_NP24,
@@ -473,6 +474,7 @@ export const renderLogoRPLeftText = (title1, title2, nYear) => {
 export const renderLogoRPPartner = (type, nYear) => {
   let logo = IMG_LOGO_SUSS;
   if (type === 1) logo = nYear === 2024 ? IMG_LOGO_ALLPOLY24 : IMG_LOGO_ALLPOLY;
+  if (type === 0) logo = nYear === 2026 ? IMG_LOGO_SUSS26 : IMG_LOGO_SUSS;
   const logoST = type === 0 ? "col-4 mx-auto" : "mx-auto";
   return (
     <div
