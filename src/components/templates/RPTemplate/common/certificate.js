@@ -1466,6 +1466,7 @@ export const renderAwardTextPFP = certificate => {
 export const renderFooter = certificate => {
   const tpName = get(certificate, "$template.name");
   const sYear = tpName.substr(3, 4); // extract year from template name
+  const bDisplayUIN = false;
   const bf2026 =
     sYear === "2010" ||
     sYear === "2020" ||
@@ -1480,7 +1481,7 @@ export const renderFooter = certificate => {
     <div className="container">
       <div className="row d-flex justify-content-center">
         <div className="col-6 text-left">
-          {!bf2026 ? get(certificate, "recipient.nric") : null}
+          {!bf2026 && bDisplayUIN ? get(certificate, "recipient.nric") : null}
         </div>
         <div className="col-6 text-right">
           {get(certificate, "additionalData.additionalCertId")}
