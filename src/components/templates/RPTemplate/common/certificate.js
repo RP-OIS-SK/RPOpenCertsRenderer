@@ -25,6 +25,7 @@ import {
   IMG_LOGO_RP24L,
   IMG_LOGO_RP24TP,
   IMG_LOGO_RP24SP,
+  IMG_LOGO_RP24SF,
   IMG_LOGO_HEADER,
   IMG_LOGO_FOOTER
 } from "./images";
@@ -436,6 +437,18 @@ export const renderLogoRPLeft = nYear => {
       <div className="col-10">
         <div className={RPlogoAwardStyle}>
           <img src={IAWARD_LOGO_RP} alt="RP logo" />
+        </div>
+      </div>
+    </div>
+  );
+};
+export const renderLogoRPSF = () => {
+  const RPlogoAwardStyle = "row d-flex justify-content-center";
+  return (
+    <div className={RPlogoAwardStyle} style={{ marginTop: "6rem" }}>
+      <div className="col-10">
+        <div className={RPlogoAwardStyle}>
+          <img src={IMG_LOGO_RP24SF} alt="RP logo" />
         </div>
       </div>
     </div>
@@ -1132,6 +1145,7 @@ export const renderPETAwardText = certificate => {
   const isEAE = tpCode === "EAE" ? true : false;
   const isSCH = tpCode === "SCH" ? true : false;
   const isNAK = tpCode === "NAK" ? true : false;
+  const isSFL = tpCode === "SFL" ? true : false;
   const sDesc = get(certificate, "description");
   const awardPrintTextStyle = bf2025 ? printTextStyle : printTextStyle24;
   const pPAwardCertTitleStyle = bf2025
@@ -1231,6 +1245,15 @@ export const renderPETAwardText = certificate => {
         <div>
           <p style={pTextStyle}>is a recipient of the</p>
           <p style={pAwardCertTitleStyle}>{sDesc}</p>
+        </div>
+      ) : null}
+      {isSFL ? (
+        <div>
+          <p style={pTextStyle}>is a recipient of the</p>
+          <p style={pAwardCertTitleStyle}>Republic Polytechnic -</p>
+          <p style={pAwardCertTitleStyle}>SkillFuture Lifelong Learning</p>
+          <p style={pAwardCertTitleStyle}>Award</p>
+          <p style={pAwardCertTitleStyle}></p>
         </div>
       ) : null}
       <br />

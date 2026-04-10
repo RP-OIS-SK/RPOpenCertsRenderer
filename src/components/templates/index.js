@@ -82,6 +82,7 @@ import RP_2022_P_COA_DROH from "./RPTemplate/2022-P-COA-DROH";
 import RP_2022_D_COA_EMP from "./RPTemplate/2022-D-COA-EMP";
 import RP_2022_P_BOG from "./RPTemplate/2022-P-BOG";
 import RP_2025_P_BOG from "./RPTemplate/2025-P-BOG";
+import RP_2026_P_BOG from "./RPTemplate/2026-P-BOG"; //new !
 import RP_2022_P_BPRZ from "./RPTemplate/2022-P-BPRZ";
 import RP_2025_P_BPRZ from "./RPTemplate/2025-P-BPRZ";
 import RP_2022_P_EAE from "./RPTemplate/2022-P-EAE";
@@ -92,12 +93,14 @@ import RP_2025_P_SCHS from "./RPTemplate/2025-P-SCHS";
 import RP_2022_P_NAK from "./RPTemplate/2022-P-NAK";
 import RP_2024_P_NAK from "./RPTemplate/2024-P-NAK";
 import RP_2025_P_NAK from "./RPTemplate/2025-P-NAK";
+import RP_2026_P_NAK from "./RPTemplate/2026-P-NAK"; //new!
 import RP_2022_P_PFP from "./RPTemplate/2022-P-PFP";
 import RP_2024_P_PFP from "./RPTemplate/2024-P-PFP";
 import RP_2025_P_PFP from "./RPTemplate/2025-P-PFP";
 import RP_2023_P_LCA from "./RPTemplate/2023-P-LCA";
 import RP_2024_P_LCA from "./RPTemplate/2024-P-LCA";
 import RP_2025_P_LCA from "./RPTemplate/2025-P-LCA";
+import RP_2026_C_SFL from "./RPTemplate/2026-C-SFL"; // new ! SkillFutureLifeLongLearning
 
 export default {
   default: DefaultTemplate,
@@ -179,6 +182,7 @@ export default {
   RP_2022_D_COA_EMP: RP_2022_D_COA_EMP,
   RP_2022_P_BOG: RP_2022_P_BOG,
   RP_2025_P_BOG: RP_2025_P_BOG,
+  RP_2026_P_BOG: RP_2026_P_BOG,
   RP_2022_P_BPRZ: RP_2022_P_BPRZ,
   RP_2025_P_BPRZ: RP_2025_P_BPRZ,
   RP_2022_P_EAE: RP_2022_P_EAE,
@@ -189,11 +193,13 @@ export default {
   RP_2022_P_NAK: RP_2022_P_NAK,
   RP_2024_P_NAK: RP_2024_P_NAK,
   RP_2025_P_NAK: RP_2025_P_NAK,
+  RP_2026_P_NAK: RP_2026_P_NAK,
   RP_2022_P_PFP: RP_2022_P_PFP,
   RP_2024_P_PFP: RP_2024_P_PFP,
   RP_2025_P_PFP: RP_2025_P_PFP,
   RP_2023_P_LCA: RP_2023_P_LCA,
   RP_2024_P_LCA: RP_2024_P_LCA,
   RP_2025_P_LCA: RP_2025_P_LCA,
+  RP_2026_C_SFL: RP_2026_C_SFL,
   NULL: []
 };
