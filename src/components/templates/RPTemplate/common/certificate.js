@@ -1481,7 +1481,7 @@ export const renderAwardTextPFP = certificate => {
       </div>
       <div className="row d-flex justify-content-center">
         <p style={awardPrintTextStyle}>
-          Academic Year {(sYear === "2024" || sYear === "2025") ? sYear : get(certificate, "issuedOn").substr(0, 4)}
+          Academic Year {get(certificate, "issuedOn").substr(0, 4)}
         </p>
       </div>
     </div>
