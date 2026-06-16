@@ -134,8 +134,12 @@ export const renderHeader = document => {
       : 0;
   const isBefore2025 =
     isBefore2024 || strTemplate.substr(3, 4) === "2024" ? 1 : 0;
-  const isDisplayNewLogo = isPFP && Number(strTemplate.substr(3, 4)) >= 2024 ? 1 :
-    (isCET && isBefore2024) || (isPET && isBefore2025) ? 0 : 1;
+  const isDisplayNewLogo =
+    isPFP && !isBefore2024
+      ? 1
+      : (isCET && isBefore2024) || (isPET && isBefore2025)
+      ? 0
+      : 1;
   return (
     <div className="row">
       <div className="col-4">

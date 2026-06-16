@@ -782,8 +782,8 @@ RP_2025_C_MCJP */
         : true
       : false; // check if the template is DCN, DCJP, DCSU, MC, MCSU, MCJP
 
-  // for PFP certificate, only print organisation name for 2024 and 2025 certificates
-  if (tpName.substr(10, 3) === "PFP" && (sYear === "2025" || sYear === "2024")) {
+  // for PFP certificate, only print organisation name when sYear >= 2024 certificates
+  if (isPFP && Number(sYear) >= 2024) {
     printORG = true;
   }
 
