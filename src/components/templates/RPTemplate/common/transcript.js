@@ -114,7 +114,7 @@ export const renderHeader = document => {
   //const isCET = strTemplate.substr(8, 6) === "P_MAIN" ? 0 : 1;
   const isCET = strTemplate.substr(8, 2) === "C_" ? 1 : 0;
   const isPET = !isCET;
-  //const isPFP = strTemplate.substr(8, 5) === "P_PFP" ? 1 : 0;
+  const isPFP = strTemplate.substr(8, 5) === "P_PFP" ? 1 : 0;
   /* const isBefore2023 =
     strTemplate.substr(3, 4) === "2020" ||
     strTemplate.substr(3, 4) === "2021" ||
@@ -135,7 +135,11 @@ export const renderHeader = document => {
   const isBefore2025 =
     isBefore2024 || strTemplate.substr(3, 4) === "2024" ? 1 : 0;
   const isDisplayNewLogo =
-    (isCET && isBefore2024) || (isPET && isBefore2025) ? 0 : 1;
+    isPFP && !isBefore2024
+      ? 1
+      : (isCET && isBefore2024) || (isPET && isBefore2025)
+      ? 0
+      : 1;
   return (
     <div className="row">
       <div className="col-4">

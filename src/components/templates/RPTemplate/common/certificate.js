@@ -769,7 +769,7 @@ RP_2020_C_MC
 RP_2025_C_MCSU
 RP_2025_C_MCJP */
   const bf2026 = bf2025 || sYear === "2025" ? true : false;
-  const printORG =
+  let printORG =
     tpName.substr(10, 3) === "DCN" ||
     tpName.substr(10, 4) === "DCJP" ||
     tpName.substr(10, 4) === "DCSU" ||
@@ -781,6 +781,11 @@ RP_2025_C_MCJP */
         ? false
         : true
       : false; // check if the template is DCN, DCJP, DCSU, MC, MCSU, MCJP
+
+  // for PFP certificate, only print organisation name when sYear >= 2024 certificates
+  if (isPFP && Number(sYear) >= 2024) {
+    printORG = true;
+  }
 
   // const isPET = tpName.substr(8, 1) === "P" || tpName.substr(10, 5) === "DPLUS" ? true : false;
   const isMCafter2026 =
@@ -840,7 +845,7 @@ RP_2025_C_MCJP */
                   ) : null
                 ) : null}
               </span>
-              {printORG && (!isMC || isMCSP) ? (
+              {printORG && !isPFP && (!isMC || isMCSP) ? (
                 <span style={compSignatureTextStyle}>
                   {get(
                     certificate,
