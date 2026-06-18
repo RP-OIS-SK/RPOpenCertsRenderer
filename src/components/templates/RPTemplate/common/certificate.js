@@ -8,6 +8,7 @@ import {
   IMG_CERTIFICATE_SEAL_PFP_25,
   IMG_CERTIFICATE_SEAL,
   IMG_CERTIFICATE_SEAL_25,
+  IMG_LOGO_TKD,
   IMG_LOGO_ALLPOLY,
   IMG_LOGO_ALLPOLY24,
   IMG_LOGO_SUSS,
@@ -305,6 +306,39 @@ export const supportJPTextStyle24 = {
   fontWeight: "900",
   textAlign: "center"
 };
+
+export const printTKDCertStyle = {
+  fontFamily: "Arial",
+  fontWeight: "bold",
+  fontSize: "5rem",
+  textAlign: "center"
+};
+export const printTKDTextStyle = {
+  fontFamily: "Arial",
+  fontWeight: "500!important",
+  fontStyle: "italic",
+  fontSize: "2rem",
+  textAlign: "center"
+};
+export const printTKDTextStyle2 = {
+  fontFamily: "Arial",
+  fontWeight: "bold",
+  fontSize: "2.8rem",
+  textAlign: "center"
+};
+export const printTKDTextStyle3 = {
+  fontFamily: "Arial",
+  fontSize: "2rem",
+  textAlign: "center"
+};
+export const printTKDRecipentStyle = {
+  fontFamily: "Arial",
+  fontWeight: "bold",
+  fontStyle: "italic",
+  fontSize: "3rem",
+  textAlign: "center"
+};
+
 export const renderHeaderImage = () => (
   <div className="col-12">
     <br />
@@ -439,6 +473,36 @@ export const renderLogoRPLeft = nYear => {
           <img src={IAWARD_LOGO_RP} alt="RP logo" />
         </div>
       </div>
+    </div>
+  );
+};
+export const renderLogoRPLeftPartnerRight = partner => {
+  const leftLogo = IMG_AWARD_LOGO_RP24;
+  const partnerLog = partner === "TKD" ? IMG_LOGO_TKD : null;
+  return (
+    <div
+      className="row d-flex justify-content-center align-items-center"
+      style={{ marginTop: "3rem" }}
+    >
+      <div className="col-1" />
+      <div className="col-10 row d-flex justify-content-between align-items-center">
+        <div className="col-5 text-left">
+          <img
+            style={{ width: "100%", height: "auto" }}
+            src={leftLogo}
+            alt="RP logo"
+          />
+        </div>
+        <div className="col-1" />
+        <div className="col-5 text-right">
+          <img
+            style={{ width: "100%", height: "auto" }}
+            src={partnerLog}
+            alt="Partner logo"
+          />
+        </div>
+      </div>
+      <div className="col-1" />
     </div>
   );
 };
@@ -1070,6 +1134,71 @@ export const renderAwardTextCET = (certificate, type) => {
     </div>
   );
 };
+
+//#region TKD Certificate
+// Render the main text for TKD Certificate
+export const renderAwardTextTKD = certificate => (
+  <div>
+    <div
+      className="row d-flex justify-content-center"
+      style={{ marginTop: "3rem" }}
+    />
+    <p style={printTKDCertStyle}>Certificate of Attainment</p>
+    <p style={printTKDTextStyle}>This is to certify that</p>
+    <br />
+    <p style={printTKDRecipentStyle}>{get(certificate, "recipient.name")}</p>
+    <br />
+    <p style={printTKDTextStyle}>has attained competency in</p>
+    <br />
+    <p style={printTKDTextStyle2}>Lean Six Sigma Yellow Belt</p>
+    <br />
+    <p style={printTKDTextStyle3}>
+      {formatDDMMMYYYY(get(certificate, "issuedOn"))}
+    </p>
+  </div>
+);
+
+// Render one signature for TKD Certificate
+export const renderOneSignatureForTKD = certificate => {
+  const certSign = formatSignatoriesPosition(
+    get(certificate, "additionalData.certSignatories[0].position")
+  );
+  return (
+    <div
+      className="row d-flex justify-content-center align-items-end"
+      style={{ marginTop: "0rem", marginBottom: "1rem" }}
+    >
+      <div className="col-6">
+        <div className="px-6">
+          <img
+            style={{ width: "100%", borderBottom: "1px solid black" }}
+            src={get(
+              certificate,
+              "additionalData.certSignatories[0].signature"
+            )}
+            alt="Signature"
+          />
+        </div>
+        <div className="text-center">
+          <span style={PAsignatureTextStyle}>
+            {get(certificate, "additionalData.certSignatories[0].name")}
+            <br />
+            {certSign[0]}
+            <br />
+            {get(certificate, "additionalData.certSignatories[0].organisation")}
+            <br />
+            Republic Polytechnic
+            <br />
+            <br />
+            <br />
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+};
+//#endregion
+
 ///
 // Render the main text for Short Course Cert
 //
