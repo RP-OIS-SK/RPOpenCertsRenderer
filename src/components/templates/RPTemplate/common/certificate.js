@@ -1575,16 +1575,15 @@ export const renderAwardText = certificate => {
 export const renderAwardTextPFP = certificate => {
   const tpName = get(certificate, "$template.name");
   const sYear = tpName.substr(3, 4); // extract year from template name
-  const bf2025 =
+  const bf2024 =
     sYear === "2010" ||
     sYear === "2020" ||
     sYear === "2021" ||
     sYear === "2022" ||
-    sYear === "2023" ||
-    sYear === "2024"
+    sYear === "2023"
       ? true
       : false; //check year
-  const awardPrintTextStyle = bf2025 ? printTextStyle : printTextStyle24;
+  const awardPrintTextStyle = bf2024 ? printTextStyle : printTextStyle24;
   return (
     <div>
       <div
@@ -1598,13 +1597,13 @@ export const renderAwardTextPFP = certificate => {
         It is hereby certified that{" "}
       </div>
       <div className="row d-flex justify-content-center">
-        <p style={bf2025 ? printRecipientStyle : printRecipientStyle24}>
+        <p style={bf2024 ? printRecipientStyle : printRecipientStyle24}>
           {get(certificate, "recipient.name")}
         </p>
       </div>
       <div style={awardPrintTextStyle}>has successfully completed the</div>
       <div className="row d-flex justify-content-center">
-        <div style={bf2025 ? printTextStyle : printAwardTextStyle24}>
+        <div style={bf2024 ? printTextStyle : printAwardTextStyle24}>
           {get(certificate, "description")}
         </div>
       </div>
