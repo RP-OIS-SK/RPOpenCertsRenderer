@@ -455,6 +455,9 @@ export const renderCourse = (document, course) => {
   const isCETBefore2024 = isCET && isBefore2024 ? 1 : 0;
   const isMinCert = strTemplate.substr(8, 7) === "P_MINOR" ? 1 : 0;
   const isPETMinor = strTemplate.substr(8, 7) === "P_NMAIN" ? 1 : 0;
+  const isPETMain = strTemplate.substr(8, 6) === "P_MAIN" ? 1 : 0;
+  const isAfter2025 = Number(strTemplate.substr(3, 4)) >= 2025 ? 1 : 0;
+  const showHashSign = isAfter2025 && (isPETMain || isPETMinor);
   const courseText = isPFP ? "Polytechnic Foundation Programme for " : null;
   const moduleCodeTitle = isPFP ? "MODULE CODE" : "MODULE";
   const moduleTitle = isPFP ? "MODULE NAME" : "";
@@ -488,7 +491,21 @@ export const renderCourse = (document, course) => {
             ? ""
             : s.courseCredit}
         </td>
-        <td>{s.courseCode !== "ZZZ" ? s.grade.padEnd(2, " ") : ""}&nbsp;</td>
+        <td>
+          {s.courseCode === "ZZZ" ? (
+            ""
+          ) : showHashSign &&
+            typeof s.grade === "string" &&
+            s.grade.includes("#") ? (
+            <>
+              {s.grade.replace(/#/g, "")}
+              <sup>#</sup>
+            </>
+          ) : (
+            (typeof s.grade === "string" ? s.grade : "").padEnd(2, " ")
+          )}
+          &nbsp;
+        </td>
       </tr>
     ))
   );
@@ -615,10 +632,14 @@ export const renderTranscript = document => {
 };
 
 // display GPA for PET and DPLUS
-export const renderPETGPA = GPA => (
+export const renderPETGPA = (GPA, showHashSign) => (
   <span>
     Grade Point Average (GPA): {GPA.toFixed(2)} /4.00
     <br />
+    {showHashSign ? (
+      <em>(# Module grade excluded from GPA calculation)</em>
+    ) : null}
+    {showHashSign ? <br /> : null}
   </span>
 );
 
@@ -635,6 +656,13 @@ export const renderGPA = document => {
   const isPETMinor = strTemplate.substr(8, 7) === "P_NMAIN" ? 1 : 0;
   const minorTitle = isMinCert ? document.name + " in the " : "";
   const withMinorText = isPETMinor ? " with " + document.name : "";
+  const isAfter2025 = Number(strTemplate.substr(3, 4)) >= 2025 ? 1 : 0;
+  const isPETMain = strTemplate.substr(8, 6) === "P_MAIN" ? 1 : 0;
+  const transcript = get(document, "transcript", []);
+  const showHashSign =
+    isAfter2025 &&
+    (isPETMain || isPETMinor) &&
+    transcript.some(m => typeof m.grade === "string" && m.grade.includes("#"));
   // const AwardText = isPFP ? "Completed the Polytechnic Foundation Programme for <br />" + document.name : "Awarded the " + formatBold(document.name) + formatBold(WithMeritTag);
   // return GPA ? (
 
@@ -649,7 +677,7 @@ export const renderGPA = document => {
           ? null
           : isPFP
           ? null
-          : renderPETGPA(GPA)}
+          : renderPETGPA(GPA, showHashSign)}
         {isPFP ? (
           <div style={{ textAlign: "left", display: "inline-block" }}>
             Completed the Polytechnic Foundation Programme for <br />{" "}
