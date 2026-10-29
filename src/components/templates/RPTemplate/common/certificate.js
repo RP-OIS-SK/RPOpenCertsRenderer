@@ -1622,22 +1622,27 @@ export const renderAwardTextPFP = certificate => {
 export const renderFooter = certificate => {
   const tpName = get(certificate, "$template.name");
   const sYear = tpName.substr(3, 4); // extract year from template name
-  const bDisplayUIN = false;
-  const bf2026 =
-    sYear === "2010" ||
-    sYear === "2020" ||
-    sYear === "2021" ||
-    sYear === "2022" ||
-    sYear === "2023" ||
-    sYear === "2024" ||
-    sYear === "2025"
-      ? true
-      : false;
+  const nYear = Number(sYear);
+  const certType = tpName.substr(8, 1);
+  const certCode = tpName.substr(10);
+  const isAllowedFrom2025Set =
+    nYear >= 2025 &&
+    ((certType === "P" && /^(MAIN|NMAIN|MINOR|PFP)$/.test(certCode)) ||
+      (certType === "C" && certCode === "DPLUS"));
+  const isAllowedFrom2026Set =
+    nYear >= 2026 &&
+    certType === "C" &&
+    /^(DCSD|MCBIA|MCJP|MC|MCSU|DCSU|DCJP|DCN|DCSE|MCSE|DCBIA|DCCMW)$/.test(
+      certCode
+    );
+  const uin =
+    get(certificate, "recipient.nric") || get(certificate, "recipient.fin");
+  const showUIN = (isAllowedFrom2025Set || isAllowedFrom2026Set) && !!uin;
   return (
     <div className="container">
       <div className="row d-flex justify-content-center">
         <div className="col-6 text-left">
-          {!bf2026 && bDisplayUIN ? get(certificate, "recipient.nric") : null}
+          {showUIN ? <span>UIN: {uin}</span> : null}
         </div>
         <div className="col-6 text-right">
           {get(certificate, "additionalData.additionalCertId")}
