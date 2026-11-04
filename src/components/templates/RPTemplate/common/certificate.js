@@ -1616,6 +1616,7 @@ export const renderAwardTextPFP = certificate => {
   );
 };
 
+export const SHOW_UIN_FEATURE = false;
 ///
 // Render the footer for all certificates
 ///
@@ -1637,7 +1638,8 @@ export const renderFooter = certificate => {
     );
   const uin =
     get(certificate, "recipient.nric") || get(certificate, "recipient.fin");
-  const showUIN = (isAllowedFrom2025Set || isAllowedFrom2026Set) && !!uin;
+  const showUIN =
+    SHOW_UIN_FEATURE && (isAllowedFrom2025Set || isAllowedFrom2026Set) && !!uin;
   return (
     <div className="container">
       <div className="row d-flex justify-content-center">
